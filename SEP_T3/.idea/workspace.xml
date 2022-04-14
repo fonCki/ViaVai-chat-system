@@ -4,27 +4,55 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="694ffd67-e337-4be4-9774-048d6daeea59" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../SEP3_T2/Entities/Message.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SEP3_T2/Entities/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2.sln" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/Controllers/ChatHub.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/Controllers/ChatHub.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/SEP3_T2.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/SEP3_T2.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/obj/Debug/net6.0/SEP3_T2.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/obj/Debug/net6.0/SEP3_T2.assets.cache" afterDir="false" />
+    <list default="true" id="694ffd67-e337-4be4-9774-048d6daeea59" name="Changes" comment="First Commit T_3">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/SepT3Application.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/controller/MessageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/Message.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/repository/ChatRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/Message.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/Message.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/bin/Debug/net6.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/bin/Debug/net6.0/Entities.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/bin/Debug/net6.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/bin/Debug/net6.0/Entities.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Entities/Message.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Entities/Message.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/obj/Debug/net6.0/SEP3_T2.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/obj/Debug/net6.0/SEP3_T2.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/obj/SEP3_T2.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/obj/SEP3_T2.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -36,9 +64,17 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
   <component name="RunManager">
     <configuration name="SepT3Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
@@ -57,11 +93,34 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1649936601842</updated>
-      <workItem from="1649936602974" duration="30000" />
+      <workItem from="1649936602974" duration="7210000" />
     </task>
+    <task id="LOCAL-00001" summary="First Commit T_3">
+      <created>1649936865371</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1649936865371</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="First Commit T_3" />
+    <option name="LAST_COMMIT_MESSAGE" value="First Commit T_3" />
   </component>
 </project>

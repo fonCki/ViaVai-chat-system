@@ -1,7 +1,6 @@
 namespace Entities; 
 
-public class Message {
-
+public class Message { 
     public DateTime Created { get; }
     public User CreatedBy { get; }
     public string Body { get; }
