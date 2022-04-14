@@ -13,18 +13,17 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "body")
+    @Column(name = "Body")
     private String body;
 
-    @Column(name="created")
+    @Column(name="Created")
     private Date created;
 
-    public Message() {
-    }
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "UID", referencedColumnName = "UID")
+    private User createdBy;
 
-    public Message(long id, String body) {
-        this.id = id;
-        this.body = body;
+    public Message() {
     }
 
     public long getId() {
@@ -39,11 +38,21 @@ public class Message {
         this.body = body;
     }
 
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
                 "id=" + id +
                 ", body='" + body + '\'' +
+                ", created=" + created +
+                ", createdBy=" + createdBy +
                 '}';
     }
 }

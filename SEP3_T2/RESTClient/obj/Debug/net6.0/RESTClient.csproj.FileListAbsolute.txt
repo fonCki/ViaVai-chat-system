@@ -1,0 +1,15 @@
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/obj/Debug/net6.0/RESTClient.csproj.AssemblyReference.cache
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/obj/Debug/net6.0/RESTClient.GeneratedMSBuildEditorConfig.editorconfig
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/obj/Debug/net6.0/RESTClient.AssemblyInfoInputs.cache
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/obj/Debug/net6.0/RESTClient.AssemblyInfo.cs
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/obj/Debug/net6.0/RESTClient.csproj.CoreCompileInputs.cache
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/bin/Debug/net6.0/RESTClient.deps.json
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/bin/Debug/net6.0/RESTClient.dll
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/bin/Debug/net6.0/ref/RESTClient.dll
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/bin/Debug/net6.0/RESTClient.pdb
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/bin/Debug/net6.0/Entities.dll
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/bin/Debug/net6.0/Entities.pdb
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/obj/Debug/net6.0/RESTClient.csproj.CopyComplete
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/obj/Debug/net6.0/RESTClient.dll
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/obj/Debug/net6.0/ref/RESTClient.dll
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/obj/Debug/net6.0/RESTClient.pdb

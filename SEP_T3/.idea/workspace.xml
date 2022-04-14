@@ -4,23 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="694ffd67-e337-4be4-9774-048d6daeea59" name="Changes" comment="First Commit T_3">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/SepT3Application.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/controller/MessageController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/Message.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/repository/ChatRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/Message.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/Message.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/bin/Debug/net6.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/bin/Debug/net6.0/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/bin/Debug/net6.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/bin/Debug/net6.0/Entities.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Entities/Message.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Entities/Message.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/obj/Debug/net6.0/SEP3_T2.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SEP3_T2/obj/Debug/net6.0/SEP3_T2.csproj.AssemblyReference.cache" afterDir="false" />
+    <list default="true" id="694ffd67-e337-4be4-9774-048d6daeea59" name="Changes" comment="Saving a message in database without values except body">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,9 +35,9 @@
     </option>
     <option name="myId2Visible">
       <map>
-        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
-        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
-        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+        <entry key="com.haulmont.jpb.jpaInspector" value="false" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
       </map>
     </option>
   </component>
@@ -93,7 +80,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1649936601842</updated>
-      <workItem from="1649936602974" duration="7210000" />
+      <workItem from="1649936602974" duration="8996000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit T_3">
       <created>1649936865371</created>
@@ -102,7 +89,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649936865371</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Saving a message in database without values except body">
+      <created>1649944073942</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1649944073942</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,6 +115,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First Commit T_3" />
-    <option name="LAST_COMMIT_MESSAGE" value="First Commit T_3" />
+    <MESSAGE value="Saving a message in database without values except body" />
+    <option name="LAST_COMMIT_MESSAGE" value="Saving a message in database without values except body" />
   </component>
 </project>
