@@ -1,11 +1,13 @@
 namespace Entities; 
 
 public class Message {
-    public string NickName { get; set; }
-    public string Body { get; set; }
 
-    public Message(string nickName, string body) {
-        NickName = nickName;
+    public DateTime Created { get; }
+    public User CreatedBy { get; }
+    public string Body { get; }
+    public Message(DateTime created, User createdBy, string body) {
+        Created = created;
+        CreatedBy = createdBy;
         Body = body;
     }
 }
