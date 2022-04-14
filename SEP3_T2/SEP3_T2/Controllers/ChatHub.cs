@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.SignalR;
+using RESTClient;
 
 namespace SEP3_T2.Controllers;
 
@@ -7,14 +8,10 @@ public class ChatHub : Hub {
 
     public async Task Broadcast(string message) {
         await Clients.All.SendAsync("Broadcast", message);
+        await MessageHTTPClient.AddMessage(message);
         Console.WriteLine(message);
     }
-
-    public async Task NewConnection(string user) {
-        await Clients.All.SendAsync("NewConnection", user);
-        Console.WriteLine(user);
-    }
-
+    
     public override Task OnConnectedAsync()
     {
         Console.WriteLine($"{Context.ConnectionId} connected");
