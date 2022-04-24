@@ -19,9 +19,9 @@ public class Message {
     @Column(name="Created")
     private Date created;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "UID", referencedColumnName = "UID")
-    private User createdBy;
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "UID", referencedColumnName = "UID")
+//    private User createdBy;
 
     public Message() {
     }
@@ -52,7 +52,7 @@ public class Message {
                 "id=" + id +
                 ", body='" + body + '\'' +
                 ", created=" + created +
-                ", createdBy=" + createdBy +
+              //   ", createdBy=" + createdBy +
                 '}';
     }
 }

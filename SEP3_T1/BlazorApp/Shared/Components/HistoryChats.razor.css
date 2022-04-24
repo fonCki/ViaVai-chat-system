@@ -1,0 +1,13 @@
+main {
+    background-color: #ffffff;
+    /*max-height: 500px;*/
+    height: 85%;
+    width: 100%;
+    overflow: scroll;
+}
+
+.chat-componenet {
+    border-bottom: 1px solid lightgrey;
+    background-color: transparent;
+    height: 70px;
+}

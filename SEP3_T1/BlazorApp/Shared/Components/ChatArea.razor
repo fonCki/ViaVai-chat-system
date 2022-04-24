@@ -1,12 +1,6 @@
-@inject NavigationManager navigationManager
-@using Microsoft.AspNetCore.SignalR.Client;
-@using Entities
-@using System.Text.Json
 @using Entities.Model
-@using Microsoft.AspNetCore.Components
-@using Microsoft.VisualBasic
-@page "/Chat"
-<h3>Chat</h3>
+@using Microsoft.AspNetCore.SignalR.Client
+@using System.Text.Json
 
 @if (!online) {
     //Insert Login Component

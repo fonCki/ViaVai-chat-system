@@ -1,0 +1,12 @@
+* {
+    background-color: transparent;
+    max-width: fit-content;
+    max-height: fit-content;
+   /* width: 30px;*/
+}
+img {
+    margin: 0;
+    padding: 0;
+    border-radius: 50%;
+    cursor: pointer;
+}

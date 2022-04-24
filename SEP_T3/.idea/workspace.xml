@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="694ffd67-e337-4be4-9774-048d6daeea59" name="Changes" comment="Saving a message in database without values except body">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +37,7 @@
     <option name="myId2Visible">
       <map>
         <entry key="com.haulmont.jpb.jpaInspector" value="false" />
-        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
         <entry key="com.haulmont.jpb.jpaStructure" value="false" />
       </map>
     </option>
@@ -50,19 +51,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RequestMappingsPanelOrder0" value="0" />
-    <property name="RequestMappingsPanelOrder1" value="1" />
-    <property name="RequestMappingsPanelWidth0" value="75" />
-    <property name="RequestMappingsPanelWidth1" value="75" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;023d9f31e1ff4fa3e98159f9a83ec01b&quot;
+  }
+}</component>
   <component name="RunManager">
     <configuration name="SepT3Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="SEP_T3" />
@@ -80,7 +82,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1649936601842</updated>
-      <workItem from="1649936602974" duration="8996000" />
+      <workItem from="1649936602974" duration="9773000" />
+      <workItem from="1649952905094" duration="1446000" />
+      <workItem from="1649989360338" duration="1140000" />
+      <workItem from="1649998634616" duration="18000" />
+      <workItem from="1650027053257" duration="87000" />
+      <workItem from="1650162984269" duration="954000" />
+      <workItem from="1650166381572" duration="1065000" />
+      <workItem from="1650248702479" duration="1207000" />
+      <workItem from="1650376726967" duration="5669000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit T_3">
       <created>1649936865371</created>

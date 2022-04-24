@@ -8,10 +8,15 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.0-preview.2.22153.2" />
+      <PackageReference Include="Radzen.Blazor" Version="3.18.4" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Entities\Entities.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Shared\Layout" />
     </ItemGroup>
 
 </Project>

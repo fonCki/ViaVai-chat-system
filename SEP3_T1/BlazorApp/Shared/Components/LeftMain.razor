@@ -1,0 +1,28 @@
+
+@namespace BlazorApp.Shared.Components
+
+@* <button @onclick="@( () => Settings = !Settings )">toggle content</button> *@
+@* <div class="container"> *@
+@*         <div class="@((Settings ? "expanded" : "collapsed") + " content left")"> *@
+@*                 @if (Settings) { *@
+@*                         <main class="sidebar"> *@
+@*                                 <Settings /> *@
+@*                         </main> *@
+@*        *@
+@*                 } *@
+@*         </div> *@
+@*         <div class="@( ( Settings ? "collapsed" : "expanded" ) + " content right" )"> *@
+@*                 @if (Settings) { *@
+@*                         <main class="sidebar"> *@
+                                <HeaderLeft/>
+                                <SearchArea/>
+                                <HistoryChats/>
+@*                         </main> *@
+@*                 } *@
+@* *@
+@*         </div> *@
+@* </div> *@
+@* *@
+@* @code { *@
+@*         bool Settings { get; set; } = true; *@
+@* } *@

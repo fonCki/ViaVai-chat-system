@@ -1,0 +1,12 @@
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f1f2f5;
+    padding: 5px 0px 5px 15px;
+}
+
+
+.oi-grid-three-up {
+    padding: 10px 0 10px 0;
+    margin: auto;
+}

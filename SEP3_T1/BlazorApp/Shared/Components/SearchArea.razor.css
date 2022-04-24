@@ -1,0 +1,9 @@
+.search-area {
+    margin:  15px;
+    display: flex;
+}
+
+.oi-magnifying-glass {
+    margin: auto;
+    font-size: 20px;
+}

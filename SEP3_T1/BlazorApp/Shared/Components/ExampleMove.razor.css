@@ -1,0 +1,33 @@
+/*main layout - uses flex, hides the content on the right from view through overflow*/
+.the-container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    border: 2px solid red;
+    min-height: 300px;
+    overflow: hidden;
+}
+
+/*inner layout - uses widths to show and hide the content in the flex layout*/
+.the-container .expanded {
+    width: 100%;
+}
+
+.the-container .collapsed {
+    width: 0%;
+}
+
+/*animate the width*/
+.the-container .content {
+    transition: width 700ms ease-in-out;
+}
+
+/*just some styling*/
+.the-container .left {
+    background: yellow;
+}
+
+.the-container .right {
+    background: green;
+}
+
