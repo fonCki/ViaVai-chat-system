@@ -7,9 +7,6 @@ span {
     visibility: hidden;
     position: absolute;
     font-size: 12px;
-    font-family: Arial;
-    top: 100%;
-    left: 50%;
     background-color: #E4E4E4;
     color: #454545;
     text-align: center;

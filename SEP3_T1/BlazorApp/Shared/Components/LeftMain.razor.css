@@ -19,7 +19,7 @@
     overflow: hidden;
 }
 
-/*inner layout - uses widths to show and hide the content in the flex layout*/
+
 .starter .expanded {
     padding: 0;
     width: 100%;
@@ -29,16 +29,15 @@
     width: 0%;
 }
 
-/*animate the width*/
+
 .starter .content {
   transition: width 700ms ease-in-out;
 }
 
-/*just some styling*/
 .starter .left {
     background: transparent;
 }
 
 .starter .right {
-    background: green;
+    background: #f1f2f5;
 }

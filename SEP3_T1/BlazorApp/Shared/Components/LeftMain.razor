@@ -16,13 +16,13 @@
     </div>
         <div class="@( ( Left ? "collapsed" : "expanded" ) + " content right" )">
             @if (!Left) {
-                <div>righttttt</div>
+                <Profile/>
             }
         </div>
 </main>
 
 @code {
-    bool Left { get; set; } = true;
+    bool Left { get; set; } = false;
 
     void ChangeStatus() {
         Left = !Left;

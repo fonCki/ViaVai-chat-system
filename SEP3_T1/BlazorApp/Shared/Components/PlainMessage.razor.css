@@ -1,0 +1,28 @@
+
+.main {
+    background-color: #d9fdd3;
+    margin: 10px;
+    width: fit-content;
+    max-width: 530px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    justify-content: flex-start;
+    box-shadow: 0px 10px 20px -5px rgba(0,0,0,0.55);
+}
+
+.message {
+    /*background-color: pink;*/
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #111b21;
+    margin: 3px 5px 1px 5px;
+}
+
+.date-and-time {
+    color: #657781;
+    margin: 0;
+    font-size: 13px;
+    /*background-color: orange;*/
+    text-align: end;
+}

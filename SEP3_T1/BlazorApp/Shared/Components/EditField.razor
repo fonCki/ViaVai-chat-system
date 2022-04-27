@@ -1,0 +1,26 @@
+<main class="main">
+    <h5 class="kind">Your @TypeField</h5>
+    <div class="editable">
+        @if (editable) {
+            <input type="text" value="marcos" class="input"/>
+        }
+        else {
+            <input type="text" value="pedro" class="input" readonly/> 
+        }
+        <span class="iconify" data-icon="bxs:pencil" style="color: #8696a0;" data-width="24" onclick="@change"></span>
+    </div>
+ 
+
+</main>
+
+@code {
+    [Parameter] public string Field { get; set; }
+    [Parameter] public string TypeField { get; set; }
+
+    public bool editable = true;
+
+    public void change() {
+        editable = false;
+    }
+
+}

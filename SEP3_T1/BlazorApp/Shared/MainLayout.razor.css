@@ -7,12 +7,13 @@
     overflow: hidden;
 }
 .sidebar {
-    max-width: 1400px;
+
     min-width: 360px;
     width: 30%;
 }
 
 .main {
+    height: available;
     flex-grow: 100;
 }
 

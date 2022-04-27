@@ -1,9 +1,45 @@
+@using System.Linq.Expressions
 <div class="tooltip-wrapper">
-    <span>@Text</span>
+    <div><span style="top: @x%; left: @y%;">@Text</span></div>
     @ChildContent
 </div>
 
 @code {
+    [Parameter] public Position Pos { get; set; }
+    private int x, y;
+
+    public enum Position  {
+        Top,
+        Button,
+        Right,
+        Left
+    }
+
+    protected override void OnInitialized() {
+        switch (Pos) {
+            case Position.Top: {
+                x = -50;
+                y = 50;
+                break;
+            }
+            case Position.Button: {
+                x = 100;
+                y = 50;
+                break;
+            }
+            case Position.Right: {
+                x = 100;
+                y = 80;
+                break;
+            }
+            case Position.Left: {
+                x = 100;
+                y = -80;
+                break;
+            }
+        }
+    }
+
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public string Text { get; set; }
 }
