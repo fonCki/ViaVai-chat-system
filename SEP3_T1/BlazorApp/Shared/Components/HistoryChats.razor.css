@@ -3,11 +3,18 @@ main {
     /*max-height: 500px;*/
     height: 85%;
     width: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    /*overflow-x: hidden;*/
 }
 
 .chat-componenet {
     border-bottom: 1px solid lightgrey;
     background-color: transparent;
     height: 70px;
+    max-width: 100px;
+}
+
+.chats {
+    /*background-color: #b02a37;*/
 }

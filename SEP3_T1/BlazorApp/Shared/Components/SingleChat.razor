@@ -1,0 +1,48 @@
+@using Entities.Model
+
+<main class="main-component"   onmouseover="@MouseEnter" onmouseleave="@MouseLeft">
+    <div class="avatar"><Avatar size="Avatar.Size.Medium" /></div>
+    <div class="name-and-message">
+        <p class="nickname">Huguito</p>
+        <p class="message">@_message.Body</p> 
+    </div>
+    <div class="date-and-time">
+        @if (mouse) {
+            <ToolTip Text="Close"><div class="close"><span class="iconify" data-icon="ep:close" style="color: #657781;"></span></div></ToolTip>
+        }
+        <div class="date">@string.Format("{0:hh:mm tt}", _message.Created)</div>
+        <div class="circle @(mouse ? "drop" : "new")">
+            @if (mouse) {
+                <div><span class="iconify" data-icon="ep:arrow-down"></span></div>
+            }
+            else {
+                <div><span>1</span></div>
+            }
+        </div>
+    </div>
+</main>
+
+@code {
+    
+    public Message? _message { get; set; } = new Message(DateTime.Now,
+        new User("Hug sdfg sdfg  sdfg ssdfg sdf sdfg iot", "kajsdf"), "123#f1dfgf54sdfg sdf hgsdf gwdfs gs dfg78912");
+
+    List<string> items = new List<string>() {"Archive chat", "Mute Notifications", "Delete Chat", "Pin chat", "Mark as unread"};
+
+    private string premessage;
+
+    private bool mouse = false;
+    
+    protected override async Task OnInitializedAsync() {
+       // premessage = _message.Body.Substring(0, 27) + "...";
+    }
+
+    private void MouseEnter() {
+        mouse = true;
+    }
+
+    private void MouseLeft() {
+        mouse = false;
+    }
+
+}

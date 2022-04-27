@@ -6,9 +6,13 @@
     padding: 5px 15px;
 }
 
+.nickname h3 {
+    font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
 .menu {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     width: 30%;
     /*margin: auto;*/
 }
@@ -32,3 +36,10 @@
 ;
 }
 
+.name-and-avatar {
+    display: flex;
+    align-items: center;
+}
+.nickname {
+    margin-left: 15px;
+}

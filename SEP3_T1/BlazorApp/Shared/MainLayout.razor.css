@@ -1,13 +1,13 @@
-.page {
+.app {
     display: flex;
-    height: 100%;
-    max-width: 1400px;
+    height: 98%;
+    max-width: 1600px;
     margin: auto;
     background-color: #fff;
-    overflow: scroll;
+    overflow: hidden;
 }
 .sidebar {
-
+    max-width: 1400px;
     min-width: 360px;
     width: 30%;
 }
@@ -16,4 +16,9 @@
     flex-grow: 100;
 }
 
+@media screen and (min-width: 1600px) {
+.app {
+    margin-top: 3vh;
+}
+}
 

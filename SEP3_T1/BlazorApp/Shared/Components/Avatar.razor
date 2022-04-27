@@ -1,50 +1,25 @@
 @using System.Security.Claims
 
-<div>
-    @* <AuthorizeView> *@
-        @* <NotAuthorized> *@
-            <img src=@defaultAvatar width="60" height="60">
-        @* </NotAuthorized> *@
-        @* <Authorized> *@
-            @* <img src=@context.User.Claims.First(c => "photo".Equals(c.Type)).Value width="30" height="30"> *@
-        @* </Authorized> *@
-    @* </AuthorizeView> *@
-</div>
+<main>
+    <img src=@defaultAvatar width="@s" height="@s">
+</main>
 
 @code {
-
-    // [CascadingParameter]
-    // public Task<AuthenticationState> AuthState { get; set; } = null!;
-    //
-    // private string? name;
-    // private IEnumerable<Claim>? userClaims;
-    // private bool isLoggedIn;
+    [Parameter] public Size size { get; set; }
+    private int s;
     
+    protected override async Task OnInitializedAsync() {
+        s = (int) size;
+    }
+    
+    
+    // Acepted sizes
+    public enum Size : int {
+        Small = 30,
+        Medium = 60,
+        Big = 120
+    }
+
+    //Default avatar Img
     private string defaultAvatar = "/images/-user-login.png";
-
-
-    // protected override async Task OnInitializedAsync() {
-    //     
-    //     AuthenticationState authState = await AuthState;
-    //     ClaimsPrincipal user = authState.User;
-    //     isLoggedIn = user.Identity != null;
-    //
-    //     if (!isLoggedIn) return;
-    //     
-    //     userClaims = user.Claims;
-    //     name = user.Identity!.Name!;
-    // }
-    //
-    // public async Task getName() {
-    //     
-    //     AuthenticationState authState = await AuthState;
-    //     ClaimsPrincipal user = authState.User;
-    //     isLoggedIn = user.Identity != null;
-    //
-    //     if (!isLoggedIn) return;
-    //     userClaims = user.Claims;
-    //     Console.WriteLine(user.Identity!.Name!);
-    //     
-    //     name = user.Identity!.Name!;
-    // }
 }

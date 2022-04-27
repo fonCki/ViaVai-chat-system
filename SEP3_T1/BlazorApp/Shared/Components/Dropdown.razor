@@ -1,0 +1,16 @@
+
+<main class="dropdown @(show ? "contrast" : "")" @onclick="e => this.show=!this.show" @onmouseleave="e => {show=false;}">
+    <span class="iconify" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-icon="@Icon" style="color: #54646f;" data-width="24"></span>
+    <div class="dropdown-menu @(show ? "show" : "")">
+    @foreach (var item in Items) {
+            <h6 class="dropdown-item">@item</h6>
+        }
+    </div>
+</main>
+@code {
+
+    [Parameter] public List<string> Items { get; set; }
+    [Parameter] public string Icon { get; set; }
+    public bool show  = false;
+    
+}

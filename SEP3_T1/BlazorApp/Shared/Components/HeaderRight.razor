@@ -1,0 +1,23 @@
+
+<div class="main-header">
+    <div class="name-and-avatar">
+    <div class="avatar">
+        <ToolTip Text="@nickName"><Avatar size="Avatar.Size.Medium"/></ToolTip>
+
+    </div>
+        <div class="nickname">
+            <h3>@nickName</h3>
+        </div>
+    </div>
+    <div class="menu">
+        <ToolTip Text="Search"><span class="iconify" data-icon="simple-line-icons:magnifier" style="color: #657781;" data-width="20"></span></ToolTip>
+        <ToolTip Text="Menu">
+            <div class="iconify three-dots"><Dropdown items="@items" Icon="bi:three-dots-vertical"/></div></ToolTip>
+    </div>
+</div>
+
+@code {
+    public string nickName { get; set; } = "Santiago";
+    List<string> items = new List<string>() {"New group", "Settings", "Log out"};
+
+}

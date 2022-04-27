@@ -1,15 +1,22 @@
 
 <div class="main-header">
-    <Avatar/>
-    <RadzenProfileMenu >
-    <Template>
-     <span class="oi oi-grid-three-up"></span>
-    </Template>
-    <ChildContent>
-                <RadzenProfileMenuItem Text="Create Post" Path="CreatePost" Icon="post_add"></RadzenProfileMenuItem>
-                <RadzenProfileMenuItem Text="Users" Path="users" Icon="people"></RadzenProfileMenuItem> @* delete this *@
-                <RadzenProfileMenuItem Text="Settings" Path="SignUp" Icon="settings"></RadzenProfileMenuItem>
-                <RadzenProfileMenuItem Text="LogOut" Path="LogOut" Icon="logout"></RadzenProfileMenuItem>
-    </ChildContent>
-    </RadzenProfileMenu>
+    <div class="avatar" onclick="@(()=>ChangeStatus.Invoke())">
+        <ToolTip Text="nickName"><Avatar size="Avatar.Size.Medium "/></ToolTip>
+    </div>
+    <div class="menu">
+        <ToolTip Text="Status"><span class="iconify" data-icon="majesticons:chat-status-line" style="color: #54646f;" data-width="24"></span></ToolTip>
+        <ToolTip Text="New Chat"><span class="iconify" data-icon="ant-design:message-outlined" style="color: #54646f;" data-width="24">a</span></ToolTip>
+        <ToolTip Text="Menu"><div class="iconify three-dots"><Dropdown items="@items" Icon="bi:three-dots-vertical"/></div></ToolTip>
+        </div>
 </div>
+
+@code {
+
+    [Parameter]
+    public Action ChangeStatus { get; set; }
+
+    List<string> items = new List<string>() {"New group", "Settings", "Log out"};
+    
+    
+
+}

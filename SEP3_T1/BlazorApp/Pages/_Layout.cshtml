@@ -13,7 +13,20 @@
     <link href="BlazorApp.styles.css" rel="stylesheet"/>
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered"/>
 </head>
-<body style="height: 100vh; text-align: center; background: linear-gradient(to top, #eae6df 0%, #eae6df 90%, #03a884 90%, #03a884 100%)">
+
+<style>
+    body {
+    height: 100vh; 
+    text-align: center; 
+    background: linear-gradient(to top, #eae6df 0%, #eae6df 90%, #03a884 90%, #03a884 100%);
+    }
+    @@media screen and (min-width: 1600px) {
+    body {
+        height: 97vh;
+    }
+    }
+</style>
+<body>
 @RenderBody()
 
 <div id="blazor-error-ui">
