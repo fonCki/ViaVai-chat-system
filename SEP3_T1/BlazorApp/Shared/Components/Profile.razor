@@ -1,4 +1,4 @@
-
+@inject IJSRuntime _jsRuntime
 <main class="main">
     <div class="header">
         <h3>Profile</h3>
@@ -8,19 +8,23 @@
             <div class="change-img">
                 <span class="iconify" data-icon="bi:camera-fill"></span>
                 <div class="avatar-text">
-                <h6>CHANGE</h6>
-                <h6>PROFILE</h6>
-                <h6>PHOTO</h6>
+                    <h6>CHANGE</h6>
+                    <h6>PROFILE</h6>
+                    <h6>PHOTO</h6>
                 </div>
             </div>
+
         </div>
     </div>
     <div class="personal-data">
-        <EditField TypeField="name" Field="Carlos"></EditField>
+        <EditField TypeField="Name" Field="Carlos" type="text"></EditField>
+        <EditField TypeField="Last Name" Field="Carlos" type="text"></EditField>
+        <EditField TypeField="email" Field="carlitos@gmail.com" type="email"></EditField>
+        <EditField TypeField="Password" Field="password" Type="password"></EditField>
     </div>
 
+    <div class="save">
+       <span class="iconify" data-icon="codicon:save-as" style="color: #8696a0;" data-width="20"></span>
+    </div>
 </main>
 
-@code {
-
-}

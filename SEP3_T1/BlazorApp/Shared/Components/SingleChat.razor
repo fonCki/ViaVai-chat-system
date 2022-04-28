@@ -1,14 +1,17 @@
 @using Entities.Model
 
-<main class="main-component"   onmouseover="@MouseEnter" onmouseleave="@MouseLeft">
-    <div class="avatar"><Avatar size="Avatar.Size.Medium" /></div>
-    <div class="name-and-message">
-        <p class="nickname">Huguito</p>
-        <p class="message">@_message.Body</p> 
+<main class="main-component" onmouseover="@MouseEnter" onmouseleave="@MouseLeft">
+    <div class="left-half">
+        <div class="avatar"><Avatar size="Avatar.Size.Medium"/></div>
+        <div class="name-and-message">
+            <p class="nickname">Huguito</p>
+            <p class="message">@_message.Body</p>
+        </div>
     </div>
     <div class="date-and-time">
         @if (mouse) {
-            <ToolTip Text="Close" Pos="ToolTip.Position.Left"><div class="close"><span class="iconify" data-icon="ep:close" style="color: #657781;"></span></div></ToolTip>
+            <ToolTip Text="Close" Pos="ToolTip.Position.Left">
+                <div class="close"><span class="iconify" data-icon="ep:close" style="color: #657781;"></span></div></ToolTip>
         }
         <div class="date">@string.Format("{0:hh:mm tt}", _message.Created)</div>
         <div class="circle @(mouse ? "drop" : "new")">
@@ -26,7 +29,7 @@
 
     
      public Message? _message { get; set; } = new Message(DateTime.Now,
-         new User("Hug sdfg sdfg  sdfg ssdfg sdf sdfg iot", "kajsdf"), "123#f1dfgf54sdfg sdf hgsdf gwdfs gs dfg78912");
+         new User("Hug sdfg sdfg  sdfg ssdfg sdf sdfg iot", "kajsdf"), "89 asdf ascv12");
 
     List<string> items = new List<string>() {"Archive chat", "Mute Notifications", "Delete Chat", "Pin chat", "Mark as unread"};
 

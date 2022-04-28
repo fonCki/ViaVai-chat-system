@@ -3,11 +3,17 @@
     background-color: transparent;
     height: 73px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     cursor: pointer;
     width: 100%;
+}
 
+.left-half {
+    width: 100%;
+    display: flex;
+    justify-content: initial;
+    align-items: center;
 }
 .main-component:hover {
     background-color: #F6F6F7;
@@ -25,6 +31,7 @@
     display: flex;
     flex-direction: column;
     align-items: first;
+    flex-shrink: 100;
     justify-content: center;
 }
 .nickname {
@@ -45,7 +52,9 @@
     text-overflow: ellipsis;
     word-wrap: break-word;
     white-space: nowrap ;
-    max-width: 290px;
+    max-width: 250px;
+    min-width: 200px;
+    flex-shrink: 10;
 
 }
 .date-and-time {

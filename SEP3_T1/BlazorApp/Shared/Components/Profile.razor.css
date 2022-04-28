@@ -76,7 +76,17 @@
 
 
 .personal-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
     background-color: #ffffff ;
+    width: 90%;
+    height: 30vh;
+}
+.save {
+    margin-right: 10%;
+    text-align: end;
     width: 100%;
-    height: 400px;
+    cursor: pointer;
 }
