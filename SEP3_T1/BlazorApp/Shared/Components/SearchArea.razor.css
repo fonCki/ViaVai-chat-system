@@ -17,12 +17,9 @@
     flex-direction: row;
 }
 .search-field {
-    background-color: #f1f2f5; !important;
-    max-width: 400px;
-    min-width: 360px;
     width: 100%;
+    min-width: 300px;
     padding: 10px 35px 10px 15px;
-    border: 1px solid #f1f2f5;
     border-radius: 20px;
     outline: none;
 }
@@ -38,4 +35,13 @@
     width: 20px;
     height: 20px;
     object-fit: cover;
+}
+
+.dark {
+    background-color: #f1f2f5;
+    border: 1px solid #f1f2f5;
+}
+
+.white {
+    border: 1px solid #f1f2f5;
 }

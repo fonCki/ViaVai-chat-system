@@ -1,1 +1,10 @@
+.dropdown {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+}
 
+
+.dropdown:hover {
+    border-radius: 50%;
+    background-color: #d8dbdf;
+}

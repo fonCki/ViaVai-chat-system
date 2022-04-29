@@ -1,37 +1,37 @@
- .main {
-     width: 90%;
-     display: flex;
-     flex-direction: column;
- }
- 
- .editable {
-     display: flex;
+.main {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
 
- }
- .kind {
-     margin: 1px 0px;
-     color: #008069;
- }
- 
- .input {
-     font-size: 20px;
-     background: transparent;
-     border: none;
-     width: 100%;
-     flex-grow: 100;
+.editable {
+    display: flex;
 
- }
- 
- .iconify {
-     align-self: center;
-     width: 20px;
-     height: 20px;
- }
- 
- .edit-button {
-     border: 0;
-     background-color: transparent;
- }
- .input-read-only:focus {
-     outline: none;
- }
+}
+.kind {
+    margin: 1px 0px;
+    color: #008069;
+}
+
+.input {
+    font-size: 20px;
+    background: transparent;
+    border: none;
+    width: 100%;
+    flex-grow: 100;
+
+}
+
+.iconify {
+    align-self: center;
+    width: 20px;
+    height: 20px;
+}
+
+.edit-button {
+    border: 0;
+    background-color: transparent;
+}
+.input-read-only:focus {
+    outline: none;
+}

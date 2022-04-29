@@ -1,6 +1,10 @@
+@using BlazorApp.Services
+@using BlazorApp.Shared.MicroComponents
+@using BlazorApp.Config.DropDownMenu
+@inject IToastService _toastService
 
 <div class="main-header">
-    <div class="name-and-avatar">
+    <div class="name-and-avatar" @onclick="@ShowAlert">
     <div class="avatar">
         <ToolTip Text="@nickName" Pos="ToolTip.Position.Button"><Avatar size="Avatar.Size.Medium"/></ToolTip>
 
@@ -10,14 +14,48 @@
         </div>
     </div>
     <div class="menu">
-        <ToolTip Text="Search" Pos="ToolTip.Position.Button"><span class="iconify" data-icon="simple-line-icons:magnifier" style="color: #657781;" data-width="20"></span></ToolTip>
-        <ToolTip Text="Menu" Pos="ToolTip.Position.Button">
-            <div class="iconify three-dots"><Dropdown items="@items" Icon="bi:three-dots-vertical"/></div></ToolTip>
+        <div class="search-bar-@(search?"active" : "sleep")">
+            <SearchArea text="Search Message" color="white"/>
+        </div>
+        <div @onclick="@(() => search = !search)">
+            @if (search) {
+                <ToolTip Text="Back" Pos="ToolTip.Position.Button"><span class="iconify" data-icon="akar-icons:arrow-forward-thick" style="color: #657781;" data-width="20"></span></ToolTip>
+            }
+            else {
+                <ToolTip Text="Search" Pos="ToolTip.Position.Button"><span class="iconify" data-icon="simple-line-icons:magnifier" style="color: #657781;" data-width="20"></span></ToolTip>
+            }
+        </div>
+        <div class="iconify three-dots"><Dropdown DownMenuSettings="DropDownMenuSettings"/></div>
     </div>
 </div>
 
 @code {
+    
+    public static bool search = false; // true is shown
+    
     public string nickName { get; set; } = "Santiago";
-    List<string> items = new List<string>() {"New group", "Settings", "Log out"};
+    
+    DropDownMenuSettings DropDownMenuSettings { get; set; }= new DropDownMenuSettings("bi:three-dots-vertical", "Menu", DropDownItems);
 
+    static ICollection<DropDownItem> DropDownItems { get; set; } = new List<DropDownItem>();
+    
+
+    protected override void OnInitialized() {
+        search = false;
+        DropDownItems.Clear();
+        DropDownItems.Add(new DropDownItem("New Group", (() => Console.Write("New Group"))));
+        DropDownItems.Add(new DropDownItem("Settings", (() => Console.Write("Settings"))));
+        DropDownItems.Add(new DropDownItem("Log out", (() => Console.Write("LogOut"))));
+    }
+
+    public void ShowAlert() { //TODO delete this thing
+        int randomNumber = new Random().Next(1, 4);
+        switch (randomNumber) {
+            case 1 : {_toastService.ShowInfo("I am a INFO message"); break;}
+            case 2 : {_toastService.ShowError("I am a Error message"); break;}
+            case 3 : {_toastService.ShowSuccess("I am a Success message"); break;}
+            case 4 : {_toastService.ShowWarning("I am a Warning message"); break;}
+        }
+    }
+    
 }

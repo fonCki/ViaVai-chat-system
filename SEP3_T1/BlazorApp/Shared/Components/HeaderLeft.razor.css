@@ -7,6 +7,7 @@
 }
 
 .menu {
+    padding: 0 5px;
     display: flex;
     justify-content: space-between;
     width: 30%;
@@ -14,10 +15,10 @@
 }
 
 .iconify {
-    padding: 5px;
     text-align: center;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
+    aspect-ratio: 1 / 1;
     cursor: pointer;
 }
 
@@ -26,7 +27,9 @@
     cursor: pointer;
 }
 
+
 .three-dots:hover {
+
     border-radius: 50%;
     background-color: #d8dbdf
 ;

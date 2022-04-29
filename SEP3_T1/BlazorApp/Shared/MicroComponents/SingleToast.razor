@@ -1,0 +1,35 @@
+@using BlazorApp.Config.Toast
+@using BlazorApp.Shared.Components
+
+<div class="blazored-toast @ToastSettings.BaseClass @ToastSettings.AdditionalClasses">
+    @if (!string.IsNullOrWhiteSpace(ToastSettings.IconClass)) {
+        <div class="blazored-toast-icon">
+            <s></s>
+            <i class="@ToastSettings.IconClass" aria-hidden="true"></i>
+        </div>
+    }
+    <div class="blazored-toast-body">
+        <div class="blazored-toast-header">
+            <h5 class="blazore-toast-heading">@ToastSettings.Heading</h5>
+            <button class="blazored-toast-close" @onclick="@Close" style="visibility: visible; width: 20px; height: 20px">
+                <i aria-label="icon: close" class="blazored-toast-close-icon"></i>
+            </button>
+        </div>
+        <p class="blazored-toast-message">@ToastSettings.Message</p>
+    </div>
+</div>
+
+@code {
+    [CascadingParameter]
+    private Toast ToastContainer { get; set; }
+    
+    [Parameter]
+    public Guid ToastId { get; set; }
+    [Parameter]
+    public ToastSettings ToastSettings { get; set; }
+
+    private void Close() {
+        ToastContainer.RemoveToast(ToastId);
+    }
+    
+}

@@ -52,10 +52,21 @@
     text-overflow: ellipsis;
     word-wrap: break-word;
     white-space: nowrap ;
-    max-width: 250px;
+    max-width: 200px;
     min-width: 200px;
     flex-shrink: 10;
+}
 
+@media (max-width: 1250px) { 
+    .message {
+        /*background-color: #b02a37;*/
+        max-width: 100px;
+    }
+    .name-and-message {
+        /*background-color: yellow;*/
+        max-width: 100px;
+    }
+    
 }
 .date-and-time {
     overflow: visible;

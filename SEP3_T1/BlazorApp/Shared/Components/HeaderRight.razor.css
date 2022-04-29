@@ -12,8 +12,9 @@
 
 .menu {
     display: flex;
+    align-items: center;
     justify-content: end;
-    width: 30%;
+    width: 50%;
     /*margin: auto;*/
 }
 
@@ -26,15 +27,11 @@
 }
 
 
+
 .dropdown-item {
     cursor: pointer;
 }
 
-.three-dots:hover {
-    border-radius: 50%;
-    background-color: #d8dbdf
-;
-}
 
 .name-and-avatar {
     display: flex;
@@ -42,4 +39,18 @@
 }
 .nickname {
     margin-left: 15px;
+}
+
+.search-bar-sleep {
+    border-radius: 150px;
+    /*background-color: #b02a37;*/
+    width: 0px;
+    transition: 700ms ease;
+}
+
+.search-bar-active {
+    border-radius: 150px;
+    /*background-color: #0b5ed7;*/
+    width: 400px;
+    transition: 700ms ease-in-out;
 }

@@ -1,8 +1,19 @@
+
 <div class="search-area">
-       <form action="/" method="GET" class="form">
-            <input type="search" placeholder="Search or start new chat" class="search-field" />
-            <button type="submit" class="search-button">
-              <img src="images/search.png">
-            </button>
-          </form>
+    <form action="/" method="GET" class="form">
+        <input type="search" placeholder=@text class="search-field @color" />
+        <button type="submit" class="search-button">
+            <img src="images/search.png">
+        </button>
+    </form>
 </div>
+
+@code {
+
+    [Parameter]
+    public string text { get; set; } = "Search";
+
+    [Parameter]
+    public string color { get; set; } = "dark";
+
+}

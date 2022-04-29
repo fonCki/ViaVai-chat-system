@@ -1,16 +1,29 @@
+@using BlazorApp.Config.DropDownMenu
 
-<main class="dropdown dropleft @(show ? "contrast" : "")" @onclick="e => this.show=!this.show" @onmouseleave="e => {show=false;}" style="z-index: 100">
-    <span class="iconify" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-icon="@Icon" style="color: #54646f;" data-width="24"></span>
-    <div class="dropdown-menu @(show ? "show" : "")" >
-    @foreach (var item in Items) {
-            <h6 class="dropdown-item">@item</h6>
-        }
-    </div>
+
+<main class="dropdown @(show ? "contrast" : "")" @onclick="e => this.show = !this.show" @onmouseleave="e => {show=false;}">
+    <ToolTip Text="@DownMenuSettings.Name" Pos="ToolTip.Position.Button">
+        <div>
+            
+
+        <span class="iconify" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-icon="@DownMenuSettings.Icon" style="color: #54646f;" data-width="24"></span>
+        <div class="dropdown-menu @(show ? "show" : "")" style="right: 0; left: auto; border-radius: 10px;">
+            @foreach (var item in DownMenuSettings.DropDownItems) {
+                if (item != null) {
+                    <h6 class="dropdown-item" @onclick="@item.Action">@item.Name</h6>
+                }
+            }
+        </div>
+            </div>
+    </ToolTip>
 </main>
+
 @code {
 
-    [Parameter] public List<string> Items { get; set; }
-    [Parameter] public string Icon { get; set; }
+ 
+    // [Parameter] public List<string> Items { get; set; }
+    [Parameter] public DropDownMenuSettings DownMenuSettings { get; set; }
+    // [Parameter] public string Icon { get; set; }
     public bool show  = false;
     
 }
