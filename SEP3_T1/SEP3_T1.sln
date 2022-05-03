@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp", "BlazorApp\Blaz
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{C57FB741-013B-49F9-A1A9-541EC3F309A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{2B9F953E-754B-4250-B982-5F22FB880449}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{C57FB741-013B-49F9-A1A9-541EC3F309A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C57FB741-013B-49F9-A1A9-541EC3F309A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C57FB741-013B-49F9-A1A9-541EC3F309A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B9F953E-754B-4250-B982-5F22FB880449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B9F953E-754B-4250-B982-5F22FB880449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B9F953E-754B-4250-B982-5F22FB880449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B9F953E-754B-4250-B982-5F22FB880449}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

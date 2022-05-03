@@ -6,7 +6,7 @@
     background-color: #fff;
     overflow: hidden;
 }
-.sidebar {
+.side-bar {
 
     min-width: 350px;
     width: 30%;
@@ -20,5 +20,11 @@
 @media screen and (min-width: 1600px) {
     .app {
         margin-top: 3vh;
+    }
+}
+
+@media screen and (max-width: 576px) {
+        .side-bar {
+            display: none;
     }
 }

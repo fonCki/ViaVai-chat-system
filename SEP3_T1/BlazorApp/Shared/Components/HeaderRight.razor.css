@@ -51,6 +51,6 @@
 .search-bar-active {
     border-radius: 150px;
     /*background-color: #0b5ed7;*/
-    width: 400px;
+    width: 40vh;
     transition: 700ms ease-in-out;
 }

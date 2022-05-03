@@ -10,7 +10,7 @@
         <div class="dropdown-menu @(show ? "show" : "")" style="right: 0; left: auto; border-radius: 10px;">
             @foreach (var item in DownMenuSettings.DropDownItems) {
                 if (item != null) {
-                    <h6 class="dropdown-item" @onclick="@item.Action">@item.Name</h6>
+                    <h6 class="dropdown-item" @onclick="@item.Action.Invoke">@item.Name</h6>
                 }
             }
         </div>

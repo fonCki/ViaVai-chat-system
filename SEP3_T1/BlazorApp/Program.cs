@@ -1,6 +1,10 @@
+using BlazorApp.Authentication;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using BlazorApp.Services;
+using BlazorApp.Services.View;
+using Contracts.Services;
+using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<IToastService, ToastServiceImp>();
+builder.Services.AddScoped<View>();
+builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthenticationStateProvider>();
+builder.Services.AddScoped<IAuthService, AuthServiceImpl>();
+builder.Services.AddScoped<IUserService, InMemoryUserService>(); //TODO Delete InMemoryUserService
 
 var app = builder.Build();
 

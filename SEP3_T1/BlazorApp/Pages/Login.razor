@@ -1,0 +1,52 @@
+@page "/Login"
+@using BlazorApp.Authentication
+@inject IAuthService authService
+@inject NavigationManager navMgr
+
+
+<AuthorizeView>
+    <NotAuthorized>
+        <div class="shape-container">
+            <div class="login-card">
+                <div class="image">
+                    <img src="images/Balloon+Dialogue.png"/>
+                </div>
+                <form class="form-group">
+                    <input class="form-control" type="text" id="fname" name="fname" placeholder="Email" @bind="email"/>
+                    <input class="form-control" type="password" placeholder="Password" @bind="password"/>
+                    <p class="error-label"> @if (!string.IsNullOrEmpty(errorLabel))@errorLabel </p>
+                    <button type="submit" class="btn btn-primary" @onclick="LoginAsync">Log in</button>
+              
+                </form>
+                <div>
+                    <p class="create-account">Don't have an account? <b><a href="/signup">Sign Up</a></b></p>
+                </div>
+            </div>
+        </div>
+    </NotAuthorized>
+    <Authorized>
+        @{ navMgr.NavigateTo("/"); }
+    </Authorized>
+</AuthorizeView>
+
+@code {
+    private string email = string.Empty;
+    private string password = string.Empty;
+    private string errorLabel;
+
+    private async Task LoginAsync()
+    {
+        errorLabel = "";
+        try
+        {
+            Console.WriteLine(email);
+            Console.WriteLine(password);
+            await authService.LoginAsync(email, password);
+            navMgr.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            errorLabel = $"Error: {e.Message}";
+        }
+    }
+}
