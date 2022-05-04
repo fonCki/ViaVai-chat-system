@@ -10,6 +10,7 @@ public class AuthServiceImpl : IAuthService{
     public Action<ClaimsPrincipal> OnAuthStateChanged { get; set; } = null!; // assigning to null! to suppress null warning.
     private readonly IUserService userService;
     private readonly IJSRuntime jsRuntime;
+    public User MyUser { get; set; } = null!;
 
     public AuthServiceImpl(IUserService userService, IJSRuntime jsRuntime)
     {
@@ -18,16 +19,13 @@ public class AuthServiceImpl : IAuthService{
     }
 
     public async Task LoginAsync(string email, string password) {
-        User? user = await userService.GetByUserAsyncByEmail(email); // Get user from database
-        Console.WriteLine(user.Email);
-        Console.WriteLine(user.Password);
-        Console.WriteLine(user.FirstName);
+        MyUser = await userService.GetUserAsyncByEmail(email); // Get user from database
 
-        ValidateLoginCredentials(password, user); // Validate input data against data from database
+        ValidateLoginCredentials(password, MyUser); // Validate input data against data from database
         // validation success
-        await CacheUserAsync(user!); // Cache the user object in the browser 
+        await CacheUserAsync(MyUser!); // Cache the user object in the browser 
 
-        ClaimsPrincipal principal = CreateClaimsPrincipal(user); // convert user object to ClaimsPrincipal
+        ClaimsPrincipal principal = CreateClaimsPrincipal(MyUser); // convert user object to ClaimsPrincipal
 
         OnAuthStateChanged?.Invoke(principal); // notify interested classes in the change of authentication state
     }
@@ -43,7 +41,7 @@ public class AuthServiceImpl : IAuthService{
     {
         User? user =  await GetUserFromCacheAsync(); // retrieve cached user, if any
 
-        ClaimsPrincipal principal = CreateClaimsPrincipal(user); // create ClaimsPrincipal
+        ClaimsPrincipal principal = CreateClaimsPrincipal(user); // create ClaimsPrincipal TODO delete  the claims, we're not using it
 
         return principal;
     }

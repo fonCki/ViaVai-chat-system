@@ -1,10 +1,12 @@
 @using BlazorApp.Shared.MicroComponents
 @using BlazorApp.Config.DropDownMenu
+@using BlazorApp.Authentication
+@inject IAuthService authService
 
 
 <div class="main-header">
     <div class="avatar" onclick="@(()=>ChangeStatus.Invoke())">
-        <ToolTip Text="nickName" Pos="ToolTip.Position.Button"><Avatar size="Avatar.Size.Medium "/></ToolTip>
+        <ToolTip Text="nickName" Pos="ToolTip.Position.Button"><Avatar size="Avatar.Size.Medium" image="@authService.MyUser.ImagePath"/></ToolTip>
     </div>
     <div class="menu">
         <ToolTip Text="Status" Pos="ToolTip.Position.Button"><span class="iconify" data-icon="fa:dot-circle-o" style="color: #ec4246;" data-width="24"></span></ToolTip>
@@ -27,6 +29,6 @@
         DropDownItems.Clear();
         DropDownItems.Add(new DropDownItem("New Group", (() => Console.Write("New Group"))));
         DropDownItems.Add(new DropDownItem("Settings", (() => Console.Write("Settings"))));
-        DropDownItems.Add(new DropDownItem("Log out", (() => Console.Write("LogOut"))));
+        DropDownItems.Add(new DropDownItem("Log out", (() => authService.LogoutAsync())));
     }
 }

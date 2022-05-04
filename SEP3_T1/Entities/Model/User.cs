@@ -2,23 +2,22 @@ namespace Entities.Model;
 
 public class User {
     public User() { }
-
-    public User(string email, string password) {
-        Email = email;
-        Password = password;
-    }
-
-    public User(string nickName, string fName, string lastName, string email, string password, string imgPath) {
-        nickName = NickName;
+    
+    public User(string fName, string lastName, string email, string password, string imgPath) {
         FirstName = fName;
         LastName = lastName;
         Email = email;
-        Password = password;
         ImagePath = imgPath;
+    }
+    
+    public User(string fName, string lastName, string email, string password) {
+        FirstName = fName;
+        LastName = lastName;
+        Email = email;
+        ImagePath = "images/-user-login.png";
     }
 
     
-    public string NickName { get; set; }
     public string FirstName { get; set; }
 
     public string LastName { get; set; }

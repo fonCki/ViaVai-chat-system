@@ -1,20 +1,51 @@
+using System.Text.Json;
 using Entities.Model;
 
 namespace Contracts.Services; 
 
 public class InMemoryUserService : IUserService {
 
+    private string usersPath = "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T1/Contracts/Services/users.json";
+
+    private ICollection<User> _users;
+
+    public InMemoryUserService() {
+        if (File.Exists(usersPath)) {
+            var usersAsJson = File.ReadAllText(usersPath);
+            _users = JsonSerializer.Deserialize<ICollection<User>>(usersAsJson)!;
+        }
+        else {
+            _users = new List<User>();
+            Task.FromResult(SaveChangesAsync());
+        }
+    }
 
 
-
-    public async Task<User> GetByUserAsyncByEmail(string email) {
-        User? find = users.Find(user => user.Email.Equals(email));
+    public async Task<User> GetUserAsyncByEmail(string email) {
+        User? find = _users.FirstOrDefault(user => user.Email.Equals(email));
         return find;
     }
-    
-    private List<User> users = new()
-    {
-        new User("Chuky", "Jose", "Lacambra", "Jhon@gmail.com","Jhon123", ""),
 
-    };
+    public async Task SignUp(string name, string lname, string email, string password, string imgPath) {
+        if (await existUser(email)) {
+            throw new Exception("User already exist");
+        }
+        _users.Add(new User(name, lname, email, password, imgPath));
+        SaveChangesAsync();
+    }
+
+
+
+    public async Task SaveChangesAsync() {
+        var usersAsJson = JsonSerializer.Serialize(_users, new JsonSerializerOptions {
+            WriteIndented = true,
+            PropertyNameCaseInsensitive = false
+        });
+        await File.WriteAllTextAsync(usersPath, usersAsJson);
+        _users = null;
+    }
+
+    private async Task<bool> existUser(string email) {
+        return _users.Any(u => email.Equals(u.Email));
+    }
 }

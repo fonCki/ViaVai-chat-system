@@ -41,7 +41,7 @@
     border-radius: 5px;
     margin: 10%;
     padding: 20px ;
-    background-color: #eae6df;
+    background-color: rgba(234,230,223,.7);
 }
 
 .form-group > * {

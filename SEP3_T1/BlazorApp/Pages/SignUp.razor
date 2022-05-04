@@ -1,0 +1,108 @@
+@page "/SignUp"
+@using BlazorApp.Authentication
+@using Contracts.Services
+@using Entities.Model
+@inject IUserService userService
+@inject NavigationManager navMgr
+@inject IAuthService authService
+
+
+
+<AuthorizeView>
+    <NotAuthorized>
+        <div class="shape-container">
+            <div class="sign-up-card">
+                <label for="file-upload" class="custom-file-upload">
+                        <div class="avatar">
+                            <div class="img-avatar" style="background: url(@imagePath); background-size: cover ">
+                                <div class="change-img"> @*TODO *@
+                                    <InputFile id="file-upload" OnChange=@LoadFiles class="input-file" hidden=""/>
+                                    <span class="iconify" data-icon="bi:camera-fill"></span>
+                                    <div class="avatar-text">
+                                        <h6>CHANGE</h6>
+                                        <h6>PROFILE</h6>
+                                        <h6>PHOTO</h6>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                </label>
+                <div class="form-group">
+                    <input class="form-control" type="text" id="fname" placeholder="Name" @bind="name" @onkeydown="@Enter"/>
+                    <input class="form-control" type="text" id="lname" placeholder="Last Name" @bind="lname" @onkeydown="@Enter"/>
+                    <input class="form-control" type="text" id="email" placeholder="Email" @bind="email" @onkeydown="@Enter"/>
+                    <input class="form-control" type="password" placeholder="Password" @bind="password" @onkeydown="@Enter"/>
+                    <input class="form-control" type="password" placeholder="Re Password" @bind="rePassword" @onkeydown="@Enter"/>
+                    <button type="submit" class="btn btn-primary" @onclick="SignUpAsync">Log in</button> 
+                    <p class="error-label">
+                        @if (!string.IsNullOrEmpty(errorLabel))@errorLabel
+                    </p>
+                </div>
+                <div>
+                    <p class="create-account">Already have an account? <b><a href="/login">Log in</a></b></p>
+                </div>
+            </div>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private string name = string.Empty;
+    private string lname = string.Empty;
+    private string email = string.Empty;
+    private string password = string.Empty;
+    private string rePassword = string.Empty;
+    private string imagePath = "images/-user-login.png";
+    private string errorLabel;
+
+    private async Task SignUpAsync()
+    {
+        try {
+            await userService.SignUp(name, lname, email, password, imagePath);
+        }
+        catch (Exception e)
+        {
+            errorLabel = $"Error: {e.Message}";
+        }
+        await authService.LoginAsync(email, password);
+        navMgr.NavigateTo("/");
+
+    }
+
+    private async void Enter(KeyboardEventArgs e) {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter") {
+             await SignUpAsync();
+        }
+        
+    }
+    
+    private async Task LoadFiles(InputFileChangeEventArgs e) {
+        
+        IBrowserFile myFile = e.File;
+
+        try {
+            Stream stream = myFile.OpenReadStream();
+            string path = $"wwwroot/images/temp/{e.File.Name}";
+            FileStream fs = File.Create(path); //TODO FIX THIS HACK, NO CREATE A TEMP FILE
+            await stream.CopyToAsync(fs);
+            fs.Close();
+            stream.Close();
+
+            FileStream fs2 = new FileStream(path, FileMode.Open, FileAccess.Read);
+            int length = Convert.ToInt32(fs2.Length);
+            byte[] data = new byte[length];
+            fs2.Read(data, 0, length);
+            fs2.Close();
+            Console.WriteLine("done");
+            string base64ImageRepresentation = Convert.ToBase64String(data);
+            Console.WriteLine(base64ImageRepresentation);
+            imagePath = string.Format("data:image/jpeg;base64,{0}", base64ImageRepresentation);
+            File.Delete(path);
+        }
+        catch (Exception ex) {
+            errorLabel = "Error: " + ex.Message;
+        }
+        
+    }
+}

@@ -1,5 +1,5 @@
 .main-component {
-    background-color: #b02a37;
+    /*background-color: #b02a37;*/
     box-shadow: 53px 33px 1px -33px grey;
     /*background-color: transparent;*/
     height: 73px;
@@ -11,7 +11,7 @@
 }
 
 .left-half {
-    background-color: yellow;
+    /*background-color: yellow;*/
     width: 100%;
     display: flex;
     justify-content: initial;
@@ -26,7 +26,7 @@
 }
 
 .name-and-message {
-    background-color: pink;
+    /*background-color: pink;*/
     margin: 0;
     padding: 0;
     font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -39,7 +39,7 @@
 }
 .nickname {
     text-align: initial;
-    background-color: #0b5ed7;
+    /*background-color: #0b5ed7;*/
     height: 50%;
     padding: 0px;
     margin: 5px;
@@ -48,7 +48,7 @@
 }
 .message {
     text-align: initial;
-    background-color: #b02a37;
+    /*background-color: #b02a37;*/
     font-style: italic;
     height: 50%;
     padding: 0px;

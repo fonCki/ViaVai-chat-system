@@ -21,6 +21,7 @@
 
     <ItemGroup>
       <Folder Include="wwwroot\images\background" />
+      <Folder Include="wwwroot\images\temp" />
     </ItemGroup>
 
 </Project>

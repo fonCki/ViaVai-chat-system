@@ -10,7 +10,7 @@
 
 @if (!online) {
     //Insert Login Component
-    <input type="text" @bind="@myself.NickName" />
+    <input type="text" @bind="@myself.FirstName" />
     <button type="button" onclick="@LaunchChat">Start</button>
     
     @if (information != null) {
@@ -19,11 +19,11 @@
 }
 else {
     //Insert Header with user information
-    <h1>@myself.NickName</h1>
+    <h1>@myself.FirstName</h1>
     <div class="alert alert-danger">
         @foreach (var message in messages) {
             <div>
-                <h6>@message.CreatedBy.NickName</h6>
+                <h6>@message.CreatedBy.FirstName</h6>
                 <p>@message.Body</p>
             </div>
         }
@@ -36,7 +36,7 @@ else {
 
     private bool online = false;
     
-    private User myself = new User("test", "test@test.com"); // JUST INITIALIZING
+    private User myself = new User("test", "test", "test@test.com", "dfsa"); // JUST INITIALIZING
     
     private string information; // information to be shown on screen 
 

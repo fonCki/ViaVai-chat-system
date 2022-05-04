@@ -1,15 +1,17 @@
 @using System.Security.Claims
 
 <main>
-    <img src=@defaultAvatar width="@s" height="@s">
+    <div class="image-avatar" style="width: @s ; height: @s; background: url(@image); background-size: cover">
+    </div>
 </main>
-
 @code {
     [Parameter] public Size size { get; set; }
-    private int s;
+    [Parameter] public string? image { get; set; } = "/images/-user-login.png";
+    
+    private string s;
     
     protected override async Task OnInitializedAsync() {
-        s = (int) size;
+        s = ((int) size) + "px";
     }
     
     
@@ -20,7 +22,5 @@
         Big = 120,
         XXL = 210
     }
-
-    //Default avatar Img
-    private string defaultAvatar = "/images/-user-login.png";
+    
 }

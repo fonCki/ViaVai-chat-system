@@ -1,13 +1,15 @@
 * {
     overflow: hidden;
     background-color: transparent;
-    max-width: fit-content;
-    max-height: fit-content;
+    /*max-width: fit-content;*/
+    /*max-height: fit-content;*/
     /* width: 30px;*/
 }
-img {
+.image-avatar {
+    background-color: #3b4a54;
     margin: 0;
     padding: 0;
     border-radius: 50%;
     cursor: pointer;
 }
+
