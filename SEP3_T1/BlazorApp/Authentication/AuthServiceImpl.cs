@@ -25,7 +25,7 @@ public class AuthServiceImpl : IAuthService {
         ValidateLoginCredentials(password, MyUser); // Validate input data against data from database
         // validation success
         
-        await CacheUserAsync(MyUser!); // Cache the user object in the browser 
+        await CacheUserAsync(MyUser.Email); // Cache the Email //TODO change to unique toquen
 
         MyUser.Status = Status.Online; // Set as online
         
@@ -53,12 +53,9 @@ public class AuthServiceImpl : IAuthService {
 
     private async Task<User?> GetUserFromCacheAsync()
     {
-        Console.WriteLine("DE ACA EN MAS"); //TODO to elu=iminate
-        string userAsJson = await jsRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser");
-        Console.WriteLine("de aca en mas " + userAsJson);
-        if (string.IsNullOrEmpty(userAsJson)) return null;
-        User user = JsonSerializer.Deserialize<User>(userAsJson)!;
-        Console.WriteLine("de aca en mas " + user);
+        string mailRunningUser = await jsRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser");
+        if (string.IsNullOrEmpty(mailRunningUser)) return null;
+        User user = await userService.GetUserAsyncByEmail(mailRunningUser);
         return user;
     }
 
@@ -86,12 +83,9 @@ public class AuthServiceImpl : IAuthService {
         return new ClaimsPrincipal();
     }
 
-    private async Task CacheUserAsync(User user)
+    private async Task CacheUserAsync(string email) //TODO get the token
     {
-        // Console.WriteLine("Sin serializado " + user);
-        string serialisedData = JsonSerializer.Serialize(user);
-        // Console.WriteLine("serializado " + serialisedData);
-        await jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
+        await jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", email);
     }
 
     private async Task ClearUserFromCacheAsync()

@@ -6,8 +6,8 @@
 @inject NavigationManager navMgr
 @page "/Chat/{email?}"
 
-@* <AuthorizeView> *@
-@*     <Authorized> *@
+<AuthorizeView>
+    <Authorized>
         <main class="right-box">
             @if (User != null) {
                 <CascadingValue Value="@User">
@@ -20,11 +20,11 @@
                 <h1>USER DOES NOT EXIST</h1>
             }
         </main>
-@*     </Authorized> *@
-@*     <NotAuthorized> *@
-@*         @{ navMgr.NavigateTo("/login"); } *@
-@*     </NotAuthorized> *@
-@* </AuthorizeView> *@
+    </Authorized>
+    <NotAuthorized>
+        @{ navMgr.NavigateTo("/login"); }
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
     [Parameter] public string Email { get; set; }

@@ -2,12 +2,12 @@
 @inject NavigationManager navMgr
 
 @* <Chat/> *@
-@* <AuthorizeView> *@
-@*     <Authorized> *@
+<AuthorizeView>
+    <Authorized>
         @{navMgr.NavigateTo("/Chat/alfonsoridao@gmail.com"); }
-@*     </Authorized> *@
-@*     <NotAuthorized> *@
-@*         <Login/> *@
-@*     </NotAuthorized> *@
-@* </AuthorizeView> *@
+    </Authorized>
+    <NotAuthorized>
+        <Login/>
+    </NotAuthorized>
+</AuthorizeView>
 

@@ -4,7 +4,6 @@ namespace Entities.Model;
 
 public class User : Recipient {
     
-    // public override Guid UID { get; set; }
     public override string Name { get; set; }
     
     public override string Avatar { get; set; }
@@ -21,7 +20,6 @@ public class User : Recipient {
     public User() { }
     
     public User(string fName, string lastName, string email, string password, string avatar) {
-        // UID = Guid.NewGuid();
         Name = fName;
         LastName = lastName;
         Email = email;
@@ -31,7 +29,6 @@ public class User : Recipient {
     }
     
     public User(string fName, string lastName, string email, string password) {
-        // UID = Guid.NewGuid();
         Name = fName;
         LastName = lastName;
         Email = email;
