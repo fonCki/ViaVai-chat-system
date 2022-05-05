@@ -1,7 +1,7 @@
 main {
     background-color: #ffffff;
     /*max-height: 500px;*/
-    height: 100%;
+    height: 100%; /*TODO FIX*/
     width: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -16,5 +16,5 @@ main {
 }
 
 .chats {
-    /*background-color: #b02a37;*/
+
 }

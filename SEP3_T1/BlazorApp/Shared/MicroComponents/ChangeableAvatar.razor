@@ -1,0 +1,52 @@
+ <main>
+    <label for="file-upload" class="custom-file-upload">
+         <div class="avatar">
+             <div class="img-avatar" style="background: url(@actualImage); background-size: cover ">
+                 <div class="change-img">
+                     <InputFile id="file-upload" OnChange=@GetNewFile class="input-file" hidden=""/>
+                     <span class="iconify" data-icon="bi:camera-fill"></span>
+                     <div class="avatar-text">
+                         <h6>CHANGE</h6>
+                         <h6>PROFILE</h6>
+                         <h6>PHOTO</h6>
+                     </div>
+                 </div>
+             </div>
+         </div>
+    </label>
+ </main>
+
+ @code {
+
+     [Parameter] public string actualImage { get; set; } = "images/-user-login.png";
+     [Parameter] public Action<string>? newImage { get; set; }
+     [Parameter] public Action<string>? newError { get; set; }
+
+     private async Task GetNewFile(InputFileChangeEventArgs e) {
+         try {          
+             IBrowserFile myFile = e.File;
+             Stream stream = myFile.OpenReadStream();
+             string path = $"wwwroot/images/temp/{e.File.Name}";
+             FileStream fs = File.Create(path); //TODO FIX THIS HACK, NO CREATE A TEMP FILE
+             await stream.CopyToAsync(fs);
+             fs.Close();
+             stream.Close();
+
+             FileStream fs2 = new FileStream(path, FileMode.Open, FileAccess.Read);
+             int length = Convert.ToInt32(fs2.Length);
+             byte[] data = new byte[length];
+             fs2.Read(data, 0, length);
+             fs2.Close();
+             Console.WriteLine("done");
+             string base64ImageRepresentation = Convert.ToBase64String(data);
+             Console.WriteLine(base64ImageRepresentation);
+             actualImage = string.Format("data:image/jpeg;base64,{0}", base64ImageRepresentation);
+             File.Delete(path);
+             newImage(actualImage);
+         }
+         catch (Exception ex) {
+             newError($"Error: {ex.Message}");
+         }
+     }
+
+ }

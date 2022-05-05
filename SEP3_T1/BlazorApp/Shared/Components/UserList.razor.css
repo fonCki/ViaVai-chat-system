@@ -1,0 +1,27 @@
+
+/*header*/
+.main {
+    height: 100%;
+}
+
+.header {
+    padding: 20px;
+    color: white;
+    background-color: #008069;
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.title {
+    display: flex;
+}
+
+.title > *{
+    margin: 10px;    
+}
+
+.back {
+    cursor: pointer;
+}

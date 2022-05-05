@@ -1,0 +1,46 @@
+
+.main {
+    box-shadow: 53px 33px 1px -33px grey;
+    padding: 15px;
+    display: flex;
+    /*background-color: yellow;*/
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.main:hover {
+    background-color: #F6F6F7;
+}
+
+.name-and-avatar {
+    font-style: italic;
+    display: flex;
+    align-items: center;
+}
+
+.personal-data > * {
+    text-align: initial;
+    margin: 0;
+    padding: 0;
+}
+
+.personal-data  {
+    margin: 0 15px;
+}
+
+.Offline {
+    color: grey ;
+}
+
+.Online {
+    color: green;
+}
+
+.Sleeping {
+    color: yellow;
+}
+
+.Busy {
+    color: red;
+}

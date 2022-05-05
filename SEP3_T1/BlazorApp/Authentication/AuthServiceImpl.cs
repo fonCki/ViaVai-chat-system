@@ -6,11 +6,11 @@ using Microsoft.JSInterop;
 
 namespace BlazorApp.Authentication; 
 
-public class AuthServiceImpl : IAuthService{
+public class AuthServiceImpl : IAuthService {
     public Action<ClaimsPrincipal> OnAuthStateChanged { get; set; } = null!; // assigning to null! to suppress null warning.
+    public User MyUser { get; set; } = null!;
     private readonly IUserService userService;
     private readonly IJSRuntime jsRuntime;
-    public User MyUser { get; set; } = null!;
 
     public AuthServiceImpl(IUserService userService, IJSRuntime jsRuntime)
     {
@@ -23,10 +23,13 @@ public class AuthServiceImpl : IAuthService{
 
         ValidateLoginCredentials(password, MyUser); // Validate input data against data from database
         // validation success
+        
         await CacheUserAsync(MyUser!); // Cache the user object in the browser 
 
+        MyUser.Status = Status.Online; // Set as online
+        
         ClaimsPrincipal principal = CreateClaimsPrincipal(MyUser); // convert user object to ClaimsPrincipal
-
+        
         OnAuthStateChanged?.Invoke(principal); // notify interested classes in the change of authentication state
     }
 
@@ -35,13 +38,14 @@ public class AuthServiceImpl : IAuthService{
         await ClearUserFromCacheAsync(); // remove the user object from browser cache
         ClaimsPrincipal principal = CreateClaimsPrincipal(null); // create a new ClaimsPrincipal with nothing.
         OnAuthStateChanged?.Invoke(principal); // notify about change in authentication state
+        MyUser = null!;
     }
 
     public async Task<ClaimsPrincipal> GetAuthAsync() // this method is called by the authentication framework, whenever user credentials are reguired
     {
-        User? user =  await GetUserFromCacheAsync(); // retrieve cached user, if any
+        MyUser =  await GetUserFromCacheAsync(); // retrieve cached user, if any
 
-        ClaimsPrincipal principal = CreateClaimsPrincipal(user); // create ClaimsPrincipal TODO delete  the claims, we're not using it
+        ClaimsPrincipal principal = CreateClaimsPrincipal(MyUser); // create ClaimsPrincipal
 
         return principal;
     }
@@ -95,11 +99,11 @@ public class AuthServiceImpl : IAuthService{
         // this is (probably) the only method, which needs modifying for your own user type
         List<Claim> claims = new()
         {
-            // new Claim(ClaimTypes.Name, user.NickName),
-            // new Claim("Email", user.Email),
-            // new Claim("SecurityLevel", user.SecurityLevel.ToString()),
-            // new Claim("BirthYear", user.BirthYear.ToString()),
-            // new Claim("Domain", user.Domain)
+            new Claim(ClaimTypes.Name, user.FirstName),
+            new Claim("lastName", user.LastName),
+             new Claim("email", user.Email),
+             new Claim("pwd", user.Password),
+             new Claim("photo", user.ImagePath)
         };
 
         return new ClaimsIdentity(claims, "apiauth_type");

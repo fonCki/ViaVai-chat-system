@@ -1,7 +1,9 @@
 @using System.Linq.Expressions
 <div class="tooltip-wrapper">
     <div><span style="top: @x%; left: @y%;">@Text</span></div>
-    @ChildContent
+    @if (ChildContent != null) {
+        @ChildContent
+    }
 </div>
 
 @code {

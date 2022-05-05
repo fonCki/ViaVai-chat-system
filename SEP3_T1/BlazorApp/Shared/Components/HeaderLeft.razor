@@ -5,21 +5,30 @@
 
 
 <div class="main-header">
-    <div class="avatar" onclick="@(()=>ChangeStatus.Invoke())">
-        <ToolTip Text="nickName" Pos="ToolTip.Position.Button"><Avatar size="Avatar.Size.Medium" image="@authService.MyUser.ImagePath"/></ToolTip>
+    <div class="avatar" onclick="@(()=>ChangePanel.Invoke(Panel.Profile))">
+        <ToolTip Text=@authService.MyUser.FirstName Pos="ToolTip.Position.Button"><Avatar size="Avatar.Size.Medium" image="@authService.MyUser.ImagePath"/></ToolTip>
     </div>
     <div class="menu">
-        <ToolTip Text="Status" Pos="ToolTip.Position.Button"><span class="iconify" data-icon="fa:dot-circle-o" style="color: #ec4246;" data-width="24"></span></ToolTip>
-        @* other colors status bar  bussy:#faa81b  ofline: #ec4246*@
-        <ToolTip Text="New Chat" Pos="ToolTip.Position.Button"><span class="iconify" data-icon="ant-design:message-outlined" style="color: #54646f;" data-width="24"></span></ToolTip>
-        <div class="iconify"><Dropdown  DownMenuSettings="DropDownMenuSettings"/></div>
+        <div>
+            <ToolTip Text="Status" Pos="ToolTip.Position.Button">
+                <span class="iconify" data-icon="fa:dot-circle-o" style="color: #ec4246;" data-width="24"></span>
+            </ToolTip>
+            @* other colors status bar  bussy:#faa81b  ofline: #ec4246*@
+        </div>
+        <div onclick="@(()=>ChangePanel.Invoke(Panel.Users))">
+            <ToolTip Text="New Chat" Pos="ToolTip.Position.Button">
+                <span class="iconify" data-icon="ant-design:message-outlined" style="color: #54646f;" data-width="24"></span>
+            </ToolTip>
+        </div>
+        <div class="iconify"><Dropdown DownMenuSettings="DropDownMenuSettings"/></div>
     </div>
 </div>
 
 @code {
 
     [Parameter]
-    public Action ChangeStatus { get; set; }
+    public Action<Panel> ChangePanel { get; set; }
+    
 
     DropDownMenuSettings DropDownMenuSettings { get; set; }= new DropDownMenuSettings("bi:three-dots-vertical", "Menu", DropDownItems);
 
@@ -28,7 +37,7 @@
     protected override void OnInitialized() {
         DropDownItems.Clear();
         DropDownItems.Add(new DropDownItem("New Group", (() => Console.Write("New Group"))));
-        DropDownItems.Add(new DropDownItem("Settings", (() => Console.Write("Settings"))));
+        DropDownItems.Add(new DropDownItem("Settings", (() => ChangePanel.Invoke(Panel.Users)))); //TODO CHange
         DropDownItems.Add(new DropDownItem("Log out", (() => authService.LogoutAsync())));
     }
 }

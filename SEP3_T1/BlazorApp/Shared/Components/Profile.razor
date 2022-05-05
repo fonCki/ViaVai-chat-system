@@ -1,34 +1,80 @@
 @using BlazorApp.Services
 @using BlazorApp.Shared.MicroComponents
+@using BlazorApp.Authentication
+@using Contracts.Services
+@using Entities.Model
 @inject IJSRuntime _jsRuntime
-@inject IToastService _toastService
+@inject IAuthService authService
+@inject IUserService userService
 
 <main class="main">
     <div class="header">
-        <h3>Profile</h3>
-    </div>
-    <div class="avatar" > 
-        <div class="img-avatar">
-            <div class="change-img" @onclick="@(() => {_toastService.ShowInfo("Change Image");})">
-                <span class="iconify" data-icon="bi:camera-fill"></span>
-                <div class="avatar-text">
-                    <h6>CHANGE</h6>
-                    <h6>PROFILE</h6>
-                    <h6>PHOTO</h6>
-                </div>
+        <div class="title">
+            <div class="back" onclick="@(() => ChangePanel.Invoke(Panel.Starter))">
+                <span class="iconify" data-icon="ant-design:arrow-left-outlined" data-width="22" data-height="22" style="color: white;"></span>
             </div>
-
+                <h5>Profile</h5>
+            </div>
+    </div>
+        <ChangeableAvatar newImage="@UpdateAvatar" newError="@UpdateError" actualImage="@authService.MyUser.ImagePath"/>
+        <div class="personal-data" >
+            <EditField TypeField="Name" Field=@newName type="text" Update="@UpdateName"></EditField>
+            <EditField TypeField="Last Name" Field=@newLname type="text" Update="@UpdateLName"></EditField>
+            <EditField TypeField="Email" Field=@newEmail type="email" edit="false"></EditField>
+            <EditField TypeField="Password" Field=@newPassword Type="password" Update="@UpdatePassword"></EditField>
         </div>
-    </div>
-    <div class="personal-data">
-        <EditField TypeField="Name" Field="Carlos" type="text"></EditField>
-        <EditField TypeField="Last Name" Field="Carlos" type="text"></EditField>
-        <EditField TypeField="Email" Field="carlitos@gmail.com" type="email"></EditField>
-        <EditField TypeField="Password" Field="password" Type="password"></EditField>
-    </div>
-
-    <div class="save">
-       <span class="iconify" data-icon="codicon:save-as" style="color: #8696a0;" data-width="20"></span>
+        <p class="error-label"> @if (!string.IsNullOrEmpty(errorLabel))@errorLabel</p>
+        <div class="save">
+            <button class="button-save" @onclick="@SaveChanges">
+                <span class="iconify" data-icon="codicon:save-as" style="color: #8696a0;" data-width="25" ></span>
+            </button>
     </div>
 </main>
 
+@code {
+    
+    [Parameter]
+    public Action<Panel> ChangePanel { get; set; }
+
+    public string newName;
+    private string newLname;
+    private string newPassword;
+    private string newEmail;
+    private string imagePath;
+    private string errorLabel;
+
+    protected async override Task OnInitializedAsync() {
+        newName = authService?.MyUser.FirstName;
+        newLname = authService?.MyUser.LastName;
+        newEmail = authService?.MyUser.Email;
+        newPassword = authService?.MyUser.Password;
+    }
+
+
+
+    public async void SaveChanges() {
+        Console.WriteLine("done");
+        await userService.UpdateUser(new User(newName, newLname, newEmail, newPassword, imagePath));
+    }
+
+    public async void UpdateName(string name) {
+        Console.WriteLine(name + "desde profile");
+        newName = name;
+    }
+
+    public async void UpdateLName(string lname) {
+        newLname = lname;
+    }
+    public async void UpdatePassword(string Password) {
+        newPassword = Password;
+    }
+    
+    public async void UpdateAvatar(string newPath) {
+        imagePath = newPath;
+    }
+
+    public async void UpdateError(string newError) {
+        errorLabel = newError;
+        StateHasChanged();
+    }
+}

@@ -1,32 +1,62 @@
 @using System.Data
+@using System.Diagnostics
+@using Entities.Model
 
 @namespace BlazorApp.Shared.Components
 
-<HeaderLeft ChangeStatus="ChangeStatus"/>
-<main class="starter">
-    <div class="@((Left ? "expanded" : "collapsed") + " content left")">
-        @if (Left) {
-            <div class="history-chats">
-                <div class="search-area">
-                    <SearchArea text="Search or start new chat" color="dark"/>
-                </div>
-                <HistoryChats/>
-            </div>
-        }
-    </div>
-        <div class="@( ( Left ? "collapsed" : "expanded" ) + " content right" )">
-            @if (!Left) {
-                <Profile/>
+
+<main class="main"> 
+    <div class="main-@Panel.Starter @starter">
+        <HeaderLeft ChangePanel="ChangePanel"/>
+        <SearchArea text="Search or start new chat" color="dark"/>
+        <MakeScrollList>
+            @for (int i = 0; i < 150; i++) {
+                <SingleChat/>
             }
-        </div>
+        </MakeScrollList>
+    </div>
+    <div class="main-@Panel.Profile @profile">
+        <Profile ChangePanel="ChangePanel"/>
+    </div>
+    <div class="main-@Panel.Users @users">
+        <UserList ChangePanel="ChangePanel"/>
+    </div>
 </main>
 
 @code {
-    bool Left { get; set; } = true;
 
-    void ChangeStatus() {
-        Left = !Left;
-         StateHasChanged();
+    public Panel CurrentPanel { get; set; } = Panel.Starter;
+
+    private Status starter = Status.Active;
+    private Status profile = Status.Hidden;
+    private Status users = Status.Hidden;
+    
+    bool UsersView { get; set; } = false;
+
+    public void ChangePanel(Panel panel) {
+        CurrentPanel = panel;
+        
+        switch (CurrentPanel) {
+            case Panel.Profile: {
+                profile = Status.Active;
+                starter = Status.Hidden;
+                users = Status.Hidden;
+                break;
+            }
+            case Panel.Users: {
+                profile = Status.Hidden;
+                starter = Status.Hidden;
+                users = Status.Active;
+                break;
+            }
+            case Panel.Starter: {
+                profile = Status.Hidden;
+                starter = Status.Active;
+                users = Status.Hidden;
+                break;
+            }
+        }
+        StateHasChanged();
     }
 
 }

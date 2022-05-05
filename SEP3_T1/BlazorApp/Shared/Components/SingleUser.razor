@@ -1,0 +1,22 @@
+@using BlazorApp.Shared.MicroComponents
+@using Entities.Model
+
+<main class="main">
+    <div class="name-and-avatar">
+        <Avatar size="Avatar.Size.Medium" image="@_user.ImagePath"/>
+        <div class="personal-data">
+            <h4 class="first-name">@_user.FirstName @_user.LastName</h4>
+            <p>@_user.Email</p>
+        </div>
+    </div>
+    <div class="status">
+        <ToolTip Text="@_user.Status.ToString()" Pos="ToolTip.Position.Left">
+            <span class="iconify @_user.Status" data-icon="fa:dot-circle-o" data-width="24"></span>
+        </ToolTip>
+    </div>
+</main>
+
+@code {
+    [Parameter]
+    public User _user { get; set; }
+}

@@ -1,0 +1,44 @@
+@inject IUserService userService
+@inject IAuthService authService
+
+
+@using Entities.Model
+@using BlazorApp.Authentication
+@using Contracts.Services
+
+<main class="main">
+    <div class="header">
+        <div class="title">
+            <div class="back" onclick="@(() => ChangePanel.Invoke(Panel.Starter))">
+                <span class="iconify" data-icon="ant-design:arrow-left-outlined" data-width="22" data-height="22" style="color: white;"></span>
+            </div>
+            <h5>New chat</h5>
+        </div>
+    </div>
+    <div class="search">
+        <SearchArea text="Search Contacts"/> 
+    </div>
+    <div class="user-list">
+        <MakeScrollList>
+            @foreach (var user in orderedList) {
+                <SingleUser _user="@user"/>
+            }
+        </MakeScrollList>
+    </div>
+</main>
+
+@code {
+    [Parameter]
+    public Action<Panel> ChangePanel { get; set; }
+
+    private ICollection<User> _users;
+
+    IOrderedEnumerable<User> orderedList;
+
+    protected async override Task OnInitializedAsync() {
+        _users = await userService.GetAllUser();
+        _users.Remove(authService.MyUser);
+        orderedList = _users.OrderBy(u => u.Status).ThenBy(u=>u.FirstName);
+    }
+
+}

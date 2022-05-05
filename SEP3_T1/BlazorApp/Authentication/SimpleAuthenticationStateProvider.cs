@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 
 namespace BlazorApp.Authentication; 
 
-public class SimpleAuthenticationStateProvider : AuthenticationStateProvider{
+public class SimpleAuthenticationStateProvider : AuthenticationStateProvider {
     private readonly IAuthService authService;
 
     public SimpleAuthenticationStateProvider(IAuthService authService)

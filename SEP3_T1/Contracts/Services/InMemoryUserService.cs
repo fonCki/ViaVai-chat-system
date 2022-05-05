@@ -10,30 +10,65 @@ public class InMemoryUserService : IUserService {
     private ICollection<User> _users;
 
     public InMemoryUserService() {
-        if (File.Exists(usersPath)) {
-            var usersAsJson = File.ReadAllText(usersPath);
-            _users = JsonSerializer.Deserialize<ICollection<User>>(usersAsJson)!;
-        }
-        else {
-            _users = new List<User>();
-            Task.FromResult(SaveChangesAsync());
-        }
+         LoadOrCreate();
     }
 
 
+    public async Task<ICollection<User>> GetAllUser() {
+        if (_users == null) {
+            await LoadOrCreate();
+        }
+
+        return _users;
+    }
+
     public async Task<User> GetUserAsyncByEmail(string email) {
+
+
         User? find = _users.FirstOrDefault(user => user.Email.Equals(email));
-        return find;
+            return find;
+        
     }
 
     public async Task SignUp(string name, string lname, string email, string password, string imgPath) {
         if (await existUser(email)) {
             throw new Exception("User already exist");
         }
+
+        if (_users == null) {
+            await LoadOrCreate();
+        }
+
         _users.Add(new User(name, lname, email, password, imgPath));
+            SaveChangesAsync();
+        
+    }
+
+    public async Task UpdateUser(User user) {
+        Console.WriteLine(user);
+        if (_users == null) {
+            await LoadOrCreate();
+        }
+        User? find = _users.FirstOrDefault(user => user.Email.Equals(user.Email));
+        if (find == null) {
+            throw new Exception("System Update error");
+        }
+
+        find.FirstName = user.FirstName;
+        find.LastName = user.LastName;
+        find.Email = user.Email;
+        find.Password = user.Password;
         SaveChangesAsync();
     }
 
+    public async Task DeleteAccount(User user) {
+        if (_users == null) {
+            await LoadOrCreate();
+        }
+        User? find = _users.FirstOrDefault(user => user.Email.Equals(user.Email));
+        _users.Remove(find);
+        SaveChangesAsync();
+    }
 
 
     public async Task SaveChangesAsync() {
@@ -46,6 +81,21 @@ public class InMemoryUserService : IUserService {
     }
 
     private async Task<bool> existUser(string email) {
+        if (_users == null) {
+            await LoadOrCreate();
+        }
         return _users.Any(u => email.Equals(u.Email));
+    }
+
+    private async Task LoadOrCreate() {
+        if (File.Exists(usersPath)) {
+            var usersAsJson = File.ReadAllText(usersPath);
+            _users = JsonSerializer.Deserialize<ICollection<User>>(usersAsJson)!;
+        }
+        else {
+            _users = new List<User>();
+            Task.FromResult(SaveChangesAsync());
+        }
+        
     }
 }

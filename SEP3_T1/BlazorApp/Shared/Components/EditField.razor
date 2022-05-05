@@ -1,16 +1,21 @@
 <main class="main">
     <h5 class="kind">Your @TypeField</h5>
-    <div class="editable" >
-        @if (editable) {
-            <input type="@Type" value="@Field" class="input" @ref="textInput"/>
+    <div class="editable">
+        @if (!edit) {
+              <input type="@Type" value="@newField" class="input input-read-only" @ref="textInput" disabled="disabled"/>  
         }
         else {
-            <input type="@Type" value="@Field" class="input input-read-only" @ref="textInput" readonly="readonly"/> 
+            @if (editable) {
+                <input type="@Type" value=@newField class="input" @onkeypress="@UpdateField"/>
+            }
+            else {
+                 <input type="@Type" value="@newField" class="input input-read-only" @ref="textInput" readonly="readonly"/> 
+            }
+      
+            <button @onclick="() => { editable = true; }" class="edit-button">
+                <span class="iconify" data-icon="bxs:pencil" style="color: #8696a0;" data-width="24"></span>
+            </button>
         }
-        
-        <button @onclick="() => {editable=true;}" class="edit-button">
-            <span class="iconify" data-icon="bxs:pencil" style="color: #8696a0;" data-width="24"></span>
-        </button>
     </div>
  
 
@@ -21,11 +26,26 @@
     [Parameter] public string TypeField { get; set; }
     [Parameter] public string Type { get; set; }
 
+    [Parameter]
+    public bool edit { get; set; } = true;
+
+    [Parameter] public Action<string> Update { get; set; }
+
+
+    public string newField { get; set; }
+    
+
+    protected async override Task OnInitializedAsync() {
+        newField = Field;
+
+    }
+
     ElementReference textInput;
     
     public bool editable = false;
 
     public void change() {
+ 
         editable = false;
     }
 
@@ -34,4 +54,9 @@
         return base.OnAfterRenderAsync(firstRender);
     }
 
+    public void UpdateField() {
+      Console.WriteLine(newField + "desde adentro");
+        Update.Invoke(newField);
+    }
+    
 }
