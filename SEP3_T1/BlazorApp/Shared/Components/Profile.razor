@@ -11,10 +11,12 @@
     <div class="header">
         <div class="title">
             <div class="back" onclick="@(() => ChangePanel.Invoke(Panel.Starter))">
-                <span class="iconify" data-icon="ant-design:arrow-left-outlined" data-width="22" data-height="22" style="color: white;"></span>
+                       <ToolTip Text="Back">
+                       <span class="iconify" data-icon="ant-design:arrow-left-outlined" data-width="22" data-height="22" style="color: white;"></span>
+                        </ToolTip>
             </div>
-                <h5>Profile</h5>
-            </div>
+            <h5>Profile</h5>
+        </div>
     </div>
         <ChangeableAvatar newImage="@UpdateAvatar" newError="@UpdateError" actualImage="@authService.MyUser.ImagePath"/>
         <div class="personal-data" >

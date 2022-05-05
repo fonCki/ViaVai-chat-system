@@ -1,9 +1,9 @@
 main {
     background-color: #ffffff;
     /*max-height: 500px;*/
-    height: 100%; /*TODO FIX*/
+    height: auto; /*TODO FIX*/
     width: 100%;
-    overflow-y: scroll;
+
     overflow-x: hidden;
     /*overflow-x: hidden;*/
 }
@@ -15,6 +15,7 @@ main {
     max-width: 100px;
 }
 
-.chats {
-
+.list {
+    height: 80vh;
+    overflow-y: scroll;
 }

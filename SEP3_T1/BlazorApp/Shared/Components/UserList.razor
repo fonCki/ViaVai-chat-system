@@ -10,7 +10,9 @@
     <div class="header">
         <div class="title">
             <div class="back" onclick="@(() => ChangePanel.Invoke(Panel.Starter))">
-                <span class="iconify" data-icon="ant-design:arrow-left-outlined" data-width="22" data-height="22" style="color: white;"></span>
+                <ToolTip Text="Back">
+                    <span class="iconify" data-icon="ant-design:arrow-left-outlined" data-width="22" data-height="22" style="color: white;"></span>
+                </ToolTip>
             </div>
             <h5>New chat</h5>
         </div>
@@ -20,9 +22,36 @@
     </div>
     <div class="user-list">
         <MakeScrollList>
-            @foreach (var user in orderedList) {
-                <SingleUser _user="@user"/>
+            @* ----------Online Users -------------------*@
+            @if (online.Any()) {
+                <div class="status">
+                    <h4>Online</h4>
+                </div>
+                @foreach (var user in online) {
+                    <SingleUser _user="@user"/>
+                }
             }
+            @* ------------------------------------------- *@
+            @* ----------Sleeping Users -------------------*@
+            @if (sleeping.Any()) {
+                <div class="status">
+                    <h4>Sleeping</h4>
+                </div>
+                @foreach (var user in sleeping) {
+                    <SingleUser _user="@user"/>
+                }
+            }
+            @* ------------------------------------------- *@
+            @* ----------Offline Users -------------------*@
+            @if (offline.Any()) {
+                <div class="status">
+                    <h4>Offline</h4>
+                </div>
+                @foreach (var user in offline) {
+                    <SingleUser _user="@user"/>
+                }
+            }
+            @* ------------------------------------------- *@
         </MakeScrollList>
     </div>
 </main>
@@ -33,12 +62,13 @@
 
     private ICollection<User> _users;
 
-    IOrderedEnumerable<User> orderedList;
+    IOrderedEnumerable<User> online, offline, sleeping;
+    
 
     protected async override Task OnInitializedAsync() {
         _users = await userService.GetAllUser();
-        _users.Remove(authService.MyUser);
-        orderedList = _users.OrderBy(u => u.Status).ThenBy(u=>u.FirstName);
+        online = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Online).OrderBy(u => u.FirstName);
+        offline = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Offline).OrderBy(u => u.FirstName);
+        sleeping = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Sleeping).OrderBy(u => u.FirstName);
     }
-
 }

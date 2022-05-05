@@ -25,3 +25,10 @@
 .back {
     cursor: pointer;
 }
+
+.status {
+    color: #008069;
+    padding: 0 15px;
+    margin-top: 7px;
+    text-align: initial;
+}
