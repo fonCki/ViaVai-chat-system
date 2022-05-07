@@ -16,6 +16,7 @@ builder.Services.AddScoped<View>();
 builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthenticationStateProvider>();
 builder.Services.AddScoped<IAuthService, AuthServiceImpl>();
 builder.Services.AddScoped<IUserService, InMemoryUserService>(); //TODO Delete InMemoryUserService
+builder.Services.AddScoped<IMessageService, inMemoryMessageService>(); //TODO Delete or change this
 
 var app = builder.Build();
 
@@ -26,6 +27,8 @@ if (!app.Environment.IsDevelopment()) {
     app.UseHsts();
 }
 
+
+app.MapFallbackToPage("/chat/{param?}", "/_Host");
 
 app.UseHttpsRedirection();
 

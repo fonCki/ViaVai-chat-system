@@ -1,6 +1,44 @@
+@using Entities.Model
+@using BlazorApp.Authentication
+@using Contracts.Services
+@inject IAuthService AuthService
+@inject IMessageService MessageService 
+
 <main class="main">
     <ToolTip Text="Share Happiness"><span class="iconify" data-icon="bi:emoji-smile" style="color: #657781;"></span></ToolTip>
     <ToolTip Text="Attach a file"><span class="iconify" data-icon="fluent:attach-12-regular" style="color: #657781;"></span></ToolTip>
-    <input type="search" placeholder="Type a message" class="search-field" />
+    <input type="search" placeholder="Type a message" @bind="InputMessage" class="search-field" @onkeydown="@Enter" @oninput=@RefreshValue />
     <ToolTip Text="Send"><span class="iconify" data-icon="ant-design:send-outlined" style="color: #657781;"></span></ToolTip>
 </main>
+
+@code {
+
+    [CascadingParameter]
+    User user { get; set; }
+
+    public string InputMessage { get; set; }
+
+    string result;
+
+    //If I press enter
+    public void Enter(KeyboardEventArgs e) {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter") {
+            Send();
+        } 
+    }
+
+    //Every time I type a character
+    public void RefreshValue(ChangeEventArgs e) {
+        InputMessage = e.Value.ToString();
+
+    }
+
+    //Create and send the message
+    public async Task Send() {
+        await MessageService.SendMessage(new Message(
+                                            AuthService.MyUser,
+                                            user,
+                                            InputMessage));
+        InputMessage = String.Empty;
+    }
+}

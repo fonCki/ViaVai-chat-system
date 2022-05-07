@@ -6,7 +6,7 @@
 
 <div class="main-header">
     <div class="avatar" onclick="@(()=>ChangePanel.Invoke(Panel.Profile))">
-        <ToolTip Text=@authService.MyUser.FirstName Pos="ToolTip.Position.Button"><Avatar size="Avatar.Size.Medium" image="@authService.MyUser.ImagePath"/></ToolTip>
+        <ToolTip Text=@authService.MyUser.Name Pos="ToolTip.Position.Button"><Avatar size="Avatar.Size.Medium" image="@authService.MyUser.Avatar"/></ToolTip>
     </div>
     <div class="menu">
         <div>

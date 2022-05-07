@@ -2,39 +2,43 @@ using System.Text.Json.Serialization;
 
 namespace Entities.Model; 
 
-public class User {
+public class User : Recipient {
     
-    public string FirstName { get; set; }
+    // public override Guid UID { get; set; }
+    public override string Name { get; set; }
+    
+    public override string Avatar { get; set; }
 
     public string LastName { get; set; }
 
     public string Email { get; set; }
 
     public string Password { get; set; }
-    public string ImagePath { get; set; }
 
-    public Status Status { get; set; } = Status.Offline;
+    public Status Status { get; set; }
     
     [JsonConstructor]
     public User() { }
     
-    public User(string fName, string lastName, string email, string password, string imgPath) {
-        FirstName = fName;
+    public User(string fName, string lastName, string email, string password, string avatar) {
+        // UID = Guid.NewGuid();
+        Name = fName;
         LastName = lastName;
         Email = email;
         Password = password;
-        ImagePath = imgPath;
+        Avatar = avatar;
+        Status = Status.Offline;
     }
     
     public User(string fName, string lastName, string email, string password) {
-        FirstName = fName;
+        // UID = Guid.NewGuid();
+        Name = fName;
         LastName = lastName;
         Email = email;
         Password = password;
-        ImagePath = "images/-user-login.png";
+        Avatar = "images/-user-login.png"; //Default Avatar
+        Status = Status.Offline;
     }
 
-    public override string ToString() {
-        return $"{nameof(FirstName)}: {FirstName}, {nameof(LastName)}: {LastName}, {nameof(Email)}: {Email}, {nameof(Password)}: {Password}, {nameof(ImagePath)}: {ImagePath}";
-    }
+   
 }

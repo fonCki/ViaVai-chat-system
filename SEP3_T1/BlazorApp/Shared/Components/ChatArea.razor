@@ -4,7 +4,7 @@
 
 @if (!online) {
     //Insert Login Component
-    <input type="text" @bind="@myself.FirstName" />
+    <input type="text" @bind="@myself.Name" />
     <button type="button" onclick="@LaunchChat">Start</button>
     
     @if (information != null) {
@@ -13,11 +13,11 @@
 }
 else {
     //Insert Header with user information
-    <h1>@myself.FirstName</h1>
+    <h1>@myself.Name</h1>
     <div class="alert alert-danger">
         @foreach (var message in messages) {
             <div>
-                <h6>@message.CreatedBy.FirstName</h6>
+                <h6>@message.Header.CreatedBy.Name</h6>
                 <p>@message.Body</p>
             </div>
         }
@@ -85,7 +85,7 @@ else {
 
     private async Task SendMessage(string message) {
         
-        Message messageToSend = new Message(DateTime.Now, myself, newMessage); // Create the new Message
+        Message messageToSend = new Message(myself, myself, newMessage); // Create the new Message
         
         string messageAsJson = JsonSerializer.Serialize(messageToSend);         //Convert the messaje to Json
         

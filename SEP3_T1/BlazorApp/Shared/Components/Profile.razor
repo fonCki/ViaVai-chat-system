@@ -18,7 +18,7 @@
             <h5>Profile</h5>
         </div>
     </div>
-        <ChangeableAvatar newImage="@UpdateAvatar" newError="@UpdateError" actualImage="@authService.MyUser.ImagePath"/>
+        <ChangeableAvatar newImage="@UpdateAvatar" newError="@UpdateError" actualImage="@authService.MyUser.Avatar"/>
         <div class="personal-data" >
             <EditField TypeField="Name" Field=@newName type="text" Update="@UpdateName"></EditField>
             <EditField TypeField="Last Name" Field=@newLname type="text" Update="@UpdateLName"></EditField>
@@ -46,7 +46,7 @@
     private string errorLabel;
 
     protected async override Task OnInitializedAsync() {
-        newName = authService?.MyUser.FirstName;
+        newName = authService?.MyUser.Name;
         newLname = authService?.MyUser.LastName;
         newEmail = authService?.MyUser.Email;
         newPassword = authService?.MyUser.Password;

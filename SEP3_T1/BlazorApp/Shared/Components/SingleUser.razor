@@ -1,11 +1,12 @@
 @using BlazorApp.Shared.MicroComponents
 @using Entities.Model
+@inject NavigationManager navMgr
 
-<main class="main">
+<main class="main" @onclick="@Goto">
     <div class="name-and-avatar">
-        <Avatar size="Avatar.Size.Medium" image="@_user.ImagePath"/>
+        <Avatar size="Avatar.Size.Medium" image="@_user.Avatar"/>
         <div class="personal-data">
-            <h4 class="first-name">@_user.FirstName @_user.LastName</h4>
+            <h4 class="first-name">@_user.Name @_user.LastName</h4>
             <p>@_user.Email</p>
         </div>
     </div>
@@ -19,4 +20,8 @@
 @code {
     [Parameter]
     public User _user { get; set; }
+
+    public void Goto() {
+        navMgr.NavigateTo($"/Chat/{_user.Email}", true);
+    }
 }

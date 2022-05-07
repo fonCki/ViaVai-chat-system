@@ -1,16 +1,17 @@
 @using BlazorApp.Services
 @using BlazorApp.Shared.MicroComponents
 @using BlazorApp.Config.DropDownMenu
+@using Entities.Model
 @inject IToastService _toastService
 
 <div class="main-header">
     <div class="name-and-avatar" @onclick="@ShowAlert">
     <div class="avatar">
-        <ToolTip Text="@nickName" Pos="ToolTip.Position.Button"><Avatar size="Avatar.Size.Medium"/></ToolTip>
+        <ToolTip Text="@User.Name" Pos="ToolTip.Position.Button"><Avatar size="Avatar.Size.Medium" image="@User.Avatar"/></ToolTip>
 
     </div>
         <div class="nickname">
-            <h3>@nickName</h3>
+            <h3>@User.Name</h3>
         </div>
     </div>
     <div class="menu">
@@ -30,6 +31,9 @@
 </div>
 
 @code {
+    
+    [CascadingParameter]
+    User User { get; set; }
     
     public static bool search = false; // true is shown
     

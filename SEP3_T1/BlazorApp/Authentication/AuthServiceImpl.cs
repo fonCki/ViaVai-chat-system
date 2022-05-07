@@ -19,6 +19,7 @@ public class AuthServiceImpl : IAuthService {
     }
 
     public async Task LoginAsync(string email, string password) {
+        
         MyUser = await userService.GetUserAsyncByEmail(email); // Get user from database
 
         ValidateLoginCredentials(password, MyUser); // Validate input data against data from database
@@ -52,9 +53,12 @@ public class AuthServiceImpl : IAuthService {
 
     private async Task<User?> GetUserFromCacheAsync()
     {
+        Console.WriteLine("DE ACA EN MAS"); //TODO to elu=iminate
         string userAsJson = await jsRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser");
+        Console.WriteLine("de aca en mas " + userAsJson);
         if (string.IsNullOrEmpty(userAsJson)) return null;
         User user = JsonSerializer.Deserialize<User>(userAsJson)!;
+        Console.WriteLine("de aca en mas " + user);
         return user;
     }
 
@@ -84,7 +88,9 @@ public class AuthServiceImpl : IAuthService {
 
     private async Task CacheUserAsync(User user)
     {
+        // Console.WriteLine("Sin serializado " + user);
         string serialisedData = JsonSerializer.Serialize(user);
+        // Console.WriteLine("serializado " + serialisedData);
         await jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
     }
 
@@ -99,11 +105,11 @@ public class AuthServiceImpl : IAuthService {
         // this is (probably) the only method, which needs modifying for your own user type
         List<Claim> claims = new()
         {
-            new Claim(ClaimTypes.Name, user.FirstName),
+            new Claim(ClaimTypes.Name, user.Name),
             new Claim("lastName", user.LastName),
              new Claim("email", user.Email),
              new Claim("pwd", user.Password),
-             new Claim("photo", user.ImagePath)
+             new Claim("avatar", user.Avatar)
         };
 
         return new ClaimsIdentity(claims, "apiauth_type");

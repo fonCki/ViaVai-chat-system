@@ -3,14 +3,14 @@
 
 <main class="main-component" onmouseover="@MouseEnter" onmouseleave="@MouseLeft">
     <div class="left-half">
-        <div class="avatar"><Avatar size="Avatar.Size.Medium"/></div>
+        <div class="avatar"><Avatar size="Avatar.Size.Medium" image="@_message.Header.Recipient.Avatar"/></div>
         <div class="name-and-message">
-            <p class="nickname">Huguito</p>
-            <p class="message">@_message.Body</p>
+            <p class="nickname">@_message.Header.Recipient.Name</p>
+            <p class="message">gjd</p>
         </div>
     </div>
     <div class="date-and-time">
-        <div class="date">@string.Format("{0:hh:mm tt}", _message.Created)</div>
+        <div class="date">@string.Format("{0:hh:mm tt}", _message.Header.Created)</div>
         <div class="circle @(mouse ? "drop" : "new")">
             @if (mouse) {
                 <ToolTip Text="Close" Pos="ToolTip.Position.Left">
@@ -26,8 +26,7 @@
 
 @code {
 
-    public Message? _message { get; set; } = new Message(DateTime.Now,
-         new User("Hug sdfg sdfg  sdfg ssdfg sdf sdfg iot", "kajsdf", "Asdf", "ASDf", "asdf"), "89 asdf a asdf asdg ds sdf sdfg dfsgh dfgj sdfg sdfg sdfg sdfg af sdf sdfg sdfg sdfg sdfg sgdfv sdfg sfd gscv12");
+    public Message? _message { get; set; } = new Message(new User("d", "s", "asd", "asd"), new User("sd", "sd,", "Asd", "asd"), "thas js a");
 
     List<string> items = new List<string>() {"Archive chat", "Mute Notifications", "Delete Chat", "Pin chat", "Mark as unread"};
 

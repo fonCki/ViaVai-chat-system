@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Entities.Model;
 
+
 namespace Contracts.Services; 
 
 public class InMemoryUserService : IUserService {
@@ -13,8 +14,9 @@ public class InMemoryUserService : IUserService {
          LoadOrCreate();
     }
 
+    
 
-    public async Task<ICollection<User>> GetAllUser() {
+    public async Task<ICollection<User>> GetContactList() {
         if (_users == null) {
             await LoadOrCreate();
         }
@@ -54,7 +56,7 @@ public class InMemoryUserService : IUserService {
             throw new Exception("System Update error");
         }
 
-        find.FirstName = user.FirstName;
+        find.Name = user.Name;
         find.LastName = user.LastName;
         find.Email = user.Email;
         find.Password = user.Password;
@@ -71,6 +73,15 @@ public class InMemoryUserService : IUserService {
     }
 
 
+
+
+    private async Task<bool> existUser(string email) {
+        if (_users == null) {
+            await LoadOrCreate();
+        }
+        return _users.Any(u => email.Equals(u.Email));
+    }
+    
     public async Task SaveChangesAsync() {
         var usersAsJson = JsonSerializer.Serialize(_users, new JsonSerializerOptions {
             WriteIndented = true,
@@ -78,13 +89,6 @@ public class InMemoryUserService : IUserService {
         });
         await File.WriteAllTextAsync(usersPath, usersAsJson);
         _users = null;
-    }
-
-    private async Task<bool> existUser(string email) {
-        if (_users == null) {
-            await LoadOrCreate();
-        }
-        return _users.Any(u => email.Equals(u.Email));
     }
 
     private async Task LoadOrCreate() {

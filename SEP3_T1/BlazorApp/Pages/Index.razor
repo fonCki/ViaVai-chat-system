@@ -1,13 +1,13 @@
 @page "/"
+@inject NavigationManager navMgr
 
 @* <Chat/> *@
-<AuthorizeView>
-    <Authorized>
-        <ChatArea/>
-    </Authorized>
-    <NotAuthorized>
-        <Login/>
-    </NotAuthorized>
-</AuthorizeView>
-
+@* <AuthorizeView> *@
+@*     <Authorized> *@
+        @{navMgr.NavigateTo("/Chat/alfonsoridao@gmail.com"); }
+@*     </Authorized> *@
+@*     <NotAuthorized> *@
+@*         <Login/> *@
+@*     </NotAuthorized> *@
+@* </AuthorizeView> *@
 

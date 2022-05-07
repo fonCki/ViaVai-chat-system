@@ -66,9 +66,9 @@
     
 
     protected async override Task OnInitializedAsync() {
-        _users = await userService.GetAllUser();
-        online = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Online).OrderBy(u => u.FirstName);
-        offline = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Offline).OrderBy(u => u.FirstName);
-        sleeping = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Sleeping).OrderBy(u => u.FirstName);
+        _users = await userService.GetContactList(); //TODO GetContaclist must be users without me
+        online = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Online).OrderBy(u => u.Name); //TODO THis mus be filter in the middleware
+        offline = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Offline).OrderBy(u => u.Name);
+        sleeping = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Sleeping).OrderBy(u => u.Name);
     }
 }
