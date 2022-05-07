@@ -7,7 +7,7 @@
     <div class="message">
         @if (Message != null) {
             <p class="message">@Message.Body</p>
-            <p class="date-and-time">@(string.Format("{0:hh:mm tt}", Message.Header.Created))</p>
+            @* <p class="date-and-time">@(string.Format("{0:hh:mm tt}", Message.Header.Created))</p> *@
         }
     </div>
 </main>

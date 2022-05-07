@@ -17,11 +17,11 @@ public class inMemoryMessageService : IMessageService {
         if (_messages == null) {
             LoadOrCreate();
         }
-
         return _messages;
     }
 
     public async Task SendMessage(Message message) {
+        Console.WriteLine(message.Body);
         if (_messages == null) {
             LoadOrCreate();
         }

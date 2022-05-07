@@ -3,14 +3,14 @@
 
 <main class="main-component" onmouseover="@MouseEnter" onmouseleave="@MouseLeft">
     <div class="left-half">
-        <div class="avatar"><Avatar size="Avatar.Size.Medium" image="@_message.Header.Recipient.Avatar"/></div>
+        @* <div class="avatar"><Avatar size="Avatar.Size.Medium" image="@_message.Header.Recipient.Avatar"/></div> *@
         <div class="name-and-message">
-            <p class="nickname">@_message.Header.Recipient.Name</p>
+            @* <p class="nickname">@_message.Header.Recipient.Name</p> *@
             <p class="message">gjd</p>
         </div>
     </div>
     <div class="date-and-time">
-        <div class="date">@string.Format("{0:hh:mm tt}", _message.Header.Created)</div>
+        @* <div class="date">@string.Format("{0:hh:mm tt}", _message.Header.Created)</div> *@
         <div class="circle @(mouse ? "drop" : "new")">
             @if (mouse) {
                 <ToolTip Text="Close" Pos="ToolTip.Position.Left">

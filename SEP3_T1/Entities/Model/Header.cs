@@ -3,14 +3,14 @@ using System.Text.Json.Serialization;
 namespace Entities.Model; 
 
 public class Header {
-    public Recipient Recipient { get; set; }
+    public User Recipient { get; set; } //TODO receipient must be parent class -- JSON ERROR
     public User CreatedBy { get; set; }
     public DateTime Created { get; set; }
 
     [JsonConstructor]
     public Header() { }
 
-    public Header(Recipient recipient, User createdBy) {
+    public Header(User recipient, User createdBy) { //TODO receipient must be parent class -- JSON ERROR
         Recipient = recipient;
         CreatedBy = createdBy;
         Created = DateTime.Now;

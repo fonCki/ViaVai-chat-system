@@ -7,8 +7,8 @@
 <main class="main">
     <ToolTip Text="Share Happiness"><span class="iconify" data-icon="bi:emoji-smile" style="color: #657781;"></span></ToolTip>
     <ToolTip Text="Attach a file"><span class="iconify" data-icon="fluent:attach-12-regular" style="color: #657781;"></span></ToolTip>
-    <input type="search" placeholder="Type a message" @bind="InputMessage" class="search-field" @onkeydown="@Enter" @oninput=@RefreshValue />
-    <ToolTip Text="Send"><span class="iconify" data-icon="ant-design:send-outlined" style="color: #657781;"></span></ToolTip>
+    <input type="search" placeholder="Type a message" value="@InputMessage" class="search-field" @onkeydown="@Enter" @oninput=@RefreshValue />
+    <div class="send" @onclick="@Send"><ToolTip Text="Send"><span class="iconify" data-icon="ant-design:send-outlined" style="color: #657781;"></span></ToolTip></div>
 </main>
 
 @code {
@@ -17,9 +17,8 @@
     User user { get; set; }
 
     public string InputMessage { get; set; }
-
-    string result;
-
+    
+    
     //If I press enter
     public void Enter(KeyboardEventArgs e) {
         if (e.Code == "Enter" || e.Code == "NumpadEnter") {
@@ -35,10 +34,10 @@
 
     //Create and send the message
     public async Task Send() {
-        await MessageService.SendMessage(new Message(
-                                            AuthService.MyUser,
-                                            user,
-                                            InputMessage));
-        InputMessage = String.Empty;
+        if (!String.IsNullOrWhiteSpace(InputMessage)) {
+            Message message = new Message(AuthService.MyUser, user, InputMessage);
+            await MessageService.SendMessage(message);
+            InputMessage = String.Empty;
+        }
     }
 }
