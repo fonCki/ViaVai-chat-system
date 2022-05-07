@@ -20,6 +20,15 @@ public class inMemoryMessageService : IMessageService {
         return _messages;
     }
 
+    public async Task<ICollection<Message>> GetRelatedMessages(User reader, User Writer) { //TODO reader must be a recipient type
+        if (_messages == null) {
+            LoadOrCreate();
+        }
+
+        // ICollection<Message> filteredMessages = (ICollection<Message>) _messages.Where(m => m.Header.CreatedBy.Equals(Writer));
+        return _messages;
+    }
+
     public async Task SendMessage(Message message) {
         Console.WriteLine(message.Body);
         if (_messages == null) {

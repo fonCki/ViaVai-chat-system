@@ -1,11 +1,27 @@
 @using Entities.Model
+@using Contracts.Services
+@using BlazorApp.Authentication
+
+@inject IAuthService AuthService
+@inject IMessageService MessageService
+
 <main class="main">
-    <PlainMessage Message="Message"/>
+    @if (messages != null) {
+        foreach (var message in messages) {
+            <PlainMessage Message="message" IsMine=@AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email)/>
+        }
+    }
 </main>
 
 @code {
     [CascadingParameter]
     public static User user { get; set; }
+
+    ICollection<Message> messages;
+
+    protected async override Task OnInitializedAsync() {
+        messages = await MessageService.GetRelatedMessages( AuthService.MyUser, user);
+    }
 
     public Message Message = new Message(user, user, "Este es un mensake");
 

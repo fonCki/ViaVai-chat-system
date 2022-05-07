@@ -1,24 +1,20 @@
 @using Entities.Model
 @using BlazorApp.Authentication
-@inject IAuthService authService
 
-
-<main class="main" style="background-color: @color">
-    <div class="message">
-        @if (Message != null) {
+@if (Message != null) {
+    <main class="main" style="@(IsMine ? "background-color:#d9fdd3" : "background-color:#ffffff")">
+        <div class="message">
             <p class="message">@Message.Body</p>
-            @* <p class="date-and-time">@(string.Format("{0:hh:mm tt}", Message.Header.Created))</p> *@
-        }
-    </div>
-</main>
+            <p class="date-and-time">@(string.Format("{0:hh:mm tt}", Message.Header.Created))</p>
+        </div>
+    </main>
+}
 
 @code {
     [Parameter] public Message? Message { get; set; }
+    [Parameter]  public bool IsMine { get; set; }
     
     public string color = "#ffffff";
     
-    protected override void OnInitialized() {
-        // color = (authService.MyUser.Email.Equals(Message?.Header.CreatedBy.Email)) ? "#d9fdd3" : "#ffffff"; // TODO comparing emails?
-    }
 
 }
