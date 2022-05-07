@@ -20,13 +20,20 @@ public class inMemoryMessageService : IMessageService {
         return _messages;
     }
 
-    public async Task<ICollection<Message>> GetRelatedMessages(User reader, User Writer) { //TODO reader must be a recipient type
+    public async Task<ICollection<Message>> GetRelatedMessages(User writer, User reader) { //TODO reader must be a recipient type
         if (_messages == null) {
             LoadOrCreate();
         }
 
-        // ICollection<Message> filteredMessages = (ICollection<Message>) _messages.Where(m => m.Header.CreatedBy.Equals(Writer));
-        return _messages;
+        Console.WriteLine(_messages);
+        
+        //Return a list of, Created by ME directed to READER || Created by READER directed to ME
+        var filteredList = _messages.Where(m => (m.Header.CreatedBy.Email.Equals(writer.Email) && m.Header.Recipient.Email.Equals(reader.Email)) ||
+                                                        (m.Header.CreatedBy.Email.Equals(reader.Email) && m.Header.Recipient.Email.Equals(writer.Email)))
+                                                        .OrderByDescending(m => m.Header.Created)
+                                                        .ToList();
+
+        return filteredList;
     }
 
     public async Task SendMessage(Message message) {
