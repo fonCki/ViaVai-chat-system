@@ -17,6 +17,7 @@ builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthenticationStat
 builder.Services.AddScoped<IAuthService, AuthServiceImpl>();
 builder.Services.AddScoped<IUserService, InMemoryUserService>(); //TODO Delete InMemoryUserService
 builder.Services.AddScoped<IMessageService, inMemoryMessageService>(); //TODO Delete or change this
+builder.Services.AddScoped<IChatService, InMemoryChatService>();
 
 var app = builder.Build();
 

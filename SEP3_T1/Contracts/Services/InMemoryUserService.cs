@@ -6,7 +6,7 @@ namespace Contracts.Services;
 
 public class InMemoryUserService : IUserService {
 
-    private string usersPath = "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T1/Contracts/Services/users.json";
+    private string usersPath = "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T1/Contracts/Services/JsonFiles/users.json";
 
     private ICollection<User> _users;
 

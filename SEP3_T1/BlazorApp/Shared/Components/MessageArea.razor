@@ -3,7 +3,7 @@
 @using BlazorApp.Authentication
 
 @inject IAuthService AuthService
-@inject IMessageService MessageService
+@inject IChatService ChatService 
 
 <main class="main">
     @if (_messages != null) {
@@ -23,6 +23,7 @@
 
     protected override async Task OnInitializedAsync() {
         User myself = AuthService.MyUser;
-        _messages = await MessageService.GetRelatedMessages(AuthService.MyUser, Receipe);
+        var chat = await ChatService.GetOrCreateChat(AuthService.MyUser, Receipe);
+        _messages = chat.Messages;
     }
 }

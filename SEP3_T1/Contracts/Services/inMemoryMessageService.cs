@@ -5,7 +5,7 @@ namespace Contracts.Services;
 
 public class inMemoryMessageService : IMessageService {
     
-    private string msgPath = "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T1/Contracts/Services/messages.json";
+    private string msgPath = "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T1/Contracts/Services/JsonFiles/messages.json";
 
     private ICollection<Message> _messages;
 

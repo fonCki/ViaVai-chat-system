@@ -2,7 +2,7 @@
 @using BlazorApp.Authentication
 @using Contracts.Services
 @inject IAuthService AuthService
-@inject IMessageService MessageService 
+@inject IChatService ChatService
 
 <main class="main">
     <ToolTip Text="Share Happiness"><span class="iconify" data-icon="bi:emoji-smile" style="color: #657781;"></span></ToolTip>
@@ -36,7 +36,7 @@
     public async Task Send() {
         if (!String.IsNullOrWhiteSpace(InputMessage)) {
             Message message = new Message(AuthService.MyUser, user, InputMessage);
-            await MessageService.SendMessage(message);
+            await ChatService.SendMessage(message);
             InputMessage = String.Empty;
         }
     }
