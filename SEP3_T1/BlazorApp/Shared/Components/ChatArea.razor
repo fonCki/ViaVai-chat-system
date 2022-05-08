@@ -85,14 +85,14 @@ else {
 
     private async Task SendMessage(string message) {
         
-        Message messageToSend = new Message(myself, myself, newMessage); // Create the new Message
+        // Message messageToSend = new Message(myself, myself, newMessage); // Create the new Message
         
-        string messageAsJson = JsonSerializer.Serialize(messageToSend);         //Convert the messaje to Json
+        // string messageAsJson = JsonSerializer.Serialize(messageToSend);         //Convert the messaje to Json
         
-        if (online) {
-            await hubConnection.SendAsync("Broadcast", messageAsJson);
-            newMessage = "";
-        }
+        // if (online) {
+        //     await hubConnection.SendAsync("Broadcast", messageAsJson);
+        //     newMessage = "";
+        // }
     }
 
 }

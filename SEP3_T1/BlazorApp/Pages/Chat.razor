@@ -2,19 +2,29 @@
 @using Contracts.Services
 @using Entities.Model
 @using System.Runtime.Intrinsics.Arm
-@inject IUserService userService
-@inject NavigationManager navMgr
+@using BlazorApp.Authentication
+@inject IUserService UserService
+@inject IChatService ChatService
+@inject NavigationManager NavMgr
+@inject IAuthService AuthService
 @page "/Chat/{email?}"
 
 <AuthorizeView>
     <Authorized>
         <main class="right-box">
-            @if (User != null) {
-                <CascadingValue Value="@User">
-                    <HeaderRight/>
-                    <MessageArea/>
-                    <InputArea/>
-                </CascadingValue>
+            @if (TheChat != null) {
+                @if (User.RUI.Equals(AuthService.MyUser.RUI)) {
+                    <h1>@error</h1>
+                }
+                else {
+                    <CascadingValue Value="@TheChat">
+                        <CascadingValue Value="@User">
+                            <HeaderRight/>
+                            <MessageArea/>
+                            <InputArea/>
+                        </CascadingValue>
+                    </CascadingValue>
+                }
             }
             else {
                 <h1>USER DOES NOT EXIST</h1>
@@ -22,7 +32,7 @@
         </main>
     </Authorized>
     <NotAuthorized>
-        @{ navMgr.NavigateTo("/login"); }
+        @{NavMgr.NavigateTo("/login"); }
     </NotAuthorized>
 </AuthorizeView>
 
@@ -31,14 +41,28 @@
     
     public User User { get; set; }
     
+    Entities.Model.Chat TheChat { get; set; }
+
+    string error = String.Empty;
+    
     protected override void OnParametersSet()
     {
-        Email = Email ?? "all";
+        Email = Email ?? "all"; //TODO WTF IS THIS?
     }
     
     protected async override Task OnInitializedAsync() {
-        Console.WriteLine(Email);
-        User = await userService.GetUserAsyncByEmail(Email);
-        StateHasChanged();
+        try {
+            User = await UserService.GetUserAsyncByEmail(Email);
+            TheChat = await ChatService.GetOrCreateChat(AuthService.MyUser, User);
+        }
+        catch (Exception e) {
+            error = e.Message;
+        }
+
     }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender) {
+        ChatService.MarkAsRead(TheChat.CID, AuthService.MyUser);
+    }
+
 }    

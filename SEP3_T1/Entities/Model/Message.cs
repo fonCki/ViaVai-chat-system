@@ -16,15 +16,12 @@ public class Message {
     [JsonConstructor]
     public Message() { }
 
-    public Message(User createdBy, User recipient, string body) { // TODO receipient must be parent class -- JSON ERROR
+    public Message(User createdBy, Guid CUIRecipient, string body) {
         MID = Guid.NewGuid(); 
-        Header = new Header(recipient, createdBy);
+        Header = new Header(CUIRecipient, createdBy);
         Body = body;
         Read = false;
     }
 
-
-    // public override string ToString() {
-    //     return $"{nameof(MID)}: {MID}, {nameof(Header)}: {Header}, {nameof(Body)}: {Body}, {nameof(Read)}: {Read}";
-    // }
+    
 }

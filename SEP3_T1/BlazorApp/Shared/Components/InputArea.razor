@@ -14,7 +14,7 @@
 @code {
 
     [CascadingParameter]
-    User user { get; set; }
+    Chat Chat { get; set; }
 
     public string InputMessage { get; set; }
     
@@ -35,7 +35,7 @@
     //Create and send the message
     public async Task Send() {
         if (!String.IsNullOrWhiteSpace(InputMessage)) {
-            Message message = new Message(AuthService.MyUser, user, InputMessage);
+            Message message = new Message(AuthService.MyUser, Chat.CID, InputMessage);
             await ChatService.SendMessage(message);
             InputMessage = String.Empty;
         }

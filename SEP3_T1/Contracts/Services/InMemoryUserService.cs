@@ -25,11 +25,14 @@ public class InMemoryUserService : IUserService {
     }
 
     public async Task<User> GetUserAsyncByEmail(string email) {
-
-
+        if (String.IsNullOrEmpty(email)) {
+            throw new Exception("Error with user address");
+        }
         User? find = _users.FirstOrDefault(user => user.Email.Equals(email));
-            return find;
-        
+        if (find == null) {
+            throw new Exception("User not found");
+        }
+        return find;
     }
 
     public async Task SignUp(string name, string lname, string email, string password, string imgPath) {

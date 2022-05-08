@@ -1,6 +1,10 @@
 @using System.Data
 @using System.Diagnostics
+@using BlazorApp.Authentication
+@using Contracts.Services
 @using Entities.Model
+@inject IChatService ChatService
+@inject IAuthService AuthService
 
 @namespace BlazorApp.Shared.Components
 
@@ -10,8 +14,8 @@
         <HeaderLeft ChangePanel="ChangePanel"/>
         <SearchArea text="Search or start new chat" color="dark"/>
         <MakeScrollList>
-            @for (int i = 0; i < 150; i++) {
-                <SingleChat/>
+            @foreach(Chat chat in Chats) {
+                 <SingleChat Chat="chat"/> 
             }
         </MakeScrollList>
     </div>
@@ -26,12 +30,23 @@
 @code {
 
     public Panel CurrentPanel { get; set; } = Panel.Starter;
+    public ICollection<Chat> Chats { get; set; }
 
     private Status starter = Status.Active;
     private Status profile = Status.Hidden;
     private Status users = Status.Hidden;
     
     bool UsersView { get; set; } = false;
+    
+    
+    protected async override Task OnInitializedAsync() {
+        Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser);
+        foreach (var cha in Chats) {
+            Console.WriteLine(cha.CID);
+        }
+        if (Chats == null) Chats = new List<Chat>();
+        Chats = Chats.Where(c => c.Messages.Any()).OrderByDescending(c => c.Messages?.First()?.Header.Created!).ToList();
+    }
 
     public void ChangePanel(Panel panel) {
         CurrentPanel = panel;

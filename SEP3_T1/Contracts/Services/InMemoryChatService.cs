@@ -26,18 +26,28 @@ public class InMemoryChatService : IChatService{
             LoadOrCreate();
         }
 
-        Console.WriteLine(message.Body + "este es el mesaje");
-        //TODO this works only with 2 Persons chat, you must know that
-        Chat chat = await GetOrCreateChat(message.Header.CreatedBy, message.Header.Recipient);
-        
+
+        Chat? chat = await GetOrCreateChat(message.Header.CUIRecipient);
+
+        if (chat == null) {
+            throw new Exception("Internal Error, Chat could not be found");
+        }
         chat.Messages.Add(message);
         chat.Messages = chat.Messages.OrderByDescending(m => m.Header.Created).ToList();
         SaveChangesAsync();
     }
 
+    public async Task<Chat> GetOrCreateChat(Guid CUI) {
+        return _chats.FirstOrDefault(c => c.CID.Equals(CUI));
+    }
+
     public async Task<Chat> GetOrCreateChat(User userOne, User userTwo) {
         if (_chats == null) {
             LoadOrCreate();
+        }
+
+        if (userOne.RUI.Equals(userTwo.RUI)) {
+            throw new Exception("Can't create a chat with the same person");
         }
 
         //Filter by single chats
@@ -58,6 +68,29 @@ public class InMemoryChatService : IChatService{
             _chats.Add(chat);
         }
         return chat;
+    }
+
+    public async Task<ICollection<Chat>> GetAllChatsByUser(User user) {
+        if (_chats == null) {
+            LoadOrCreate();
+        }
+        ICollection<Chat>? chats = _chats.Where(c => c.Subscribers.Any(u => u.RUI.Equals(user.RUI))).ToList() as ICollection<Chat>;
+
+        return chats;
+    }
+
+    public async Task<Chat> UpdateChat(Chat chat) {
+        throw new NotImplementedException();
+    }
+
+    public async Task MarkAsRead(Guid CUI, User myself) {
+        Chat chat = await GetOrCreateChat(CUI);
+        //Mark as read my messages
+        foreach (var message in chat.Messages.Where(m=> !(m.Header.CreatedBy.RUI.Equals(myself.RUI)))) {
+            message.Read = true;
+        }
+
+        SaveChangesAsync();
     }
     
 

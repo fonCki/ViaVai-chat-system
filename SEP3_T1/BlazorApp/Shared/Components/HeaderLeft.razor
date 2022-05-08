@@ -29,9 +29,8 @@
     [Parameter]
     public Action<Panel> ChangePanel { get; set; }
     
-
     DropDownMenuSettings DropDownMenuSettings { get; set; }= new DropDownMenuSettings("bi:three-dots-vertical", "Menu", DropDownItems);
-
+    
     static ICollection<DropDownItem> DropDownItems { get; set; } = new List<DropDownItem>();
 
     protected override void OnInitialized() {

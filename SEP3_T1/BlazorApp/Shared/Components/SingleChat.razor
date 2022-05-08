@@ -1,39 +1,66 @@
 @using Entities.Model
 @using BlazorApp.Shared.MicroComponents
+@using BlazorApp.Authentication
+@inject IAuthService AuthService
+@inject NavigationManager navMgr
 
-<main class="main-component" onmouseover="@MouseEnter" onmouseleave="@MouseLeft">
+
+<main class="main-component" onmouseover="@MouseEnter" onmouseleave="@MouseLeft" @onclick="@Goto">
     <div class="left-half">
-        @* <div class="avatar"><Avatar size="Avatar.Size.Medium" image="@_message.Header.Recipient.Avatar"/></div> *@
+        <div class="avatar"><Avatar size="Avatar.Size.Medium" image="@User.Avatar"/></div>
         <div class="name-and-message">
-            @* <p class="nickname">@_message.Header.Recipient.Name</p> *@
-            <p class="message">gjd</p>
+            <p class="nickname">@User.Name</p>
+            @if (@Chat.Messages.Any()) {
+                <p class="message">@Chat.Messages.FirstOrDefault().Body</p>
+            }
         </div>
     </div>
     <div class="date-and-time">
-        @* <div class="date">@string.Format("{0:hh:mm tt}", _message.Header.Created)</div> *@
-        <div class="circle @(mouse ? "drop" : "new")">
+        @if (@Chat.Messages.Any()) {
+            <div class="date">@string.Format("{0:hh:mm tt}", Chat.Messages?.FirstOrDefault().Header.Created)</div>
+        }
+        <div class="circle @(mouse || newMessage.Equals(0) ? "drop" : "new")">
             @if (mouse) {
                 <ToolTip Text="Close" Pos="ToolTip.Position.Left">
                     <div><span class="iconify" data-icon="ep:arrow-down"></span></div>
                 </ToolTip>
             }
             else {
-                <div><span>1</span></div>
+                @if((Chat.Messages?.Count(m=> !m.Read)) > 0) {
+                    <div><span>
+                        @* List all messages not readed and not created by me *@
+                        @if (@Chat.Messages.Any()) {
+                            @(newMessage > 0 ? newMessage : string.Empty)
+                        }
+                    </span></div>
+                }
             }
         </div>
     </div>
 </main>
 
 @code {
+    [Parameter]
+    public Chat Chat { get; set; }
+    
+    public User User { get; set; } //TODO if is a group change this hack
     
     List<string> items = new List<string>() {"Archive chat", "Mute Notifications", "Delete Chat", "Pin chat", "Mark as unread"};
 
-    private string premessage;
-
     private bool mouse = false;
+
+    private int newMessage;
     
     protected override async Task OnInitializedAsync() {
-       // premessage = _message.Body.Substring(0, 27) + "...";
+        User = Chat.Subscribers.First(u => u.RUI != AuthService.MyUser.RUI);
+        
+        //Count the new messages not created by me
+        if (@Chat.Messages.Any()) {
+            newMessage = (@Chat.Messages.Where(m => m.Read.Equals(false) && (!m.Header.CreatedBy.RUI.Equals(AuthService.MyUser.RUI)))).ToList().Count; 
+            }
+        else {
+            newMessage = 0;
+        }
     }
 
     private void MouseEnter() {
@@ -43,5 +70,10 @@
     private void MouseLeft() {
         mouse = false;
     }
+    
+    public void Goto() {
+        navMgr.NavigateTo($"/Chat/{User.Email}", true);
+    }
+    
 
 }

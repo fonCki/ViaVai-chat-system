@@ -6,8 +6,8 @@
 @inject IChatService ChatService 
 
 <main class="main">
-    @if (_messages != null) {
-        foreach (var message in _messages) {
+    @if (Chat.Messages != null) {
+        foreach (var message in Chat.Messages) {
             <div class="@(AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email) ? "mine" : "not-mine")">
                 <PlainMessage Message="message" IsMine=@AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email)></PlainMessage>
             </div>
@@ -17,13 +17,9 @@
 
 @code {
     [CascadingParameter]
-    public User Receipe { get; set; }
+    public Chat Chat { get; set; }
     
-    ICollection<Message>? _messages;
-
     protected override async Task OnInitializedAsync() {
         User myself = AuthService.MyUser;
-        var chat = await ChatService.GetOrCreateChat(AuthService.MyUser, Receipe);
-        _messages = chat.Messages;
     }
 }
