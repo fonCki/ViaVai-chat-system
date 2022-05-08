@@ -6,19 +6,20 @@ public class Chat {
 
     public Guid CID { get; set; } 
     
-    public ICollection<User> Subscribers { get; set; }
+    public ICollection<User> Members { get; set; }
 
     public ICollection<Message> Messages { get; set; } 
 
     [JsonConstructor]
-    public Chat() {
+    // public Chat(User Myself, ICollection<User> Members) { TODO Create Group chat
+    public Chat() {    
         CID = Guid.NewGuid();
-        Subscribers = new List<User>();
+        Members = new List<User>();
         Messages = new List<Message>();
     }
 
     public bool IsAGroup() {
-        return Subscribers.Count > 2;
+        return Members.Count > 2;
     }
 
     public bool IsPrivate() {

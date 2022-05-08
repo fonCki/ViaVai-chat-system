@@ -1,10 +1,14 @@
 @using System.Data
 @using System.Diagnostics
+@using System.Text.Json
 @using BlazorApp.Authentication
+@using BlazorApp.Services.Hub
 @using Contracts.Services
 @using Entities.Model
+@using Microsoft.AspNetCore.SignalR.Client
 @inject IChatService ChatService
 @inject IAuthService AuthService
+@inject HubService HubService
 
 @namespace BlazorApp.Shared.Components
 
@@ -14,8 +18,11 @@
         <HeaderLeft ChangePanel="ChangePanel"/>
         <SearchArea text="Search or start new chat" color="dark"/>
         <MakeScrollList>
-            @foreach(Chat chat in Chats) {
-                 <SingleChat Chat="chat"/> 
+            @if (HubService.Message != null) {
+                <p>@HubService.Message.Body</p>
+            }
+            @foreach (Chat chat in Chats) {
+                <SingleChat Chat="chat"/>
             }
         </MakeScrollList>
     </div>
@@ -40,6 +47,7 @@
     
     
     protected async override Task OnInitializedAsync() {
+        HubService.Notify += OnNotify;
         Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser);
         foreach (var cha in Chats) {
             Console.WriteLine(cha.CID);
@@ -73,5 +81,13 @@
         }
         StateHasChanged();
     }
-
+    
+    public async Task OnNotify()
+    {
+        await InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
+    }
+    
 }

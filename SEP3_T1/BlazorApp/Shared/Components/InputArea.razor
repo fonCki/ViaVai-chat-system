@@ -1,8 +1,12 @@
 @using Entities.Model
 @using BlazorApp.Authentication
 @using Contracts.Services
+@using System.Text.Json
+@using BlazorApp.Services.Hub
+@using Microsoft.AspNetCore.SignalR.Client;
 @inject IAuthService AuthService
 @inject IChatService ChatService
+@inject HubService HubService
 
 <main class="main">
     <ToolTip Text="Share Happiness"><span class="iconify" data-icon="bi:emoji-smile" style="color: #657781;"></span></ToolTip>
@@ -15,6 +19,8 @@
 
     [CascadingParameter]
     Chat Chat { get; set; }
+    
+    public HubConnection? HubConnection { get; set; }
 
     public string InputMessage { get; set; }
     
@@ -32,12 +38,20 @@
 
     }
 
+    
+
+    
     //Create and send the message
     public async Task Send() {
-        if (!String.IsNullOrWhiteSpace(InputMessage)) {
-            Message message = new Message(AuthService.MyUser, Chat.CID, InputMessage);
-            await ChatService.SendMessage(message);
-            InputMessage = String.Empty;
-        }
+     if (!String.IsNullOrWhiteSpace(InputMessage)) {
+         Message message = new Message(AuthService.MyUser, Chat.CID, InputMessage);
+         string messageAsJson = JsonSerializer.Serialize(InputMessage);         //Convert the messaje to Json
+        //await ChatService.SendMessage(message);
+         await HubConnection.SendAsync("Broadcast", messageAsJson);
+         InputMessage = String.Empty;
+         
+         }
     }
 }
+
+

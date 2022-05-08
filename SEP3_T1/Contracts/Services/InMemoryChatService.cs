@@ -51,20 +51,20 @@ public class InMemoryChatService : IChatService{
         }
 
         //Filter by single chats
-        var singleChats= _chats.Where(c => (c.Subscribers.Count == 2));
+        var singleChats= _chats.Where(c => (c.Members.Count == 2));
         
         Console.WriteLine(singleChats.Count());
         
         //Return a available chat between this 2 users
-        var chat = singleChats.Where(c => c.Subscribers.Any(u => u.RUI.Equals(userOne.RUI))).Where(c => c.Subscribers.Any(u => u.RUI.Equals(userTwo.RUI))).FirstOrDefault();
+        var chat = singleChats.Where(c => c.Members.Any(u => u.RUI.Equals(userOne.RUI))).Where(c => c.Members.Any(u => u.RUI.Equals(userTwo.RUI))).FirstOrDefault();
         
         if (chat != null)
             Console.WriteLine("Este es el chat que encontre: " + chat.CID); //TODO to eliminate
         
         if (chat == null) {
             chat = new Chat();
-            chat.Subscribers.Add(userOne);
-            chat.Subscribers.Add(userTwo);
+            chat.Members.Add(userOne);
+            chat.Members.Add(userTwo);
             _chats.Add(chat);
         }
         return chat;
@@ -74,7 +74,7 @@ public class InMemoryChatService : IChatService{
         if (_chats == null) {
             LoadOrCreate();
         }
-        ICollection<Chat>? chats = _chats.Where(c => c.Subscribers.Any(u => u.RUI.Equals(user.RUI))).ToList() as ICollection<Chat>;
+        ICollection<Chat>? chats = _chats.Where(c => c.Members.Any(u => u.RUI.Equals(user.RUI))).ToList() as ICollection<Chat>;
 
         return chats;
     }

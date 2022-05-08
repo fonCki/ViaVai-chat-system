@@ -1,7 +1,9 @@
 @page "/Login"
 @using BlazorApp.Authentication
+@using BlazorApp.Services.Hub
 @inject IAuthService authService
 @inject NavigationManager navMgr
+@inject HubService HubService
 
 
 <AuthorizeView>
@@ -35,6 +37,8 @@
         try
         {
             await authService.LoginAsync(email, password);
+            await HubService.GetHubConnection().StartAsync();
+            Console.WriteLine("Connected with number: " + HubService.GetHubConnection().ConnectionId);
             navMgr.NavigateTo("/");
         }
         catch (Exception e)

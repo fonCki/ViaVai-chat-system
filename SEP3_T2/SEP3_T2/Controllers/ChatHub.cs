@@ -8,10 +8,13 @@ public class ChatHub : Hub {
 
     public async Task Broadcast(string message) {
         await Clients.All.SendAsync("Broadcast", message);
-        await MessageHTTPClient.AddMessage(message);
+       // await MessageHTTPClient.AddMessage(message);
         Console.WriteLine(message);
     }
-    
+
+    public async Task SendMessage(string message) {
+    }
+
     public override Task OnConnectedAsync()
     {
         Console.WriteLine($"{Context.ConnectionId} connected");

@@ -52,7 +52,7 @@
     private int newMessage;
     
     protected override async Task OnInitializedAsync() {
-        User = Chat.Subscribers.First(u => u.RUI != AuthService.MyUser.RUI);
+        User = Chat.Members.First(u => u.RUI != AuthService.MyUser.RUI);
         
         //Count the new messages not created by me
         if (@Chat.Messages.Any()) {
