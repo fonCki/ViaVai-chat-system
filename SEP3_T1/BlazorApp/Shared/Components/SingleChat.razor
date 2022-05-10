@@ -5,7 +5,7 @@
 @inject NavigationManager navMgr
 
 
-<main class="main-component" onmouseover="@MouseEnter" onmouseleave="@MouseLeft" @onclick="@Goto">
+<main class="main-component" onmouseover="@MouseEnter" onmouseleave="@MouseLeft" @onclick="@(() => selectUser.Invoke(User.Email))">
     <div class="left-half">
         <div class="avatar"><Avatar size="Avatar.Size.Medium" image="@User.Avatar"/></div>
         <div class="name-and-message">
@@ -40,9 +40,10 @@
 </main>
 
 @code {
-    [Parameter]
-    public Chat Chat { get; set; }
+    [Parameter] public Chat Chat { get; set; }
     
+    [CascadingParameter] protected Action<String> selectUser {get; set; }
+
     public User User { get; set; } //TODO if is a group change this hack
     
     List<string> items = new List<string>() {"Archive chat", "Mute Notifications", "Delete Chat", "Pin chat", "Mark as unread"};
@@ -70,10 +71,4 @@
     private void MouseLeft() {
         mouse = false;
     }
-    
-    public void Goto() {
-        navMgr.NavigateTo($"/Chat/{User.Email}", true);
-    }
-    
-
 }

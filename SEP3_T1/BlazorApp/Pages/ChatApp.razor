@@ -1,0 +1,56 @@
+@using BlazorApp.Shared.Components
+@using Contracts.Services
+@using Entities.Model
+@using System.Runtime.Intrinsics.Arm
+@using BlazorApp.Authentication
+@inject IUserService UserService
+@inject IChatService ChatService
+@inject NavigationManager NavMgr
+@inject IAuthService AuthService
+@page "/chatApp/{email?}"
+
+<AuthorizeView>
+    <Authorized>
+        <main class="main">
+            <div class="left-menu">
+                <CascadingValue Value="SelectUser">
+                <LeftMain/>
+                </CascadingValue>
+            </div>
+            <div class="chat-area">
+                <ChatArea Chat="Chat" User="User"/>
+            </div>
+
+        </main>
+    </Authorized>
+    <NotAuthorized>
+        @{NavMgr.NavigateTo("/login"); }
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [Parameter] public string Email { get; set; }
+    
+    public User? User { get; set; }
+    
+    public Chat? Chat { get; set; }
+    
+    
+    protected async override Task OnInitializedAsync() {
+        if (String.IsNullOrWhiteSpace(Email))  Email = "panchi@gmail.com"; //TODO WTF IS THIS?
+        await LoadInitialData(Email);
+
+    }
+    
+
+    public async void SelectUser(string email) {
+        await LoadInitialData(email);
+        StateHasChanged();
+    }
+
+    public async Task LoadInitialData(String email) {
+        User = await UserService.GetUserAsyncByEmail(email);
+        Chat = await ChatService.GetOrCreateChat(AuthService.MyUser, User);
+    }
+
+}    

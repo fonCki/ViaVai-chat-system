@@ -1,9 +1,17 @@
 .main-header {
+    height: 80px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center;    
     background-color: #f1f2f5;
     padding: 5px 15px;
+}
+
+.avatar {
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .menu {

@@ -29,7 +29,7 @@
                     <h4>Online</h4>
                 </div>
                 @foreach (var user in online) {
-                    <SingleUser _user="@user"/>
+                    <SingleUser User="@user"/>
                 }
             }
             @* ------------------------------------------- *@
@@ -39,7 +39,7 @@
                     <h4>Sleeping</h4>
                 </div>
                 @foreach (var user in sleeping) {
-                    <SingleUser _user="@user"/>
+                    <SingleUser User="@user"/>
                 }
             }
             @* ------------------------------------------- *@
@@ -49,7 +49,7 @@
                     <h4>Offline</h4>
                 </div>
                 @foreach (var user in offline) {
-                    <SingleUser _user="@user"/>
+                    <SingleUser User="@user"/>
                 }
             }
             @* ------------------------------------------- *@

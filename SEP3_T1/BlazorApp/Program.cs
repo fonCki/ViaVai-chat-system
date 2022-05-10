@@ -28,7 +28,7 @@ if (!app.Environment.IsDevelopment()) {
 }
 
 
-app.MapFallbackToPage("/chat/{param?}", "/_Host");
+app.MapFallbackToPage("/chatApp/{param?}", "/_Host");
 
 app.UseHttpsRedirection();
 

@@ -18,8 +18,10 @@
 @code {
     [CascadingParameter]
     public Chat Chat { get; set; }
-    
-    protected override async Task OnInitializedAsync() {
-        User myself = AuthService.MyUser;
+
+    //Clear all read messages
+    protected async override Task OnAfterRenderAsync(bool firstRender) {
+        await ChatService.MarkAsRead(Chat.CID, AuthService.MyUser);
     }
+
 }
