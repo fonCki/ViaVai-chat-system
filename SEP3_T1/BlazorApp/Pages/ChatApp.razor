@@ -2,26 +2,34 @@
 @using Contracts.Services
 @using Entities.Model
 @using System.Runtime.Intrinsics.Arm
+@using System.Text.Json
 @using BlazorApp.Authentication
+@using BlazorApp.Services
+@using BlazorApp.Services.Hub
+@using Microsoft.AspNetCore.SignalR.Client
 @inject IUserService UserService
 @inject IChatService ChatService
 @inject NavigationManager NavMgr
 @inject IAuthService AuthService
 @page "/chatApp/{email?}"
+@inject HubService HubService
+@inject IToastService ToastService
+
 
 <AuthorizeView>
     <Authorized>
-        <main class="main">
-            <div class="left-menu">
-                <CascadingValue Value="SelectUser">
-                <LeftMain/>
-                </CascadingValue>
-            </div>
-            <div class="chat-area">
-                <ChatArea Chat="Chat" User="User"/>
-            </div>
-
-        </main>
+        <CascadingValue Value="HubService">
+            <main class="main">
+                <div class="left-menu">
+                    <CascadingValue Value="SelectUser">
+                        <LeftMain/>
+                    </CascadingValue>
+                </div>
+                <div class="chat-area">
+                    <ChatArea Chat="Chat" User="User"/>
+                </div>
+            </main>
+        </CascadingValue>
     </Authorized>
     <NotAuthorized>
         @{NavMgr.NavigateTo("/login"); }
@@ -34,14 +42,29 @@
     public User? User { get; set; }
     
     public Chat? Chat { get; set; }
+
+    HubConnection HubConnection;
     
     
     protected async override Task OnInitializedAsync() {
-        if (String.IsNullOrWhiteSpace(Email))  Email = "panchi@gmail.com"; //TODO WTF IS THIS?
-        await LoadInitialData(Email);
-
+        await HubService.InitHubConnection();
+        try {
+            HubConnection = HubService.HubConnection!;
+            HubConnection?.StartAsync();
+            HubService.NotifyNewLogin += NotifyNewLogin;
+            if (String.IsNullOrWhiteSpace(Email)) Email = "panchi@gmail.com"; //TODO WTF IS THIS?
+            await LoadInitialData(Email);
+        }  catch (Exception e) {
+            Console.WriteLine(e);
+            throw;
+        }
     }
-    
+
+    private void NotifyNewLogin(string user) {
+        Console.WriteLine(user);
+        ToastService.ShowInfo("Hay un nuevo login");
+    }
+
 
     public async void SelectUser(string email) {
         await LoadInitialData(email);
@@ -52,5 +75,7 @@
         User = await UserService.GetUserAsyncByEmail(email);
         Chat = await ChatService.GetOrCreateChat(AuthService.MyUser, User);
     }
+    
+
 
 }    

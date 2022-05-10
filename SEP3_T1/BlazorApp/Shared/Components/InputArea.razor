@@ -1,6 +1,8 @@
 @using Entities.Model
 @using BlazorApp.Authentication
+@using BlazorApp.Services.Hub
 @using Contracts.Services
+@using Microsoft.AspNetCore.SignalR.Client
 @inject IAuthService AuthService
 @inject IChatService ChatService
 
@@ -14,11 +16,17 @@
 @code {
 
     [CascadingParameter] public Chat Chat { get; set; }
+    [CascadingParameter] private HubService? HubService { get; set;}
+
+
+    private HubConnection hubConnection;
+    public string InputMessage { get; set; }
+
+    protected async override Task OnInitializedAsync() {
+         hubConnection = HubService.HubConnection;
+    }
     
 
-    public string InputMessage { get; set; }
-    
-    
     //If I press enter
     public void Enter(KeyboardEventArgs e) {
         if (e.Code == "Enter" || e.Code == "NumpadEnter") {
@@ -34,6 +42,11 @@
 
     //Create and send the message
     public async Task Send() {
+        Console.WriteLine("-------------------------------------");
+        Console.WriteLine("DESDE INPUT AREA: ");
+        Console.WriteLine("ESTADO: " + hubConnection?.State);
+        Console.WriteLine("ID : " + hubConnection?.ConnectionId);
+        Console.WriteLine("-------------------------------------");
         if (!String.IsNullOrWhiteSpace(InputMessage)) {
             Message message = new Message(AuthService.MyUser, Chat.CID, InputMessage);
             await ChatService.SendMessage(message);

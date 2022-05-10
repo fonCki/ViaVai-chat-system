@@ -2,6 +2,7 @@ using BlazorApp.Authentication;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using BlazorApp.Services;
+using BlazorApp.Services.Hub;
 using BlazorApp.Services.View;
 using Contracts.Services;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -17,6 +18,7 @@ builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthenticationStat
 builder.Services.AddScoped<IAuthService, AuthServiceImpl>();
 builder.Services.AddScoped<IUserService, InMemoryUserService>(); //TODO Delete InMemoryUserService
 builder.Services.AddScoped<IChatService, InMemoryChatService>();
+builder.Services.AddScoped<HubService>();
 
 var app = builder.Build();
 

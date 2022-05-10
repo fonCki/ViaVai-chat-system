@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RESTClient", "RESTClient\RE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{B3888052-1C81-401E-9C8B-D7D8F25C6260}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{2EFBF6DC-ECA0-43A0-9D10-8FE57D802856}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{B3888052-1C81-401E-9C8B-D7D8F25C6260}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3888052-1C81-401E-9C8B-D7D8F25C6260}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3888052-1C81-401E-9C8B-D7D8F25C6260}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EFBF6DC-ECA0-43A0-9D10-8FE57D802856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EFBF6DC-ECA0-43A0-9D10-8FE57D802856}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EFBF6DC-ECA0-43A0-9D10-8FE57D802856}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EFBF6DC-ECA0-43A0-9D10-8FE57D802856}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
