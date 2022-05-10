@@ -50,7 +50,6 @@ public class InMemoryUserService : IUserService {
     }
 
     public async Task UpdateUser(User user) {
-        Console.WriteLine(user);
         if (_users == null) {
             await LoadOrCreate();
         }

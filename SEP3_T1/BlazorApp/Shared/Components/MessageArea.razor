@@ -1,18 +1,24 @@
 @using Entities.Model
 @using Contracts.Services
 @using BlazorApp.Authentication
+@using BlazorApp.Services.Hub
 
 @inject IAuthService AuthService
 @inject IChatService ChatService 
+@inject HubService HubService
 
 <main class="main">
-    @if (Chat.Messages != null) {
-        foreach (var message in Chat.Messages) {
-            <div class="@(AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email) ? "mine" : "not-mine")">
-                <PlainMessage Message="message" IsMine=@AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email)></PlainMessage>
-            </div>
-        }
-    }
+    @* @if (HubService.Message != null) { *@
+    @*     @HubService.Message.Body *@
+    @* } *@
+
+    @* @if (Chat.Messages != null) { *@
+    @*     foreach (var message in Chat.Messages) { *@
+    @*         <div class="@(AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email) ? "mine" : "not-mine")"> *@
+    @*             <PlainMessage Message="message" IsMine=@AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email)></PlainMessage> *@
+    @*         </div> *@
+    @* } *@
+    @* } *@
 </main>
 
 @code {
@@ -20,6 +26,15 @@
     public Chat Chat { get; set; }
     
     protected override async Task OnInitializedAsync() {
+        // HubService.Notify += OnNotify;
         User myself = AuthService.MyUser;
+    }
+    
+    public async Task OnNotify()
+    {
+        await InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
     }
 }

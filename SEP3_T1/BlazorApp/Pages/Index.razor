@@ -1,12 +1,13 @@
 @page "/"
 @inject NavigationManager navMgr
 
+
 @* <Chat/> *@
 
-
+<h1></h1>
 <AuthorizeView>
     <Authorized>
-        @{navMgr.NavigateTo("/Welcome"); }
+        <ChatApp/>
     </Authorized>
     <NotAuthorized>
         <Login/>

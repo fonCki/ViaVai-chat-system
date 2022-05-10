@@ -5,23 +5,13 @@
 
 <PageTitle>Via Vai Chat</PageTitle>
 
-<AuthorizeView>
-    <Authorized>
-        <div class="app">
-            <div class="side-bar">
-                <LeftMain/>
-            </div>
-            <main class="main">
-                @Body
-            </main>
+<div class="app">
+    <main class="main">
+        @Body
+    </main>
+    <AuthorizeView>
+        <Authorized>
             <Toast Position="ToastPosition.BottomRight" Timeout="10"/>
-        </div>
-    </Authorized>
-    <NotAuthorized>
-        <div class="app">
-            <main class="main">
-                @Body
-            </main>
-        </div>
-    </NotAuthorized>
-</AuthorizeView>
+        </Authorized>
+    </AuthorizeView>
+</div>

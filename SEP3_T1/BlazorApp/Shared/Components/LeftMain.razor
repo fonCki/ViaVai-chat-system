@@ -8,7 +8,7 @@
 @using Microsoft.AspNetCore.SignalR.Client
 @inject IChatService ChatService
 @inject IAuthService AuthService
-@inject HubService HubService
+@* @inject HubService HubService *@
 
 @namespace BlazorApp.Shared.Components
 
@@ -18,11 +18,11 @@
         <HeaderLeft ChangePanel="ChangePanel"/>
         <SearchArea text="Search or start new chat" color="dark"/>
         <MakeScrollList>
-            @if (HubService.Message != null) {
-                <p>@HubService.Message.Body</p>
-            }
-            @foreach (Chat chat in Chats) {
-                <SingleChat Chat="chat"/>
+            <p>Hola</p>
+            @if (Chats != null) {
+                @foreach (Chat chat in Chats) {
+                    <SingleChat Chat="chat"/>
+                }
             }
         </MakeScrollList>
     </div>
@@ -44,17 +44,20 @@
     private Status users = Status.Hidden;
     
     bool UsersView { get; set; } = false;
-    
+
+
+    [CascadingParameter] protected HubConnection HubConnection { get; set; }
     
     protected async override Task OnInitializedAsync() {
-        HubService.Notify += OnNotify;
         Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser);
-        foreach (var cha in Chats) {
-            Console.WriteLine(cha.CID);
-        }
+        Console.WriteLine(Chats.Count + "Count");
         if (Chats == null) Chats = new List<Chat>();
         Chats = Chats.Where(c => c.Messages.Any()).OrderByDescending(c => c.Messages?.First()?.Header.Created!).ToList();
+        @foreach (Chat chat in Chats) {
+            Console.WriteLine(chat.CID);
+        }
     }
+    
 
     public void ChangePanel(Panel panel) {
         CurrentPanel = panel;
@@ -89,5 +92,6 @@
             StateHasChanged();
         });
     }
+    
     
 }

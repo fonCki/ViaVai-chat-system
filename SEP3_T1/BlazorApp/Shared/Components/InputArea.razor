@@ -3,6 +3,7 @@
 @using Contracts.Services
 @using System.Text.Json
 @using BlazorApp.Services.Hub
+@using Microsoft.AspNetCore.SignalR
 @using Microsoft.AspNetCore.SignalR.Client;
 @inject IAuthService AuthService
 @inject IChatService ChatService
@@ -11,44 +12,62 @@
 <main class="main">
     <ToolTip Text="Share Happiness"><span class="iconify" data-icon="bi:emoji-smile" style="color: #657781;"></span></ToolTip>
     <ToolTip Text="Attach a file"><span class="iconify" data-icon="fluent:attach-12-regular" style="color: #657781;"></span></ToolTip>
-    <input type="search" placeholder="Type a message" value="@InputMessage" class="search-field" @onkeydown="@Enter" @oninput=@RefreshValue />
-    <div class="send" @onclick="@Send"><ToolTip Text="Send"><span class="iconify" data-icon="ant-design:send-outlined" style="color: #657781;"></span></ToolTip></div>
+    @* <input type="search" placeholder="Type a message" value="@InputMessage" class="search-field" @onkeydown="@Enter" @oninput=@RefreshValue /> *@
+    @* <div class="send" @onclick="@Send"><ToolTip Text="Send"><span class="iconify" data-icon="ant-design:send-outlined" style="color: #657781;"></span></ToolTip></div> *@
+        <textarea placeholder="write your message" @bind="inputMessage" @bind:event="oninput"></textarea>
+        <button @onclick="@(() => Send(inputMessage))">Send</button>
+    
 </main>
 
 @code {
-
-    [CascadingParameter]
-    Chat Chat { get; set; }
     
-    public HubConnection? HubConnection { get; set; }
+    Chat Chat { get; set; }
+    private Timer timer;
+    
+    public HubConnection HubConnection;
 
-    public string InputMessage { get; set; }
+    protected async override Task OnInitializedAsync() {
+
+    //Set the timer refresh
+        timer = new Timer((state => InvokeAsync(StateHasChanged)), null, 0, 1);
+            
+
+        await Task.Delay(1);
+            
+
+
+    }
+
+    private string inputMessage;
     
     
     //If I press enter
-    public void Enter(KeyboardEventArgs e) {
-        if (e.Code == "Enter" || e.Code == "NumpadEnter") {
-            Send();
-        } 
-    }
+    // public void Enter(KeyboardEventArgs e) {
+    //     if (e.Code == "Enter" || e.Code == "NumpadEnter") {
+    //         Send();
+    //     } 
+    // }
 
-    //Every time I type a character
-    public void RefreshValue(ChangeEventArgs e) {
-        InputMessage = e.Value.ToString();
-
-    }
+    // //Every time I type a character
+    // public void RefreshValue(ChangeEventArgs e) {
+    //     InputMessage = e.Value.ToString();
+    //
+    // }
 
     
 
     
     //Create and send the message
-    public async Task Send() {
-     if (!String.IsNullOrWhiteSpace(InputMessage)) {
-         Message message = new Message(AuthService.MyUser, Chat.CID, InputMessage);
-         string messageAsJson = JsonSerializer.Serialize(InputMessage);         //Convert the messaje to Json
+    public async Task Send(string inputMessage) {
+     if (!String.IsNullOrWhiteSpace(inputMessage)) {
+         Message messageToSend = new Message(AuthService.MyUser, Chat.CID, inputMessage);
+         string messageAsJson = JsonSerializer.Serialize(messageToSend);         //Convert the messaje to Json
         //await ChatService.SendMessage(message);
-         await HubConnection.SendAsync("Broadcast", messageAsJson);
-         InputMessage = String.Empty;
+         
+         // Console.WriteLine("Con no: "+ (HubService.GetHubConnection().State));
+
+        // await HubConnection.SendAsync("Broadcast", messageAsJson);
+         inputMessage = String.Empty;
          
          }
     }

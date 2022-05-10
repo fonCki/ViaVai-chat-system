@@ -22,7 +22,6 @@
 @using Microsoft.AspNetCore.Components
 @using Microsoft.VisualBasic
 @page "/Welcome"
-@inject HubService HubService;
 <h3>Chat</h3>
 
 @if (!online) {
@@ -61,6 +60,8 @@ else {
 
     List<Message> messages = new List<Message>();
     
+    HubConnection HubConnection { get; set; }
+
 
 
     private Timer timer;
@@ -71,20 +72,20 @@ else {
         try {
             //Set the timer refresh
             timer = new Timer((state => InvokeAsync(StateHasChanged)), null, 0, 1);
-
+            
             online = true;
             await Task.Delay(1);
-
+            
             //Remove old Messages
             messages.Clear();
 
 
             //Start the connection
 
-            // HubConnection = new HubConnectionBuilder().WithUrl("https://localhost:7777/chat").Build();
-            // HubConnection.On<string>("Broadcast", ReceiveMessage);
+            HubConnection = new HubConnectionBuilder().WithUrl("https://localhost:7777/chat").Build();
+            HubConnection.On<string>("Broadcast", ReceiveMessage);
             
-            // await HubService.GetHubConnection().StartAsync();
+            await HubConnection.StartAsync();
         }
         catch (Exception e) {
             information = e.Message;
@@ -94,13 +95,13 @@ else {
 
 
     private void ReceiveMessage(string messageInJson) {
-
+    
         //Convert Message from Json
         Message message = JsonSerializer.Deserialize<Message>(messageInJson, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;
-
+    
         messages.Add(message);
         StateHasChanged();
     }
@@ -113,7 +114,7 @@ else {
         string messageAsJson = JsonSerializer.Serialize(messageToSend);         //Convert the messaje to Json
 
         if (online) {
-            await HubService.GetHubConnection().SendAsync("Broadcast", messageAsJson);
+            await HubConnection.SendAsync("Broadcast", messageAsJson);
             newMessage = "";
         }
     }
