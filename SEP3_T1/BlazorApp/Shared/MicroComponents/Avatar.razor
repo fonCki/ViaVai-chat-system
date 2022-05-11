@@ -7,10 +7,18 @@
 @code {
     [Parameter] public Size size { get; set; }
     [Parameter] public string? image { get; set; } = "/images/-user-login.png";
+    [CascadingParameter] public Action RefreshChilds { get; set; }
+    
+    private void Refresh() {
+        StateHasChanged();
+        Console.WriteLine("Refresque el avatar");
+    }
+    
     
     private string s;
     
     protected override async Task OnInitializedAsync() {
+         RefreshChilds += Refresh;
         s = ((int) size) + "px";
     }
     

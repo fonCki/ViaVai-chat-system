@@ -7,56 +7,57 @@
 @using BlazorApp.Authentication
 @using Contracts.Services
 
-<main class="main">
-    <div class="header">
-        <div class="title">
-            <div class="back" onclick="@(() => ChangePanel.Invoke(Panel.Starter))">
-                <ToolTip Text="Back">
-                    <span class="iconify" data-icon="ant-design:arrow-left-outlined" data-width="22" data-height="22" style="color: white;"></span>
-                </ToolTip>
+@if (_users != null) {
+    <main class="main">
+        <div class="header">
+            <div class="title">
+                <div class="back" onclick="@(() => ChangePanel.Invoke(Panel.Starter))">
+                    <ToolTip Text="Back">
+                        <span class="iconify" data-icon="ant-design:arrow-left-outlined" data-width="22" data-height="22" style="color: white;"></span>
+                    </ToolTip>
+                </div>
+                <h5>New chat</h5>
             </div>
-            <h5>New chat</h5>
         </div>
-    </div>
-    <div class="search">
-        <SearchArea text="Search Contacts"/> 
-    </div>
-    <div class="user-list">
-        <MakeScrollList>
-            @* ----------Online Users -------------------*@
-            @if (online.Any()) {
-                <div class="status">
-                    <h4>Online</h4>
-                </div>
-                @foreach (var user in online) {
-                    <SingleUser User="@user"/>
+        <div class="search">
+            <SearchArea text="Search Contacts"/>
+        </div>
+        <div class="user-list">
+            <MakeScrollList>
+                @* ----------Online Users -------------------*@
+                @if (online.Any()) {
+                    <div class="status">
+                        <h4>Online</h4>
+                    </div>
+                    @foreach (var user in online) {
+                        <SingleUser User="@user"/>
+                    }
                 }
-            }
-            @* ------------------------------------------- *@
-            @* ----------Sleeping Users -------------------*@
-            @if (sleeping.Any()) {
-                <div class="status">
-                    <h4>Sleeping</h4>
-                </div>
-                @foreach (var user in sleeping) {
-                    <SingleUser User="@user"/>
+                @* ------------------------------------------- *@
+                @* ----------Sleeping Users -------------------*@
+                @if (sleeping.Any()) {
+                    <div class="status">
+                        <h4>Sleeping</h4>
+                    </div>
+                    @foreach (var user in sleeping) {
+                        <SingleUser User="@user"/>
+                    }
                 }
-            }
-            @* ------------------------------------------- *@
-            @* ----------Offline Users -------------------*@
-            @if (offline.Any()) {
-                <div class="status">
-                    <h4>Offline</h4>
-                </div>
-                @foreach (var user in offline) {
-                    <SingleUser User="@user"/>
+                @* ------------------------------------------- *@
+                @* ----------Offline Users -------------------*@
+                @if (offline.Any()) {
+                    <div class="status">
+                        <h4>Offline</h4>
+                    </div>
+                    @foreach (var user in offline) {
+                        <SingleUser User="@user"/>
+                    }
                 }
-            }
-            @* ------------------------------------------- *@
-        </MakeScrollList>
-    </div>
-</main>
-
+                @* ------------------------------------------- *@
+            </MakeScrollList>
+        </div>
+    </main>
+}
 @code {
     [Parameter]
     public Action<Panel> ChangePanel { get; set; }
@@ -64,12 +65,13 @@
     private ICollection<User> _users;
 
     IOrderedEnumerable<User> online, offline, sleeping;
-    
 
-    protected async override Task OnInitializedAsync() {
+
+    protected async override Task OnParametersSetAsync() {
         _users = await userService.GetContactList(); //TODO GetContaclist must be users without me
         online = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Online).OrderBy(u => u.Name); //TODO THis mus be filter in the middleware
         offline = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Offline).OrderBy(u => u.Name);
         sleeping = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Sleeping).OrderBy(u => u.Name);
     }
+    
 }

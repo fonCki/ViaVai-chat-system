@@ -5,11 +5,14 @@ namespace Contracts.Services;
 
 public class InMemoryChatService : IChatService{
     
-    private string chatPath = "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T1/Contracts/Services/JsonFiles/chats.json";
+    private string chatPath = "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Contracts/Services/JsonFiles/chats.json";
 
     private ICollection<Chat> _chats;
 
-    public InMemoryChatService() {
+    private IUserService UserService;
+
+    public InMemoryChatService(IUserService userService) {
+        UserService = userService;
         LoadOrCreate();
     }
 
@@ -21,13 +24,13 @@ public class InMemoryChatService : IChatService{
         return _chats;
     }
 
-    public async Task SendMessage(Message message) {
+    public async Task SaveMessage(Message message) {
         if (_chats == null) {
             LoadOrCreate();
         }
 
 
-        Chat? chat = await GetOrCreateChat(message.Header.CUIRecipient);
+        Chat? chat = await GetChat(message.Header.CUIRecipient);
 
         if (chat == null) {
             throw new Exception("Internal Error, Chat could not be found");
@@ -37,16 +40,16 @@ public class InMemoryChatService : IChatService{
         SaveChangesAsync();
     }
 
-    public async Task<Chat> GetOrCreateChat(Guid CUI) {
+    public async Task<Chat> GetChat(Guid CUI) {
         return _chats.FirstOrDefault(c => c.CID.Equals(CUI));
     }
 
-    public async Task<Chat> GetOrCreateChat(User userOne, User userTwo) {
+    public async Task<Chat> GetOrCreateChat(Guid userOne, Guid userTwo) {
         if (_chats == null) {
             LoadOrCreate();
         }
 
-        if (userOne.RUI.Equals(userTwo.RUI)) {
+        if (userOne.Equals(userTwo)) {
             throw new Exception("Can't create a chat with the same person");
         }
 
@@ -56,42 +59,43 @@ public class InMemoryChatService : IChatService{
         Console.WriteLine(singleChats.Count());
         
         //Return a available chat between this 2 users
-        var chat = singleChats.Where(c => c.Subscribers.Any(u => u.RUI.Equals(userOne.RUI))).Where(c => c.Subscribers.Any(u => u.RUI.Equals(userTwo.RUI))).FirstOrDefault();
+        var chat = singleChats.Where(c => c.Subscribers.Any(u => u.RUI.Equals(userOne))).Where(c => c.Subscribers.Any(u => u.RUI.Equals(userTwo))).FirstOrDefault();
         
         if (chat != null)
             Console.WriteLine("Este es el chat que encontre: " + chat.CID); //TODO to eliminate
         
         if (chat == null) {
             chat = new Chat();
-            chat.Subscribers.Add(userOne);
-            chat.Subscribers.Add(userTwo);
+            chat.Subscribers.Add(await UserService.GetUserAsyncByRUI(userOne));
+            chat.Subscribers.Add(await UserService.GetUserAsyncByRUI(userTwo));
             _chats.Add(chat);
         }
+
+        Console.WriteLine("Me gustaria imprimir este chat: " + chat.CID);
         return chat;
     }
 
-    public async Task<ICollection<Chat>> GetAllChatsByUser(User user) {
+    public async Task<ICollection<Chat>> GetAllChatsByUser(Guid RUI) {
         if (_chats == null) {
             LoadOrCreate();
         }
-        ICollection<Chat>? chats = _chats.Where(c => c.Subscribers.Any(u => u.RUI.Equals(user.RUI))).ToList() as ICollection<Chat>;
+        ICollection<Chat>? chats = _chats.Where(c => c.Subscribers.Any(u => u.RUI.Equals(RUI))).ToList() as ICollection<Chat>;
 
         return chats;
     }
 
     public async Task<Chat> UpdateChat(Chat chat) {
-        throw new NotImplementedException();
-    }
-
-    public async Task MarkAsRead(Guid CUI, User myself) {
-        Chat chat = await GetOrCreateChat(CUI);
-        //Mark as read my messages
-        foreach (var message in chat.Messages.Where(m=> !(m.Header.CreatedBy.RUI.Equals(myself.RUI)))) {
-            message.Read = true;
+        if (_chats == null) {
+            LoadOrCreate();
         }
 
+        Chat chatToUpdate = await GetChat(chat.CID);
+        chatToUpdate.Messages = chat.Messages;
+        chatToUpdate.Subscribers = chat.Subscribers;
         SaveChangesAsync();
+        return chatToUpdate;
     }
+    
     
 
     public async Task SaveChangesAsync() {

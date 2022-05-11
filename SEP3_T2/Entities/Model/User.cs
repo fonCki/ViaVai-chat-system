@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Entities.Model; 
 
 public class User : Recipient {
-    
+    public override Guid RUI { get; set; }
     public override string Name { get; set; }
     
     public override string Avatar { get; set; }
@@ -20,6 +20,7 @@ public class User : Recipient {
     public User() { }
     
     public User(string fName, string lastName, string email, string password, string avatar) {
+        RUI = Guid.NewGuid();
         Name = fName;
         LastName = lastName;
         Email = email;
@@ -29,6 +30,7 @@ public class User : Recipient {
     }
     
     public User(string fName, string lastName, string email, string password) {
+        RUI = Guid.NewGuid();
         Name = fName;
         LastName = lastName;
         Email = email;
@@ -37,5 +39,7 @@ public class User : Recipient {
         Status = Status.Offline;
     }
 
-   
+    public override string ToString() {
+        return $"{nameof(RUI)}: {RUI}, {nameof(Name)}: {Name}, {nameof(Avatar)}: {Avatar}, {nameof(LastName)}: {LastName}, {nameof(Email)}: {Email}, {nameof(Password)}: {Password}, {nameof(Status)}: {Status}";
+    }
 }

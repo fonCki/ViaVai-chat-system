@@ -8,7 +8,7 @@
     <div class="name-and-avatar" @onclick="@ShowAlert">
     <div class="avatar">
         <ToolTip Text="@User.Name" Pos="ToolTip.Position.Button"><Avatar size="Avatar.Size.Medium" image="@User.Avatar"/></ToolTip>
-
+    
     </div>
         <div class="nickname">
             <h3>@User.Name</h3>
@@ -44,6 +44,7 @@
     
 
     protected override void OnInitialized() {
+        Console.WriteLine((User == null) + " Es o no es");
         search = false;
         DropDownItems.Clear();
         DropDownItems.Add(new DropDownItem("New Group", (() => Console.WriteLine("New Group"))));

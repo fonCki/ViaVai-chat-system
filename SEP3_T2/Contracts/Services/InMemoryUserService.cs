@@ -6,7 +6,7 @@ namespace Contracts.Services;
 
 public class InMemoryUserService : IUserService {
 
-    private string usersPath = "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T1/Contracts/Services/JsonFiles/users.json";
+    private string usersPath = "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Contracts/Services/JsonFiles/users.json";
 
     private ICollection<User> _users;
 
@@ -20,7 +20,6 @@ public class InMemoryUserService : IUserService {
         if (_users == null) {
             await LoadOrCreate();
         }
-
         return _users;
     }
 
@@ -35,7 +34,18 @@ public class InMemoryUserService : IUserService {
         return find;
     }
 
-    public async Task SignUp(string name, string lname, string email, string password, string imgPath) {
+    public async Task<User> GetUserAsyncByRUI(Guid RUI) {
+        if (RUI == null) {
+            throw new Exception("Error with user address");
+        }
+        User? find = _users.FirstOrDefault(user => user.RUI.Equals(RUI));
+        if (find == null) {
+            throw new Exception("User not found");
+        }
+        return find;
+    }
+
+    public async Task<User> SignUp(string name, string lname, string email, string password, string imgPath) {
         if (await existUser(email)) {
             throw new Exception("User already exist");
         }
@@ -43,13 +53,12 @@ public class InMemoryUserService : IUserService {
         if (_users == null) {
             await LoadOrCreate();
         }
-
         _users.Add(new User(name, lname, email, password, imgPath));
-            SaveChangesAsync();
-        
+        SaveChangesAsync();
+        return _users.FirstOrDefault(user => user.Email.Equals(email));
     }
 
-    public async Task UpdateUser(User user) {
+    public async Task<User> UpdateUser(User user) {
         Console.WriteLine(user);
         if (_users == null) {
             await LoadOrCreate();
@@ -64,6 +73,7 @@ public class InMemoryUserService : IUserService {
         find.Email = user.Email;
         find.Password = user.Password;
         SaveChangesAsync();
+        return find;
     }
 
     public async Task DeleteAccount(User user) {

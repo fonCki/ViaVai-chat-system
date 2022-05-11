@@ -30,7 +30,6 @@
 
     protected async override Task OnInitializedAsync() {
         hubConnection = HubService.HubConnection;
-        // hubConnection.On("NewMessage", (() => Console.WriteLine("otra vez")));
         HubService.NotifyNewMessage += OnNotify;
         
     }
@@ -38,23 +37,20 @@
 
     //Clear all read messages
     protected async override Task OnAfterRenderAsync(bool firstRender) {
-
-        Console.WriteLine("-------------------------------------");
-        await Task.Delay(1000); 
-        Console.WriteLine("DESDE MESSAGE AREA: ");
-        Console.WriteLine("ESTADO: " + hubConnection?.State);
-        Console.WriteLine("ID : " + hubConnection?.ConnectionId);
-        Console.WriteLine("-------------------------------------");
-        // await ChatService.MarkAsRead(Chat.CID, AuthService.MyUser);
+        foreach (var message in Chat!.Messages.Where(m=>!m.Header.CreatedBy.RUI.Equals(AuthService.MyUser.RUI))) {
+            message.Read = true;
+        }
+        await ChatService.UpdateChat(Chat);
     }
     
     
 
     public async Task OnNotify() {
-        await InvokeAsync((() => {
-            Console.WriteLine("Hy un mensaje");
-            // StateHasChanged();
+        await InvokeAsync((async () => {
+            Chat = await ChatService.GetChat(Chat.CID);
+            StateHasChanged();
         }));
     }
+    
 
 }
