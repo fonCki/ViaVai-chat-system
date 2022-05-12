@@ -4,6 +4,7 @@
 @using BlazorApp.Services.Hub
 @using Contracts.Services
 @using Entities.Model
+@using System.Collections
 @inject IChatService ChatService
 @inject IAuthService AuthService
 
@@ -83,9 +84,19 @@
     
     public async void OnNotify(Message message) {
         await InvokeAsync((async () => {
-            Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser.RUI);
-            await InitAndSortChats();
-            StateHasChanged();
+            // try {
+            //     Chats.FirstOrDefault(c => c.CID.Equals(message.Header.CUIRecipient))?.Messages.Add(message);
+            // }
+            // catch (Exception e) {
+                Chats.Clear();
+                StateHasChanged();
+
+                Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser.RUI);
+                await InitAndSortChats();
+                StateHasChanged();
+            // }
+
+  
         }));
     }
 

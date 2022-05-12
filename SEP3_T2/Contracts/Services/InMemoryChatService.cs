@@ -18,7 +18,7 @@ public class InMemoryChatService : IChatService{
 
     public async Task<ICollection<Chat>> GetAllChats() {
         if (_chats == null) {
-            LoadOrCreate();
+            await LoadOrCreate();
         }
 
         return _chats;
@@ -26,7 +26,7 @@ public class InMemoryChatService : IChatService{
 
     public async Task SaveMessage(Message message) {
         if (_chats == null) {
-            LoadOrCreate();
+            await LoadOrCreate();
         }
 
 
@@ -37,22 +37,30 @@ public class InMemoryChatService : IChatService{
         }
         chat.Messages.Add(message);
         chat.Messages = chat.Messages.OrderByDescending(m => m.Header.Created).ToList();
-        SaveChangesAsync();
+         await SaveChangesAsync();
     }
 
     public async Task<Chat> GetChat(Guid CUI) {
-        Console.WriteLine("Mira que lindo.." + CUI);
+        if (_chats == null) {
+            await LoadOrCreate();
+        }
         return _chats.FirstOrDefault(c => c.CID.Equals(CUI))!;
     }
 
     public async Task<Chat> GetOrCreateChat(Guid userOne, Guid userTwo) {
         if (_chats == null) {
-            LoadOrCreate();
+            await LoadOrCreate();
+        }
+
+        if (userOne == null || userTwo == null) {
+            throw new Exception("User can't be null mate! fix this");
         }
 
         if (userOne.Equals(userTwo)) {
             throw new Exception("Can't create a chat with the same person");
         }
+        
+        
 
         //Filter by single chats
         var singleChats= _chats.Where(c => (c.Subscribers.Count == 2));
@@ -69,28 +77,29 @@ public class InMemoryChatService : IChatService{
             _chats.Add(chat);
         }
 
-        SaveChangesAsync();
+        await SaveChangesAsync();
         return chat;
     }
 
     public async Task<ICollection<Chat>> GetAllChatsByUser(Guid RUI) {
         if (_chats == null) {
-            LoadOrCreate();
+            await LoadOrCreate();
         }
-        ICollection<Chat>? chats = _chats.Where(c => c.Subscribers.Any(u => u.RUI.Equals(RUI))).ToList() as ICollection<Chat>;
 
+        ICollection<Chat> chats = new List<Chat>();
+        chats = _chats.Where(c => c.Subscribers.Any(u => u.RUI.Equals(RUI))).ToList();
         return chats;
     }
 
     public async Task<Chat> UpdateChat(Chat chat) {
         if (_chats == null) {
-            LoadOrCreate();
+            await LoadOrCreate();
         }
 
         Chat chatToUpdate = await GetChat(chat.CID);
         chatToUpdate.Messages = chat.Messages;
         chatToUpdate.Subscribers = chat.Subscribers;
-        SaveChangesAsync();
+        await SaveChangesAsync();
         return chatToUpdate;
     }
     
@@ -112,7 +121,7 @@ public class InMemoryChatService : IChatService{
         }
         else {
             _chats = new List<Chat>();
-            Task.FromResult(SaveChangesAsync());
+            await Task.FromResult(SaveChangesAsync());
         }
         
     }
