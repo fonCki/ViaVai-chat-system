@@ -19,10 +19,12 @@
 <AuthorizeView>
     <Authorized>
         @if (Chat != null) {
+
+
             <CascadingValue Value="HubService">
                 <main class="main">
                     <div class="left-menu">
-                        <CascadingValue Value="SelectUser">
+                        <CascadingValue Value="SelectedUser">
                             <LeftMain/>
                         </CascadingValue>
                     </div>
@@ -63,14 +65,8 @@
             throw;
         }
     }
-
-    private void NotifyNewLogin(string user) {
-        Console.WriteLine(user);
-        ToastService.ShowInfo("Hay un nuevo login");
-    }
-
-
-    public async void SelectUser(string email) {
+    
+    public async void SelectedUser(string email) {
         await LoadInitialData(email);
         StateHasChanged();
     }
@@ -78,9 +74,11 @@
     public async Task LoadInitialData(String email) {
         User = await UserService.GetUserAsyncByEmail(email);
         Chat = await ChatService.GetOrCreateChat(AuthService.MyUser.RUI, User.RUI);
-        Console.WriteLine(Chat + "Chat desde ChatApp");
     }
     
-
+    private void NotifyNewLogin(string user) {
+        Console.WriteLine(user);
+        ToastService.ShowInfo("Hay un nuevo login");
+    }
 
 }    

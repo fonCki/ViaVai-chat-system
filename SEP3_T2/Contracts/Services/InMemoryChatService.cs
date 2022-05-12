@@ -41,7 +41,8 @@ public class InMemoryChatService : IChatService{
     }
 
     public async Task<Chat> GetChat(Guid CUI) {
-        return _chats.FirstOrDefault(c => c.CID.Equals(CUI));
+        Console.WriteLine("Mira que lindo.." + CUI);
+        return _chats.FirstOrDefault(c => c.CID.Equals(CUI))!;
     }
 
     public async Task<Chat> GetOrCreateChat(Guid userOne, Guid userTwo) {
@@ -56,13 +57,10 @@ public class InMemoryChatService : IChatService{
         //Filter by single chats
         var singleChats= _chats.Where(c => (c.Subscribers.Count == 2));
         
-        Console.WriteLine(singleChats.Count());
         
         //Return a available chat between this 2 users
         var chat = singleChats.Where(c => c.Subscribers.Any(u => u.RUI.Equals(userOne))).Where(c => c.Subscribers.Any(u => u.RUI.Equals(userTwo))).FirstOrDefault();
         
-        if (chat != null)
-            Console.WriteLine("Este es el chat que encontre: " + chat.CID); //TODO to eliminate
         
         if (chat == null) {
             chat = new Chat();
@@ -71,7 +69,7 @@ public class InMemoryChatService : IChatService{
             _chats.Add(chat);
         }
 
-        Console.WriteLine("Me gustaria imprimir este chat: " + chat.CID);
+        SaveChangesAsync();
         return chat;
     }
 

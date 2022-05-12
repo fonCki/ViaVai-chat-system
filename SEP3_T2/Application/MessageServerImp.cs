@@ -14,11 +14,9 @@ public class MessageServerImp : IMessageService {
 
     public async Task<Message> SaveMessage(Message message) {
         Chat chat = await ChatService.GetChat(message.Header.CUIRecipient);
-        Console.WriteLine(chat.CID);
         if (chat == null) {
             throw new Exception("Hay un error con el chat");
         }
-
         await ChatService.SaveMessage(message);
         return message;
     }

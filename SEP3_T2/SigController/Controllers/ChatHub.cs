@@ -27,11 +27,11 @@ public class ChatHub : Hub {
         Message message = JsonSerializer.Deserialize<Message>(messageAsJson, new JsonSerializerOptions {
             PropertyNameCaseInsensitive = true
         })!;
-
-        Console.WriteLine(message.Body);
         await MessageService.SaveMessage(message);
-        await Clients.All.SendAsync("NotifyAll");
+        await Clients.All.SendAsync("NotifyAll", messageAsJson);
     }
+    
+    
     public async Task NewMessageNotification() {
         await Clients.All.SendAsync("NewMessage");
         // await MessageHTTPClient.AddMessage(message);

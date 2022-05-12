@@ -25,9 +25,11 @@
         <div class="main-@Panel.Profile @profile">
             <Profile ChangePanel="ChangePanel"/>
         </div>
-        <div class="main-@Panel.Users @users">
-            <UserList ChangePanel="ChangePanel"/>
-        </div>
+            <div class="main-@Panel.Users @users">
+                <CascadingValue Value="@ChangePanel">
+                    <UserList />
+                </CascadingValue>
+            </div>
         </CascadingValue>
     </main>
 }
@@ -46,7 +48,9 @@
     bool UsersView { get; set; } = false;
 
     protected async override Task OnParametersSetAsync() {
-        HubService.NotifyNewMessage += OnNotify;
+        HubService.NotifyAllNewMessage += OnNotify;
+        Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser.RUI);
+        if (Chats == null) Chats = new List<Chat>();
         await InitAndSortChats();
     }
     
@@ -77,19 +81,15 @@
         StateHasChanged();
     }
     
-    public async Task OnNotify() {
+    public async void OnNotify(Message message) {
         await InvokeAsync((async () => {
-            Chats.Clear();
-            StateHasChanged();
+            Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser.RUI);
             await InitAndSortChats();
-            RefreshChilds?.Invoke();
             StateHasChanged();
         }));
     }
 
     private async Task InitAndSortChats() {
-        Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser.RUI);
-        if (Chats == null) Chats = new List<Chat>();
         Chats = Chats.Where(c => c.Messages.Any()).OrderByDescending(c => c.Messages?.First()?.Header.Created!).ToList();
     }
 

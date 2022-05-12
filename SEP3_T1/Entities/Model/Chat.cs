@@ -16,7 +16,8 @@ public class Chat {
         Subscribers = new List<User>();
         Messages = new List<Message>();
     }
-
+    
+    
     public bool IsAGroup() {
         return Subscribers.Count > 2;
     }

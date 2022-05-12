@@ -59,8 +59,7 @@
     </main>
 }
 @code {
-    [Parameter]
-    public Action<Panel> ChangePanel { get; set; }
+    [CascadingParameter] public Action<Panel> ChangePanel { get; set; }
 
     private ICollection<User> _users;
 

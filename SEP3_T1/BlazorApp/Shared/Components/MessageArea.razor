@@ -30,8 +30,7 @@
 
     protected async override Task OnInitializedAsync() {
         hubConnection = HubService.HubConnection;
-        HubService.NotifyNewMessage += OnNotify;
-        
+        HubService.NotifyAllNewMessage += OnNotify;
     }
 
 
@@ -40,14 +39,30 @@
         foreach (var message in Chat!.Messages.Where(m=>!m.Header.CreatedBy.RUI.Equals(AuthService.MyUser.RUI))) {
             message.Read = true;
         }
-        await ChatService.UpdateChat(Chat);
+        if (Chat!.Messages.Any()) {
+            await ChatService.UpdateChat(Chat);
+        }
     }
     
     
-
-    public async Task OnNotify() {
+    
+    
+    public async void OnNotify(Message message) {
         await InvokeAsync((async () => {
-            Chat = await ChatService.GetChat(Chat.CID);
+            
+            //TODO
+            //Think about one of the two options. or refhres all the time from database,
+            //or add the message to the list
+            
+            //Option one:
+
+            if (message.Header.CUIRecipient == Chat.CID) { // TODO if is not like this, this message should't be here! fix this
+                Chat.Messages.Add(message);
+                Chat.Messages = Chat.Messages.OrderByDescending(m => m.Header.Created).ToList();
+            }
+            //Option two:
+            // Chat = await ChatService.GetChat(Chat.CID);
+            
             StateHasChanged();
         }));
     }

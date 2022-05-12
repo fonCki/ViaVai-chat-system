@@ -57,7 +57,7 @@
     
 
     protected override async Task OnInitializedAsync() {
-        HubService.NotifyNewMessage += OnNotify;
+        // HubService.NotifyNewMessage += OnNotify;
         User = Chat.Subscribers.First(u => u.RUI != AuthService.MyUser.RUI);
         //Count the new messages not created by me
         if (@Chat.Messages.Any()) {

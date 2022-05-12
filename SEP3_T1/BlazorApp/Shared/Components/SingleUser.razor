@@ -2,7 +2,7 @@
 @using Entities.Model
 @inject NavigationManager NavMgr
 
-<main class="main" @onclick="@(() => selectUser.Invoke(User.Email))">
+<main class="main" @onclick="@(() => { selectUser.Invoke(User.Email); ChangePanel.Invoke(Panel.Starter); })">
     <div class="name-and-avatar">
         <Avatar size="Avatar.Size.Medium" image="@User.Avatar"/>
         <div class="personal-data">
@@ -19,6 +19,8 @@
 
 @code {
     [Parameter] public User User { get; set; }
+    
+    [CascadingParameter] public Action<Panel> ChangePanel { get; set; }
     
     [CascadingParameter] protected Action<String> selectUser {get; set; }
     

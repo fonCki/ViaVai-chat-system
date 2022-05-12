@@ -12,18 +12,35 @@ public class HubService {
     public HubConnection? HubConnection { get; private set; }
     
     public Message Message { get; set; }
-    public event Func<Task> NotifyNewMessage;
+    // public event Func<Task> NotifyNewMessage;
     
     public Action<string> NotifyNewLogin;
     
+    public Action<Message>? NotifyAllNewMessage;
+    
     public async Task InitHubConnection() {
-        HubConnection ??=  new HubConnectionBuilder().WithUrl(Address.ENDPOINT_HUB).Build();
-        // _hubConnection.On<string>("Broadcast", ReceiveMessage);
-        HubConnection.On("NewMessage", () =>  NotifyNewMessage.Invoke() );
-        HubConnection.On<string>("NewLogin", NewLogin);
-        HubConnection.On("NotifyAll", () => NotifyNewMessage.Invoke());
+        
+        try {         
+            HubConnection ??=  new HubConnectionBuilder().WithUrl(Address.ENDPOINT_HUB).Build();
+            // _hubConnection.On<string>("Broadcast", ReceiveMessage);
+            // HubConnection.On("NewMessage", () =>  NotifyNewMessage.Invoke() );
+            HubConnection.On<string>("NewLogin", NewLogin);
+            HubConnection.On<string>("NotifyAll", NotifyAll); }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            throw;
+        }
+
     }
 
+    private async Task NotifyAll(string messajeAsJson) {
+        Message message = JsonSerializer.Deserialize<Message>(messajeAsJson, new JsonSerializerOptions {
+                 PropertyNameCaseInsensitive = true
+             })!;
+        
+        NotifyAllNewMessage?.Invoke(message);
+    }
+    
     private void NewLogin(string userInJson) {
         Console.WriteLine(userInJson);
         // User user = JsonSerializer.Deserialize<User>(userInJson, new JsonSerializerOptions {
