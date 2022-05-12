@@ -5,6 +5,7 @@
 @using Contracts.Services
 @using Entities.Model
 @using System.Collections
+@using System.Text.Json
 @inject IChatService ChatService
 @inject IAuthService AuthService
 
@@ -84,19 +85,11 @@
     
     public async void OnNotify(Message message) {
         await InvokeAsync((async () => {
-            // try {
-            //     Chats.FirstOrDefault(c => c.CID.Equals(message.Header.CUIRecipient))?.Messages.Add(message);
-            // }
-            // catch (Exception e) {
-                Chats.Clear();
-                StateHasChanged();
-
-                Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser.RUI);
-                await InitAndSortChats();
-                StateHasChanged();
-            // }
-
-  
+            Chats.Clear();
+            StateHasChanged();
+            Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser.RUI); //TODO this is not the correct aproach
+            await InitAndSortChats();
+            StateHasChanged();
         }));
     }
 

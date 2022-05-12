@@ -17,7 +17,6 @@ public class Chat {
         Messages = new List<Message>();
     }
     
-    
     public bool IsAGroup() {
         return Subscribers.Count > 2;
     }
@@ -25,7 +24,5 @@ public class Chat {
     public bool IsPrivate() {
         return !IsAGroup();
     }
-    
-    
     
 }

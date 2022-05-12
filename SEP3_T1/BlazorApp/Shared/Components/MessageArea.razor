@@ -56,12 +56,13 @@
             
             //Option one:
 
-            if (message.Header.CUIRecipient == Chat.CID) { // TODO if is not like this, this message should't be here! fix this
-                Chat.Messages.Add(message);
-                Chat.Messages = Chat.Messages.OrderByDescending(m => m.Header.Created).ToList();
-            }
+            // if (message.Header.CUIRecipient == Chat.CID) { // TODO if is not like this, this message should't be here! fix this
+            //     Chat.Messages.Add(message);
+            //     Chat.Messages = Chat.Messages.OrderByDescending(m => m.Header.Created).ToList();
+            // }
+           
             //Option two:
-            // Chat = await ChatService.GetChat(Chat.CID);
+            Chat = await ChatService.GetChat(Chat.CID);
             
             StateHasChanged();
         }));
