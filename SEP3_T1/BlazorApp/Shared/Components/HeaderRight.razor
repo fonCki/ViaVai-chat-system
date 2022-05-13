@@ -2,16 +2,18 @@
 @using BlazorApp.Shared.MicroComponents
 @using BlazorApp.Config.DropDownMenu
 @using Entities.Model
-@inject IToastService _toastService
+@using BlazorApp.Authentication
+@inject IToastService ToastService
+@inject IAuthService AuthService;
 
 <div class="main-header">
     <div class="name-and-avatar" @onclick="@ShowAlert">
     <div class="avatar">
-        <ToolTip Text="@User.Name" Pos="ToolTip.Position.Button"><Avatar size="Avatar.Size.Medium" image="@User.Avatar"/></ToolTip>
+        <ToolTip Text="@groupName" Pos="ToolTip.Position.Button"><Avatar size="Avatar.Size.Medium" image="@groupImage"/></ToolTip>
     
     </div>
         <div class="nickname">
-            <h3>@User.Name</h3>
+            <h3>@groupName</h3>
         </div>
     </div>
     <div class="menu">
@@ -33,18 +35,24 @@
 @code {
     
     
-    [CascadingParameter]
-    User User { get; set; }
+    [CascadingParameter] public Chat? Chat { get; set; }
     
     public static bool search = false; // true is shown
+
+    private string groupName;
+
+    private string groupImage;
     
     DropDownMenuSettings DropDownMenuSettings { get; set; }= new DropDownMenuSettings("bi:three-dots-vertical", "Menu", DropDownItems);
 
     static ICollection<DropDownItem> DropDownItems { get; set; } = new List<DropDownItem>();
-    
+
+
+    protected async override Task OnParametersSetAsync() {
+        await SetNameAndImage();
+    }
 
     protected override void OnInitialized() {
-        Console.WriteLine((User == null) + " Es o no es");
         search = false;
         DropDownItems.Clear();
         DropDownItems.Add(new DropDownItem("New Group", (() => Console.WriteLine("New Group"))));
@@ -52,13 +60,25 @@
         DropDownItems.Add(new DropDownItem("Log out", (() => Console.WriteLine("LogOut"))));
     }
 
+    private async Task SetNameAndImage() {
+        if (Chat.Subscribers.Count > 2) {
+            groupName = Chat.Name;
+            groupImage = Chat.Image;
+        }
+        else {
+            User notMe = Chat!.Subscribers.First(u => !u.RUI.Equals(AuthService.MyUser.RUI));
+            groupName = notMe.Name;
+            groupImage = notMe.Avatar;
+        }
+    }
+    
     public void ShowAlert() { //TODO delete this thing
         int randomNumber = new Random().Next(1, 4);
         switch (randomNumber) {
-            case 1 : {_toastService.ShowInfo("I am a INFO message"); break;}
-            case 2 : {_toastService.ShowError("I am a Error message"); break;}
-            case 3 : {_toastService.ShowSuccess("I am a Success message"); break;}
-            case 4 : {_toastService.ShowWarning("I am a Warning message"); break;}
+            case 1 : {ToastService.ShowInfo("I am a INFO message"); break;}
+            case 2 : {ToastService.ShowError("I am a Error message"); break;}
+            case 3 : {ToastService.ShowSuccess("I am a Success message"); break;}
+            case 4 : {ToastService.ShowWarning("I am a Warning message"); break;}
         }
     }
     

@@ -1,7 +1,7 @@
 @using Entities.Model
 @using Contracts.Services
 @using BlazorApp.Authentication
-@using BlazorApp.Services.Hub
+@using Contracts.Services.Hub
 @using Microsoft.AspNetCore.SignalR.Client
 
 @inject IAuthService AuthService
@@ -40,7 +40,7 @@
             message.Read = true;
         }
         if (Chat!.Messages.Any()) {
-            await ChatService.UpdateChat(Chat);
+            // await ChatService.UpdateChat(Chat);
         }
     }
     
@@ -49,7 +49,6 @@
     
     public async void OnNotify(Message message) {
         await InvokeAsync((async () => {
-            
             //TODO
             //Think about one of the two options. or refhres all the time from database,
             //or add the message to the list

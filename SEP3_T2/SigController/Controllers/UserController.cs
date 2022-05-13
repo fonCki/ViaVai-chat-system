@@ -30,11 +30,25 @@ public class UserController : ControllerBase {
     }
 
     [HttpGet]
-    [Route("{email}")]
+    [Route("email/{email}")]
     public async Task<ActionResult<User>> GetUserByEmailAsync([FromRoute] string email) {
 
         try {
             User user = await UserService.GetUserAsyncByEmail(email);
+            return Ok(user);
+        }
+        catch (Exception e) {
+            return StatusCode(500, e.Message);
+        }
+   
+    }
+    
+    [HttpGet]
+    [Route("rui/{rui}")]
+    public async Task<ActionResult<User>> GetUserByRuiAsync([FromRoute] Guid rui) {
+
+        try {
+            User user = await UserService.GetUserAsyncByRUI(rui);
             return Ok(user);
         }
         catch (Exception e) {
@@ -59,6 +73,18 @@ public class UserController : ControllerBase {
         try {
             User updated = await UserService.UpdateUser(user);
             return Ok(user);
+        }
+        catch (Exception e) {
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet]
+    [Route("set/{rui}/{status}")]
+    public async Task<ActionResult> SetStatus([FromRoute] Guid RUI, Status status) {
+        try {
+            Status newStatus = await UserService.SetStatus(RUI, status);
+            return Ok(newStatus);
         }
         catch (Exception e) {
             return StatusCode(500, e.Message);

@@ -5,31 +5,32 @@
 @using System.Text.Json
 @using BlazorApp.Authentication
 @using BlazorApp.Services
-@using BlazorApp.Services.Hub
+@using Contracts.Services.Hub
+@using Microsoft.AspNetCore.SignalR
 @using Microsoft.AspNetCore.SignalR.Client
 @inject IUserService UserService
 @inject IChatService ChatService
 @inject NavigationManager NavMgr
 @inject IAuthService AuthService
 @page "/chatApp/{email?}"
-@inject HubService HubService
 @inject IToastService ToastService
+@inject HubService HubService
 
 
 <AuthorizeView>
     <Authorized>
         @if (Chat != null) {
-
-
             <CascadingValue Value="HubService">
                 <main class="main">
                     <div class="left-menu">
-                        <CascadingValue Value="SelectedUser">
-                            <LeftMain/>
-                        </CascadingValue>
+                        <CascadingValue Value="SelectedChat">
+                            <CascadingValue Value="SelectedUser">
+                                <LeftMain/>
+                            </CascadingValue>
+                            </CascadingValue>
                     </div>
                     <div class="chat-area">
-                        <ChatArea Chat="Chat" User="User"/>
+                        <ChatArea Chat="Chat"/>
                     </div>
                 </main>
             </CascadingValue>
@@ -41,6 +42,7 @@
 </AuthorizeView>
 
 @code {
+    
     [Parameter] public string Email { get; set; }
     
     public User? User { get; set; }
@@ -48,37 +50,56 @@
     public Chat? Chat { get; set; }
 
     HubConnection HubConnection;
-
-    protected async override Task OnParametersSetAsync() {
-        if (String.IsNullOrWhiteSpace(Email)) Email = "panchi@gmail.com"; //TODO WTF IS THIS?
-        await LoadInitialData(Email);
-    }
+    
+    
+    
 
     protected async override Task OnInitializedAsync() {
         await HubService.InitHubConnection();
         try {
             HubConnection = HubService.HubConnection!;
-            HubConnection?.StartAsync();
+            await HubConnection?.StartAsync()!;
+            await HubConnection.SendAsync("Welcome", AuthService.MyUser.RUI);
             HubService.NotifyNewLogin += NotifyNewLogin;
-        }  catch (Exception e) {
+            HubService.NotifyLogOff += NotifyLogOff;
+            await LoadInitialDataByUser();
+        } catch (Exception e) {
             Console.WriteLine(e);
             throw;
         }
     }
     
     public async void SelectedUser(string email) {
-        await LoadInitialData(email);
+        Email = email;
+        await LoadInitialDataByUser();
         StateHasChanged();
     }
 
-    public async Task LoadInitialData(String email) {
-        User = await UserService.GetUserAsyncByEmail(email);
+    public async void SelectedChat(Guid CUI) {
+        await LoadInitialDataByChatNo(CUI);
+        StateHasChanged();
+    }
+
+    private async Task LoadInitialDataByChatNo(Guid CUI) {
+        Chat = await ChatService.GetChat(CUI);
+    }
+
+    public async Task LoadInitialDataByUser() {
+        if (String.IsNullOrWhiteSpace(Email)) Email = "panchi@gmail.com"; 
+        User = await UserService.GetUserAsyncByEmail(Email);
         Chat = await ChatService.GetOrCreateChat(AuthService.MyUser.RUI, User.RUI);
     }
     
-    private void NotifyNewLogin(string user) {
-        Console.WriteLine(user);
-        ToastService.ShowInfo("Hay un nuevo login");
+    private async void NotifyNewLogin(Guid RUIuser) {
+        if (!RUIuser.Equals(AuthService.MyUser.RUI)) {
+            User user = await UserService.GetUserAsyncByRUI(RUIuser);
+            ToastService.ShowInfo("Hay un nuevo login : " + user.Name); //TODO Do it nice
+        }
+    }
+    
+    private async void NotifyLogOff(Guid RUIuser) {
+        User user = await UserService.GetUserAsyncByRUI(RUIuser);
+        ToastService.ShowInfo("ESTE USUARIO SE DESCONECTO : " + user.Name); //TODO Do it nice
     }
 
 }    

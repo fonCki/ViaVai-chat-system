@@ -1,12 +1,8 @@
 @using Entities.Model
 <main class="main">
-    <CascadingValue Value="User">
-            @if (User!=null) {
-                <HeaderRight/>
-            }
-    </CascadingValue>
     <CascadingValue Value="Chat">
         @if (Chat != null) {
+            <HeaderRight/>
             <MessageArea/>
             <InputArea/>
         }
@@ -16,9 +12,7 @@
 </main>
 
 @code {
-    [Parameter] public User User { get; set; }
     [Parameter] public Chat Chat { get; set; }
-    
 }
 
 

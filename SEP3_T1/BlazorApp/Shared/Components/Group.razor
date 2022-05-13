@@ -1,0 +1,102 @@
+@using BlazorApp.Authentication
+@using BlazorApp.Shared.MicroComponents
+@using Contracts.Services
+@using Contracts.Services.Hub
+@using Entities.Model
+@using Microsoft.AspNetCore.SignalR.Client
+@using System.Text.Json
+@inject IUserService UserService
+@inject IChatService ChatService
+@inject IAuthService AuthService
+@inject IMessageService MessageService
+
+<main class="main">
+    <div class="header">
+        <div class="title">
+            <div class="back" onclick="@(() => ChangePanel.Invoke(Panel.Starter))">
+                       <ToolTip Text="Back">
+                       <span class="iconify" data-icon="ant-design:arrow-left-outlined" data-width="22" data-height="22" style="color: white;"></span>
+                        </ToolTip>
+            </div>
+            <h5>New Group</h5>
+        </div>
+    </div>
+    <ChangeableAvatar newImage="@UpdateAvatar" newError="@UpdateError"/>
+    <input type="text" @bind="@groupName" class="input-group-text" placeholder="Group name"/>
+    <div class="users-list">
+        @if (users != null) {
+            @foreach (User user in users) {
+                <div class="user-row">
+                    <div class="user" onclick="">
+                        <Avatar image="@user.Avatar" size="Avatar.Size.Small" />
+                        <h6>@user.Name</h6>
+                    </div>
+                    <div class="check-box">
+                        <input type="checkbox" class="form-check-input" @onchange="@(() => IncludeExclude(user) )" />
+                    </div>
+                </div>
+        }
+        }
+    </div>
+        <p class="error-label"> @if (!string.IsNullOrEmpty(errorLabel))@errorLabel</p>
+        <div class="save">
+            <button class="button-save" @onclick="@CreateGroup">
+                <span class="iconify" data-icon="codicon:save-as" style="color: #8696a0;" data-width="25" ></span>
+            </button>
+    </div>
+</main>
+
+@code {
+    private string errorLabel = string.Empty;
+    private string imagePath = "images/-user-login.png";
+    private string groupName = string.Empty;
+    
+    private ICollection<User> users;
+
+    private HashSet<User> groupUsers;
+    
+    [CascadingParameter] private HubService? HubService { get; set;}
+
+    protected override async Task OnParametersSetAsync() {
+        users = await UserService.GetContactList();
+        users = users.OrderBy(u => u.Name).ToList();
+        groupUsers = new HashSet<User>();
+    }
+
+    [Parameter]
+    public Action<Panel> ChangePanel { get; set; }
+    
+    
+    public void UpdateAvatar(string newPath) {
+        imagePath = newPath;
+
+    }
+
+    public void UpdateError(string newError) {
+        errorLabel = newError;
+        StateHasChanged();
+    }
+
+    private void IncludeExclude(User user) {
+        if (groupUsers.Contains(user)) {
+            groupUsers.Remove(user);
+        }
+        else {
+            groupUsers.Add(user);
+        }
+    }
+    
+    private async void CreateGroup() {
+        Chat groupChat = new Chat(groupName, imagePath);
+        foreach (var user in groupUsers) {
+            groupChat.Subscribers.Add(user);
+        }
+        groupChat.Subscribers.Add(AuthService.MyUser);
+        Chat chat = await ChatService.AddGroupChat(groupChat);
+        Message welcomeMessage = new Message(AuthService.MyUser, chat.CID, $"This is an automatic welcome message to the group that I created {groupChat}, You're very welcome to participate");
+        string messageAsJson = JsonSerializer.Serialize(welcomeMessage);
+        await HubService?.HubConnection?.SendAsync("SendMessage", messageAsJson)!;
+
+    }
+
+}

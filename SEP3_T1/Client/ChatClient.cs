@@ -41,6 +41,27 @@ public class ChatClient : IChatService {
         return chat;
     }
 
+    public async Task<Chat> AddGroupChat(Chat chat) {
+        using HttpClient client = new();
+        string chatToJson = JsonSerializer.Serialize(chat);
+        StringContent content = new(chatToJson, Encoding.UTF8, "application/json");
+        HttpResponseMessage response = await client.PostAsync(Address.ENDPOINT_CHAT, content);
+        Console.WriteLine(response);
+        string responseContent = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception($"Error: {response.StatusCode}, {responseContent}");
+        }
+        
+        Chat returned = JsonSerializer.Deserialize<Chat>(responseContent, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+
+        return returned;
+    }
+
+
     public async Task<Chat> GetChat(Guid CUI) {
         using HttpClient client = new();
         HttpResponseMessage response = await client.GetAsync(Address.ENDPOINT_CHAT + $"/chat/{CUI}");

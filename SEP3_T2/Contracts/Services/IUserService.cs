@@ -9,5 +9,6 @@ public interface IUserService {
     public Task<User> SignUp(string name, string lname, string email, string password, string imgPath);
     public Task<User> UpdateUser(User user);
     public Task DeleteAccount(User user);
+    public Task<Status> SetStatus(Guid RUI, Status status);
 
 }

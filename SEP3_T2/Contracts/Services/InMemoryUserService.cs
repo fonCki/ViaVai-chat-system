@@ -8,7 +8,7 @@ public class InMemoryUserService : IUserService {
 
     private string usersPath = "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Contracts/Services/JsonFiles/users.json";
 
-    private ICollection<User> _users;
+    private ICollection<User>? _users;
 
     public InMemoryUserService() {
          LoadOrCreate();
@@ -35,6 +35,9 @@ public class InMemoryUserService : IUserService {
     }
 
     public async Task<User> GetUserAsyncByRUI(Guid RUI) {
+        if (_users == null) {
+            await LoadOrCreate();
+        }
         if (RUI == null) {
             throw new Exception("Error with user address");
         }
@@ -54,7 +57,7 @@ public class InMemoryUserService : IUserService {
             await LoadOrCreate();
         }
         _users.Add(new User(name, lname, email, password, imgPath));
-        SaveChangesAsync();
+        await SaveChangesAsync();
         return _users.FirstOrDefault(user => user.Email.Equals(email));
     }
 
@@ -72,7 +75,7 @@ public class InMemoryUserService : IUserService {
         find.LastName = user.LastName;
         find.Email = user.Email;
         find.Password = user.Password;
-        SaveChangesAsync();
+        await SaveChangesAsync();
         return find;
     }
 
@@ -82,17 +85,31 @@ public class InMemoryUserService : IUserService {
         }
         User? find = _users.FirstOrDefault(user => user.Email.Equals(user.Email));
         _users.Remove(find);
-        SaveChangesAsync();
+        await SaveChangesAsync();
     }
 
-
+    public async Task<Status> SetStatus(Guid RUI, Status status) {
+        if (_users == null) {
+            await LoadOrCreate();
+        }
+        if (RUI == null) {
+            throw new Exception("Error with user address");
+        }
+        User? find = _users.FirstOrDefault(user => user.RUI.Equals(RUI));
+        if (find == null) {
+            throw new Exception("User not found");
+        }
+        find.Status = status;
+        await SaveChangesAsync();
+        return find.Status;
+    }
 
 
     private async Task<bool> existUser(string email) {
         if (_users == null) {
             await LoadOrCreate();
         }
-        return _users.Any(u => email.Equals(u.Email));
+        return _users!.Any(u => email.Equals(u.Email));
     }
     
     public async Task SaveChangesAsync() {
@@ -111,7 +128,7 @@ public class InMemoryUserService : IUserService {
         }
         else {
             _users = new List<User>();
-            Task.FromResult(SaveChangesAsync());
+            await Task.FromResult(SaveChangesAsync());
         }
         
     }

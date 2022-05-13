@@ -72,20 +72,30 @@ public class InMemoryChatService : IChatService{
         
         if (chat == null) {
             chat = new Chat();
-            chat.Subscribers.Add(await UserService.GetUserAsyncByRUI(userOne));
-            chat.Subscribers.Add(await UserService.GetUserAsyncByRUI(userTwo));
+            User Myself = await UserService.GetUserAsyncByRUI(userOne);
+            User ChatUser = await UserService.GetUserAsyncByRUI(userTwo);
+            chat.Subscribers.Add(Myself);
+            chat.Subscribers.Add(ChatUser);
             _chats.Add(chat);
         }
 
         await SaveChangesAsync();
         return chat;
     }
+    
+    public async Task<Chat> CreateGroupChat(Chat chat) {
+        if (_chats == null) {
+            await LoadOrCreate();
+        }
+        _chats.Add(chat);
+        await SaveChangesAsync();
+        return await GetChat(chat.CID);
+    }
 
     public async Task<ICollection<Chat>> GetAllChatsByUser(Guid RUI) {
         if (_chats == null) {
             await LoadOrCreate();
         }
-
         ICollection<Chat> chats = new List<Chat>();
         chats = _chats.Where(c => c.Subscribers.Any(u => u.RUI.Equals(RUI))).ToList();
         return chats;
@@ -102,8 +112,18 @@ public class InMemoryChatService : IChatService{
         await SaveChangesAsync();
         return chatToUpdate;
     }
-    
-    
+
+    public async Task<ICollection<Guid>> GetAllUsersFromChat(Guid CUI) {
+        ICollection<Guid> tempList = new List<Guid>();
+        foreach (var subscriber in GetChat(CUI).Result.Subscribers) {
+            tempList.Add(subscriber.RUI);
+        }
+
+        return tempList;
+    }
+
+
+
 
     public async Task SaveChangesAsync() {
         var chatAsJson = JsonSerializer.Serialize(_chats, new JsonSerializerOptions {

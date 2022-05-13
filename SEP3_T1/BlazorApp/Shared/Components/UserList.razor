@@ -6,6 +6,7 @@
 @using Entities.Model
 @using BlazorApp.Authentication
 @using Contracts.Services
+@using Contracts.Services.Hub
 
 @if (_users != null) {
     <main class="main">
@@ -60,6 +61,7 @@
 }
 @code {
     [CascadingParameter] public Action<Panel> ChangePanel { get; set; }
+    [CascadingParameter] private HubService HubService { get; set; }
 
     private ICollection<User> _users;
 
@@ -67,10 +69,26 @@
 
 
     protected async override Task OnParametersSetAsync() {
-        _users = await userService.GetContactList(); //TODO GetContaclist must be users without me
-        online = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Online).OrderBy(u => u.Name); //TODO THis mus be filter in the middleware
+        HubService.NotifyLogOff += guid => InvokeAsync(StateHasChanged);
+        HubService.NotifyNewLogin += guid => InvokeAsync(StateHasChanged);
+        _users = await userService.GetContactList();
+        await SortList();
+
+    }
+
+    private async Task SortList() {
+        online = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Online).OrderBy(u => u.Name); 
         offline = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Offline).OrderBy(u => u.Name);
         sleeping = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Sleeping).OrderBy(u => u.Name);
     }
+    
+    
+    private async Task UserListHasChange() { //TODO this must show in real time
+        _users = await userService.GetContactList();
+        await SortList();
+        StateHasChanged();
+    }
+    
+    
     
 }

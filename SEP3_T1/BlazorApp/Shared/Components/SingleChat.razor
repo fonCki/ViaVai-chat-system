@@ -1,17 +1,17 @@
 @using Entities.Model
 @using BlazorApp.Shared.MicroComponents
 @using BlazorApp.Authentication
-@using BlazorApp.Services.Hub
 @using Contracts.Services
+@using Contracts.Services.Hub
 @inject IAuthService AuthService
 @inject NavigationManager navMgr
 
 
-<main class="main-component" onmouseover="@MouseEnter" onmouseleave="@MouseLeft" @onclick="@(() => selectUser.Invoke(User.Email))">
+<main class="main-component" onmouseover="@MouseEnter" onmouseleave="@MouseLeft" @onclick="@(() => selectChat.Invoke(Chat.CID))">
     <div class="left-half">
-        <div class="avatar"><Avatar size="Avatar.Size.Medium" image="@User.Avatar"/></div>
+        <div class="avatar"><Avatar size="Avatar.Size.Medium" image="@Image"/></div>
         <div class="name-and-message">
-            <p class="nickname">@User.Name</p>
+            <p class="nickname">@Name</p>
             @if (@Chat.Messages.Any()) {
                 <p class="message">@Chat.Messages.FirstOrDefault().Body</p>
             }
@@ -43,22 +43,29 @@
 
 @code {
     [Parameter] public Chat Chat { get; set; }
+    
     [CascadingParameter] private HubService HubService { get; set; }
     
-    [CascadingParameter] protected Action<String> selectUser {get; set; }
+    [CascadingParameter] protected Action<Guid> selectChat {get; set; }
 
-    public User User { get; set; } //TODO if is a group change this hack
-    
     List<string> items = new List<string>() {"Archive chat", "Mute Notifications", "Delete Chat", "Pin chat", "Mark as unread"};
 
     private bool mouse = false;
 
     private int newMessage;
     
+    private string Name;
+
+    private string Image;
+    
+    protected async override Task OnParametersSetAsync() {
+        await SetNameAndImage();
+    }
+    
 
     protected override async Task OnInitializedAsync() {
         // HubService.NotifyNewMessage += OnNotify;
-        User = Chat.Subscribers.First(u => u.RUI != AuthService.MyUser.RUI);
+        // User = Chat.Subscribers.First(u => u.RUI != AuthService.MyUser.RUI);
         //Count the new messages not created by me
         if (@Chat.Messages.Any()) {
             newMessage = (@Chat.Messages.Where(m => m.Read.Equals(false) && (!m.Header.CreatedBy.RUI.Equals(AuthService.MyUser.RUI)))).ToList().Count; 
@@ -83,4 +90,15 @@
         }));
     }
     
+    private async Task SetNameAndImage() {
+        if (Chat.Subscribers.Count > 2) {
+            Name = Chat.Name;
+            Image = Chat.Image;
+        }
+        else {
+            User notMe = Chat!.Subscribers.First(u => !u.RUI.Equals(AuthService.MyUser.RUI));
+            Name = notMe.Name;
+            Image = notMe.Avatar;
+        }
+    }
 }

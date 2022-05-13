@@ -2,10 +2,10 @@ using BlazorApp.Authentication;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using BlazorApp.Services;
-using BlazorApp.Services.Hub;
 using BlazorApp.Services.View;
 using Client;
 using Contracts.Services;
+using Contracts.Services.Hub;
 using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);

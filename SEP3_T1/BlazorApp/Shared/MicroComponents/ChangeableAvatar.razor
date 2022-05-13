@@ -43,6 +43,7 @@
              actualImage = string.Format("data:image/jpeg;base64,{0}", base64ImageRepresentation);
              File.Delete(path);
              newImage(actualImage);
+             StateHasChanged();
          }
          catch (Exception ex) {
              newError($"Error: {ex.Message}");

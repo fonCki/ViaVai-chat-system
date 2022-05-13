@@ -25,7 +25,21 @@ public class UserClient : IUserService {
 
     public async Task<User> GetUserAsyncByEmail(string email) {
         using HttpClient client = new();
-        HttpResponseMessage response = await client.GetAsync(Address.ENDPOINT_USER + $"/{email}");
+        HttpResponseMessage response = await client.GetAsync(Address.ENDPOINT_USER + $"/email/{email}");
+        string content = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception($"Error: {response.StatusCode}, {content}");
+        }
+
+        User user = JsonSerializer.Deserialize<User>(content, new JsonSerializerOptions {
+            PropertyNameCaseInsensitive = true
+        })!;
+        return user;
+    }
+
+    public async Task<User> GetUserAsyncByRUI(Guid RUI) {
+        using HttpClient client = new();
+        HttpResponseMessage response = await client.GetAsync(Address.ENDPOINT_USER + $"/rui/{RUI}");
         string content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode) {
             throw new Exception($"Error: {response.StatusCode}, {content}");
@@ -76,5 +90,20 @@ public class UserClient : IUserService {
 
     public async Task DeleteAccount(User user) {
         throw new NotImplementedException();
+    }
+
+    public async Task<Status> SetStatus(Guid RUI, Status status) {
+        using HttpClient client = new();
+        HttpResponseMessage response = await client.GetAsync(Address.ENDPOINT_USER + $"/set/{RUI}/{status}");
+        string responseContent = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception($"Error: {response.StatusCode}, {responseContent}");
+        }
+
+        Status returned = JsonSerializer.Deserialize<Status>(responseContent, new JsonSerializerOptions {
+            PropertyNameCaseInsensitive = true
+        })!;
+        return returned;
     }
 }

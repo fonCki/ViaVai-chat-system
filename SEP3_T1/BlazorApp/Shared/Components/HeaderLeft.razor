@@ -1,6 +1,7 @@
 @using BlazorApp.Shared.MicroComponents
 @using BlazorApp.Config.DropDownMenu
 @using BlazorApp.Authentication
+@using Contracts.Services.Hub
 @inject IAuthService authService
 
 
@@ -29,14 +30,19 @@
     [Parameter]
     public Action<Panel> ChangePanel { get; set; }
     
+    [CascadingParameter] private HubService? HubService { get; set;}
+    
     DropDownMenuSettings DropDownMenuSettings { get; set; }= new DropDownMenuSettings("bi:three-dots-vertical", "Menu", DropDownItems);
     
     static ICollection<DropDownItem> DropDownItems { get; set; } = new List<DropDownItem>();
 
     protected override void OnInitialized() {
         DropDownItems.Clear();
-        DropDownItems.Add(new DropDownItem("New Group", (() => Console.Write("New Group"))));
-        DropDownItems.Add(new DropDownItem("Settings", (() => ChangePanel.Invoke(Panel.Users)))); //TODO CHange
-        DropDownItems.Add(new DropDownItem("Log out", (() => authService.LogoutAsync())));
+        DropDownItems.Add(new DropDownItem("New Group", (() => InvokeAsync( () => ChangePanel.Invoke(Panel.Group)))));
+        DropDownItems.Add(new DropDownItem("Settings", (() => InvokeAsync((() => ChangePanel.Invoke(Panel.Profile))))));
+        DropDownItems.Add(new DropDownItem("Log out", (() =>  InvokeAsync((() => {
+                                                                                                    authService.LogoutAsync();
+                                                                                                    HubService?.HubConnection?.StopAsync();
+                                                                                                    })))));
     }
 }

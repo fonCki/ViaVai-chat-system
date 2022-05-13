@@ -15,7 +15,7 @@ builder.Services.AddSignalR();
 builder.Services.AddScoped<IChatService, InMemoryChatService>();
 builder.Services.AddScoped<IUserService, InMemoryUserService>();
 builder.Services.AddScoped<IMessageService, MessageServerImp>();
-
+builder.Services.AddSingleton<IControlStatusUser, ControlStatusImp>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

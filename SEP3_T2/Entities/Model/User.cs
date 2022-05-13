@@ -38,7 +38,8 @@ public class User : Recipient {
         Avatar = "images/-user-login.png"; //Default Avatar
         Status = Status.Offline;
     }
-
+    
+    
     public override string ToString() {
         return $"{nameof(RUI)}: {RUI}, {nameof(Name)}: {Name}, {nameof(Avatar)}: {Avatar}, {nameof(LastName)}: {LastName}, {nameof(Email)}: {Email}, {nameof(Password)}: {Password}, {nameof(Status)}: {Status}";
     }

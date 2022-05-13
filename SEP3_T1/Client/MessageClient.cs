@@ -1,4 +1,5 @@
 using Contracts.Services;
+using Contracts.Services.Hub;
 using Entities.Model;
 
 namespace Client; 

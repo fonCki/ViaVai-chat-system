@@ -71,4 +71,15 @@ public class ChatController : Controller {
             return StatusCode(500, e.Message);
         }
     }
+    
+    [HttpPost]
+    public async Task<ActionResult<Chat>> CreateGroupChat([FromBody] Chat chat) {
+        try {
+            Chat newChat = await chatService.CreateGroupChat(chat);
+            return Ok(newChat);
+        }
+        catch (Exception e) {
+            return StatusCode(500, e.Message);
+        }
+    }
 }

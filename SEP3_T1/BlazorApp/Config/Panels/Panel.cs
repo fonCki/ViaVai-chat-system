@@ -3,7 +3,8 @@ namespace BlazorApp.Shared.Components;
 public enum Panel {
     Starter,
     Profile,
-    Users
+    Users,
+    Group
 }
 
 public enum Status {

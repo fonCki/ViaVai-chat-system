@@ -9,4 +9,6 @@ public interface IChatService {
     public Task<Chat> GetChat(Guid CUI);
     public Task<ICollection<Chat>> GetAllChatsByUser(Guid RUIUser);
     public Task<Chat> UpdateChat(Chat chat);
+    public Task<ICollection<Guid>> GetAllUsersFromChat(Guid CUI);
+    public Task<Chat> CreateGroupChat(Chat chat);
 }
