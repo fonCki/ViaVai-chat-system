@@ -21,11 +21,11 @@
             <h5>New Group</h5>
         </div>
     </div>
-    <ChangeableAvatar newImage="@UpdateAvatar" newError="@UpdateError"/>
+    <ChangeableAvatar newImage="@UpdateAvatar" newError="@UpdateError" />
     <input type="text" @bind="@groupName" class="input-group-text" placeholder="Group name"/>
     <div class="users-list">
-        @if (users != null) {
-            @foreach (User user in users) {
+        @if (availableUsers != null) {
+            @foreach (User user in availableUsers) {
                 <div class="user-row">
                     <div class="user" onclick="">
                         <Avatar image="@user.Avatar" size="Avatar.Size.Small" />
@@ -48,18 +48,19 @@
 
 @code {
     private string errorLabel = string.Empty;
-    private string imagePath = "images/-user-login.png";
+    private string imagePath;
     private string groupName = string.Empty;
     
-    private ICollection<User> users;
+    private ICollection<User> availableUsers;
 
     private HashSet<User> groupUsers;
     
     [CascadingParameter] private HubService? HubService { get; set;}
 
     protected override async Task OnParametersSetAsync() {
-        users = await UserService.GetContactList();
-        users = users.OrderBy(u => u.Name).ToList();
+        availableUsers = await UserService.GetContactList();
+        availableUsers = availableUsers.OrderBy(u => u.Name).ToList();
+        availableUsers.Remove(availableUsers.FirstOrDefault(u => u.RUI.Equals(AuthService.MyUser.RUI)!)!);
         groupUsers = new HashSet<User>();
     }
 
@@ -67,10 +68,10 @@
     public Action<Panel> ChangePanel { get; set; }
     
     
-    public void UpdateAvatar(string newPath) {
+    public async void UpdateAvatar(string newPath) {
         imagePath = newPath;
-
     }
+    
 
     public void UpdateError(string newError) {
         errorLabel = newError;

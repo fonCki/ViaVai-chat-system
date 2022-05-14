@@ -58,7 +58,7 @@ public class ChatHub : Hub {
         Guid RUIuser = await ControlStatusUser.GiveMeUser(Context.ConnectionId); // I Search the user that accept to disconect
         await ControlStatusUser.RemoveConnection(Context.ConnectionId); // I Remove the conection in the dictionary 
         if (!ControlStatusUser.isOnline(RUIuser).Result) { // I wont delete him if he has more open connection.
-            ControlStatusUser.OnlineUsers.Remove(RUIuser); // I Remove the user from the user list
+            ControlStatusUser.OnlineUsers?.Remove(RUIuser); // I Remove the user from the user list
             await UserService.SetStatus(RUIuser, Status.Offline); // In case the user was dissconected without his intention
             await Clients.All.SendAsync("DisconnectUser", RUIuser); // I send the notification that the user is offline
         }
