@@ -14,6 +14,8 @@ public class HubService {
     public Action<Guid>? NotifyNewLogin;
 
     public Action<Guid>? NotifyLogOff;
+    
+    public Action<Guid>? NotifyStatusChanged;
 
     public Action<Message>? NotifyAllNewMessage;
     
@@ -23,6 +25,7 @@ public class HubService {
             HubConnection ??=  new HubConnectionBuilder().WithUrl(Address.ENDPOINT_HUB).Build();
             HubConnection.On<Guid>("NewUser", (guid => NotifyNewLogin?.Invoke(guid)));
             HubConnection.On<Guid>("DisconnectUser", (guid => NotifyLogOff?.Invoke(guid)));
+            HubConnection.On<Guid>("StatusChanged", (guid => NotifyStatusChanged?.Invoke(guid)));
             HubConnection.On<string>("NewMessage", NewMessage); }
         catch (Exception e) {
             Console.WriteLine(e);

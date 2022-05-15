@@ -1,22 +1,26 @@
 @using BlazorApp.Shared.MicroComponents
 @using BlazorApp.Config.DropDownMenu
 @using BlazorApp.Authentication
+@using Entities.Model
+@using Contracts.Services
 @using Contracts.Services.Hub
-@inject IAuthService authService
+@using Microsoft.AspNetCore.Mvc.ModelBinding
+@using Microsoft.AspNetCore.SignalR.Client
+@inject IAuthService AuthService
+@inject IUserService UserService
 
 
 <div class="main-header">
     <div class="avatar" onclick="@(()=>ChangePanel.Invoke(Panel.Profile))">
-        <ToolTip Text=@authService.MyUser.Name Pos="ToolTip.Position.Button"><Avatar size="Avatar.Size.Medium" image="@authService.MyUser.Avatar"/></ToolTip>
+        <ToolTip Text=@AuthService.MyUser.Name Pos="ToolTip.Position.Button"><Avatar size="Avatar.Size.Medium" image="@AuthService.MyUser.Avatar"/></ToolTip>
     </div>
     <div class="menu">
-        <div>
-            <ToolTip Text="Status" Pos="ToolTip.Position.Button">
-                <span class="iconify" data-icon="fa:dot-circle-o" style="color: #ec4246;" data-width="24"></span>
+        <div @onclick="@ChangeStatus">
+            <ToolTip Text=@myStatus.ToString() Pos="ToolTip.Position.Button">
+                <span class="iconify" data-icon="fa:dot-circle-o" style="color: @StatusColor()" data-width="24"></span>
             </ToolTip>
-            @* other colors status bar  bussy:#faa81b  ofline: #ec4246*@
         </div>
-        <div onclick="@(()=>ChangePanel.Invoke(Panel.Users))">
+        <div onclick="@(() => ChangePanel.Invoke(Panel.Users))">
             <ToolTip Text="New Chat" Pos="ToolTip.Position.Button">
                 <span class="iconify" data-icon="ant-design:message-outlined" style="color: #54646f;" data-width="24"></span>
             </ToolTip>
@@ -27,22 +31,56 @@
 
 @code {
 
-    [Parameter]
-    public Action<Panel> ChangePanel { get; set; }
-    
+    [Parameter] public Action<Panel> ChangePanel { get; set; }
+
+    Entities.Model.Status myStatus;
+
+    private string statusColor = "#00FF00";
+
+
     [CascadingParameter] private HubService? HubService { get; set;}
     
     DropDownMenuSettings DropDownMenuSettings { get; set; }= new DropDownMenuSettings("bi:three-dots-vertical", "Menu", DropDownItems);
+
+
     
     static ICollection<DropDownItem> DropDownItems { get; set; } = new List<DropDownItem>();
+
+    protected async override Task OnParametersSetAsync() {
+        myStatus = AuthService.MyUser.Status;
+    }
 
     protected override void OnInitialized() {
         DropDownItems.Clear();
         DropDownItems.Add(new DropDownItem("New Group", (() => InvokeAsync( () => ChangePanel.Invoke(Panel.Group)))));
         DropDownItems.Add(new DropDownItem("Settings", (() => InvokeAsync((() => ChangePanel.Invoke(Panel.Profile))))));
         DropDownItems.Add(new DropDownItem("Log out", (() =>  InvokeAsync((() => {
-                                                                                                    authService.LogoutAsync();
+                                                                                                    AuthService.LogoutAsync();
                                                                                                     HubService?.HubConnection?.StopAsync();
                                                                                                     })))));
     }
+
+    private async void ChangeStatus() {
+        if (myStatus.Equals(Entities.Model.Status.Busy)) {
+            myStatus = Entities.Model.Status.Online;
+        }
+        else {
+            myStatus++;
+        }
+        statusColor = StatusColor();
+        HubService?.HubConnection?.SendAsync("StatusChanged", AuthService.MyUser.RUI);
+        await UserService.SetStatus(AuthService.MyUser.RUI, myStatus);
+   
+        StateHasChanged();
+    }
+
+    private string StatusColor() {
+        if (myStatus.Equals(Entities.Model.Status.Online)) return "#00FF00";
+        if (myStatus.Equals(Entities.Model.Status.Offline)) return "#f70301";
+        if (myStatus.Equals(Entities.Model.Status.Busy)) return "#0000f7";
+        if (myStatus.Equals(Entities.Model.Status.Sleeping)) return "#f6f527";
+        return "#FFFFF";
+    }
+    
+
 }

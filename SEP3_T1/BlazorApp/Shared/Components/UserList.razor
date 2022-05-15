@@ -25,6 +25,16 @@
         </div>
         <div class="user-list">
             <MakeScrollList>
+                @* ----------Offline Users -------------------*@
+                @if (offline.Any()) {
+                    <div class="status">
+                        <h4>Offline</h4>
+                    </div>
+                    @foreach (var user in offline) {
+                        <SingleUser User="@user"/>
+                    }
+                }
+                @* ------------------------------------------- *@
                 @* ----------Online Users -------------------*@
                 @if (online.Any()) {
                     <div class="status">
@@ -45,12 +55,13 @@
                     }
                 }
                 @* ------------------------------------------- *@
-                @* ----------Offline Users -------------------*@
-                @if (offline.Any()) {
+
+                @* ----------Bussy Users -------------------*@
+                @if (busy.Any()) {
                     <div class="status">
-                        <h4>Offline</h4>
+                        <h4>Busy</h4>
                     </div>
-                    @foreach (var user in offline) {
+                    @foreach (var user in busy) {
                         <SingleUser User="@user"/>
                     }
                 }
@@ -65,30 +76,42 @@
 
     private ICollection<User> _users;
 
-    IOrderedEnumerable<User> online, offline, sleeping;
+    IOrderedEnumerable<User> online, offline, sleeping, busy;
 
 
     protected async override Task OnParametersSetAsync() {
-        HubService.NotifyLogOff += guid => InvokeAsync(StateHasChanged);
-        HubService.NotifyNewLogin += guid => InvokeAsync(StateHasChanged);
+        HubService.NotifyNewLogin += ChangeStatusUser;
+        HubService.NotifyLogOff += ChangeStatusUser;
+        HubService.NotifyStatusChanged += ChangeStatusUser;
         _users = await userService.GetContactList();
         await SortList();
 
+    }
+    
+
+    private async void ChangeStatusUser(Guid user) {
+        try {
+            User? findedUser = _users.FirstOrDefault(u => u.RUI.Equals(user));
+            if (findedUser != null) {
+                _users.Remove(findedUser);
+                User newUserChanged = await userService.GetUserAsyncByRUI(user);
+                _users.Add(newUserChanged);
+                await InvokeAsync((() => StateHasChanged()));
+            }
+        }
+        catch (Exception e) {
+            Console.WriteLine("User could not be found");
+            throw;
+        }
+        
+       
     }
 
     private async Task SortList() {
         online = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Online).OrderBy(u => u.Name); 
         offline = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Offline).OrderBy(u => u.Name);
         sleeping = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Sleeping).OrderBy(u => u.Name);
+        busy = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Busy).OrderBy(u => u.Name);
     }
-    
-    
-    private async Task UserListHasChange() { //TODO this must show in real time
-        _users = await userService.GetContactList();
-        await SortList();
-        StateHasChanged();
-    }
-    
-    
-    
+
 }

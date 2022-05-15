@@ -1,8 +1,8 @@
 namespace Entities.Model; 
 
 public enum Status {
-    Online,
     Offline,
+    Online,
     Sleeping,
     Busy
 }

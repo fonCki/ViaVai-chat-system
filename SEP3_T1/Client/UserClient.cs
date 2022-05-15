@@ -93,6 +93,7 @@ public class UserClient : IUserService {
     }
 
     public async Task<Status> SetStatus(Guid RUI, Status status) {
+        Console.WriteLine(status);
         using HttpClient client = new();
         HttpResponseMessage response = await client.GetAsync(Address.ENDPOINT_USER + $"/set/{RUI}/{status}");
         string responseContent = await response.Content.ReadAsStringAsync();
@@ -104,6 +105,7 @@ public class UserClient : IUserService {
         Status returned = JsonSerializer.Deserialize<Status>(responseContent, new JsonSerializerOptions {
             PropertyNameCaseInsensitive = true
         })!;
+        Console.WriteLine("Returned: " + returned);
         return returned;
     }
 }

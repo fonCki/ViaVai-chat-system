@@ -34,6 +34,10 @@ public class ChatHub : Hub {
             await Clients.All.SendAsync("NewUser", RUIuser);
         }
     }
+
+    public async Task StatusChanged(Guid RUIUser) {
+        await Clients.All.SendAsync("StatusChanged", RUIUser);
+    }
     
     public async Task SendMessage(string messageAsJson) {
         Message message = JsonSerializer.Deserialize<Message>(messageAsJson, new JsonSerializerOptions {
