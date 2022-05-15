@@ -71,11 +71,9 @@ public class InMemoryChatService : IChatService{
         
         
         if (chat == null) {
-            chat = new Chat();
             User Myself = await UserService.GetUserAsyncByRUI(userOne);
             User ChatUser = await UserService.GetUserAsyncByRUI(userTwo);
-            chat.Subscribers.Add(Myself);
-            chat.Subscribers.Add(ChatUser);
+            chat = Chat.CreatePrivate(Myself, ChatUser);
             _chats.Add(chat);
         }
 

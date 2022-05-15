@@ -22,6 +22,8 @@
 
     <ItemGroup>
       <Folder Include="wwwroot\images\background" />
+      <Folder Include="wwwroot\images\group" />
+      <Folder Include="wwwroot\images\persona" />
       <Folder Include="wwwroot\images\temp" />
     </ItemGroup>
 

@@ -6,6 +6,7 @@ using BlazorApp.Services.View;
 using Client;
 using Contracts.Services;
 using Contracts.Services.Hub;
+using Contracts.Services.Refresh;
 using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,7 @@ builder.Services.AddScoped<IAuthService, AuthServiceImpl>();
 builder.Services.AddScoped<IUserService, UserClient>();
 builder.Services.AddScoped<IChatService, ChatClient>();
 builder.Services.AddScoped<IMessageService, MessageClient>();
+builder.Services.AddScoped<IRefreshService, RefreshServiceImp>();
 builder.Services.AddScoped<HubService>();
 
 

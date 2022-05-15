@@ -4,7 +4,7 @@
 @if (Message != null) {
     <main class="main" style="@(IsMine ? "background-color:#d9fdd3" : "background-color:#ffffff")">
         <div class="message">
-            <p class="message">@Message.Body</p>
+            <p class="message-body">@Message.Body</p>
             <p class="date-and-time">@(string.Format("{0:hh:mm tt}", Message.Header.Created))</p>
         </div>
     </main>

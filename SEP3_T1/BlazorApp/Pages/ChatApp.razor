@@ -6,6 +6,7 @@
 @using BlazorApp.Authentication
 @using BlazorApp.Services
 @using Contracts.Services.Hub
+@using Contracts.Services.Refresh
 @using Microsoft.AspNetCore.SignalR
 @using Microsoft.AspNetCore.SignalR.Client
 @inject IUserService UserService
@@ -15,6 +16,7 @@
 @page "/chatApp/{email?}"
 @inject IToastService ToastService
 @inject HubService HubService
+@inject IRefreshService RefreshService;
 
 
 <AuthorizeView>
@@ -77,6 +79,8 @@
 
     public async void SelectedChat(Guid CUI) {
         await LoadInitialDataByChatNo(CUI);
+        await ChatService.SetAsReadMessages(AuthService.MyUser.RUI, Chat);
+        RefreshService.CallRequestRefresh();
         StateHasChanged();
     }
 

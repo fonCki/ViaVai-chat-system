@@ -18,9 +18,9 @@
 
  @code {
 
-     [Parameter] public string actualImage { get; set; } = "images/-user-login.png";
-     [Parameter] public Action<string>? newImage { get; set; }
-     [Parameter] public Action<string>? newError { get; set; }
+     [Parameter] public string actualImage { get; set; }
+     [Parameter] public Action<string> newImage { get; set; }
+     [Parameter] public Action<string> newError { get; set; }
 
      private async Task GetNewFile(InputFileChangeEventArgs e) {
          try {          

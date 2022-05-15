@@ -46,7 +46,6 @@ public class ChatClient : IChatService {
         string chatToJson = JsonSerializer.Serialize(chat);
         StringContent content = new(chatToJson, Encoding.UTF8, "application/json");
         HttpResponseMessage response = await client.PostAsync(Address.ENDPOINT_CHAT, content);
-        Console.WriteLine(response);
         string responseContent = await response.Content.ReadAsStringAsync();
         
         if (!response.IsSuccessStatusCode) {
@@ -98,6 +97,7 @@ public class ChatClient : IChatService {
         StringContent content = new(chatToJson, Encoding.UTF8, "application/json");
         HttpResponseMessage response = await client.PatchAsync(Address.ENDPOINT_CHAT, content);
         string responseContent = await response.Content.ReadAsStringAsync();
+        Console.WriteLine(response.Version);
 
         if (!response.IsSuccessStatusCode) {
             throw new Exception($"Error: {response.StatusCode}, {responseContent}");
@@ -108,5 +108,13 @@ public class ChatClient : IChatService {
         })!;
         return returned;
     }
-    
+
+    public async Task SetAsReadMessages(Guid myUserRui, Chat chat) {
+        foreach (var message in chat!.Messages.Where(m=>!m.Header.CreatedBy.RUI.Equals(myUserRui))) {
+            message.Read = true;
+        }
+        if (chat!.Messages.Any()) {
+            await UpdateChat(chat);
+        }
+    }
 }

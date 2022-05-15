@@ -21,7 +21,7 @@
             <h5>New Group</h5>
         </div>
     </div>
-    <ChangeableAvatar newImage="@UpdateAvatar" newError="@UpdateError" />
+    <ChangeableAvatar newImage="@UpdateAvatar" newError="@UpdateError" actualImage="@imagePath"/>
     <input type="text" @bind="@groupName" class="input-group-text" placeholder="Group name"/>
     <div class="users-list">
         @if (availableUsers != null) {
@@ -47,10 +47,10 @@
 </main>
 
 @code {
-    private string errorLabel = string.Empty;
+    private string errorLabel;
     private string imagePath;
-    private string groupName = string.Empty;
-    
+    private string groupName;
+
     private ICollection<User> availableUsers;
 
     private HashSet<User> groupUsers;
@@ -58,6 +58,9 @@
     [CascadingParameter] private HubService? HubService { get; set;}
 
     protected override async Task OnParametersSetAsync() {
+        imagePath = $"images/group/{GetRandomImage()}";
+         errorLabel = string.Empty;
+         groupName = string.Empty;
         availableUsers = await UserService.GetContactList();
         availableUsers = availableUsers.OrderBy(u => u.Name).ToList();
         availableUsers.Remove(availableUsers.FirstOrDefault(u => u.RUI.Equals(AuthService.MyUser.RUI)!)!);
@@ -88,16 +91,32 @@
     }
     
     private async void CreateGroup() {
-        Chat groupChat = new Chat(groupName, imagePath);
-        foreach (var user in groupUsers) {
-            groupChat.Subscribers.Add(user);
+        if (string.IsNullOrWhiteSpace(groupName) ) {
+            errorLabel = "Group must have a name..";
         }
-        groupChat.Subscribers.Add(AuthService.MyUser);
-        Chat chat = await ChatService.AddGroupChat(groupChat);
-        Message welcomeMessage = new Message(AuthService.MyUser, chat.CID, $"This is an automatic welcome message to the group that I created {groupChat}, You're very welcome to participate");
-        string messageAsJson = JsonSerializer.Serialize(welcomeMessage);
-        await HubService?.HubConnection?.SendAsync("SendMessage", messageAsJson)!;
-
+        else {
+            if (groupUsers.Count == 0) {
+                errorLabel = "Group must have at least a person";
+            }
+            else {
+                Chat groupChat = Chat.CreateGroup(groupName, imagePath, AuthService.MyUser);
+                foreach (var user in groupUsers) {
+                    groupChat.Subscribers.Add(user);
+                }
+                Chat chat = await ChatService.AddGroupChat(groupChat);
+                Message welcomeMessage = new Message(AuthService.MyUser, chat.CID, $"This is an automatic welcome message to the group that I created \"{groupChat.Name}\", You're very welcome to participate");
+                string messageAsJson = JsonSerializer.Serialize(welcomeMessage);
+                await HubService?.HubConnection?.SendAsync("SendMessage", messageAsJson)!;
+                ChangePanel.Invoke(Panel.Starter);
+                availableUsers.Clear();
+                StateHasChanged();
+            }
+        }
     }
 
+    private string GetRandomImage() {
+        var files = new DirectoryInfo(@"wwwroot/images/group").GetFiles();
+        int index = new Random().Next(0, files.Length);
+        return files[index].Name;
+    }
 }

@@ -10,7 +10,7 @@
     <NotAuthorized>
         <div class="shape-container">
             <div class="sign-up-card">
-                <ChangeableAvatar newImage="@UpdateAvatar" newError="@UpdateError" />
+                <ChangeableAvatar newImage="@UpdateAvatar" newError="@UpdateError" actualImage="@imagePath" />
                 <div class="form-group">
                     <input class="form-control" type="text" id="fname" placeholder="Name" @bind="name" @onkeydown="@Enter"/>
                     <input class="form-control" type="text" id="lname" placeholder="Last Name" @bind="lname" @onkeydown="@Enter"/>

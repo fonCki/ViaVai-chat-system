@@ -26,31 +26,31 @@
 
 
     private HubConnection hubConnection;
-    
+
+    // protected async override Task OnParametersSetAsync() {
+    //     foreach (var message in Chat!.Messages.Where(m => !m.Header.CreatedBy.RUI.Equals(AuthService.MyUser.RUI))) {
+    //         message.Read = true;
+    //     }
+    //     if (Chat!.Messages.Any()) {
+    //         await ChatService.UpdateChat(Chat);
+    //         Console.WriteLine("Hols-");
+    //     }
+    // }
+
 
     protected async override Task OnInitializedAsync() {
         hubConnection = HubService.HubConnection;
         HubService.NotifyAllNewMessage += OnNotify;
-    }
 
-
-    //Clear all read messages
-    protected async override Task OnAfterRenderAsync(bool firstRender) {
-        foreach (var message in Chat!.Messages.Where(m=>!m.Header.CreatedBy.RUI.Equals(AuthService.MyUser.RUI))) {
-            message.Read = true;
-        }
-        if (Chat!.Messages.Any()) {
-            // await ChatService.UpdateChat(Chat);
-        }
     }
     
-    
-    
-    
+
+
+
     public async void OnNotify(Message message) {
         await InvokeAsync((async () => {
             //TODO
-            //Think about one of the two options. or refhres all the time from database,
+            //Think about one of the two options. or refresh all the time from database,
             //or add the message to the list
             
             //Option one:
@@ -62,7 +62,7 @@
            
             //Option two:
             Chat = await ChatService.GetChat(Chat.CID);
-            
+            // await ChatService.SetAsReadMessages(AuthService.MyUser.RUI, Chat);
             StateHasChanged();
         }));
     }

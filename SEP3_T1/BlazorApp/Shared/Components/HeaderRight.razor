@@ -61,7 +61,7 @@
     }
 
     private async Task SetNameAndImage() {
-        if (Chat.Subscribers.Count > 2) {
+        if (Chat!.IsGroup) {
             groupName = Chat.Name;
             groupImage = Chat.Image;
         }

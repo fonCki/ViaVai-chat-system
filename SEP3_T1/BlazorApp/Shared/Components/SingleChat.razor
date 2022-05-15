@@ -3,8 +3,9 @@
 @using BlazorApp.Authentication
 @using Contracts.Services
 @using Contracts.Services.Hub
+@using Contracts.Services.Refresh
 @inject IAuthService AuthService
-@inject NavigationManager navMgr
+@inject IRefreshService RefreshService
 
 
 <main class="main-component" onmouseover="@MouseEnter" onmouseleave="@MouseLeft" @onclick="@(() => selectChat.Invoke(Chat.CID))">
@@ -59,13 +60,12 @@
     private string Image;
     
     protected async override Task OnParametersSetAsync() {
+        RefreshService.RefreshRequested += RefreshMe;
         await SetNameAndImage();
     }
     
 
     protected override async Task OnInitializedAsync() {
-        // HubService.NotifyNewMessage += OnNotify;
-        // User = Chat.Subscribers.First(u => u.RUI != AuthService.MyUser.RUI);
         //Count the new messages not created by me
         if (@Chat.Messages.Any()) {
             newMessage = (@Chat.Messages.Where(m => m.Read.Equals(false) && (!m.Header.CreatedBy.RUI.Equals(AuthService.MyUser.RUI)))).ToList().Count; 
@@ -83,15 +83,12 @@
         mouse = false;
     }
     
-    public async Task OnNotify() {
-        await InvokeAsync((() => {
-           
-            StateHasChanged();
-        }));
+    private void RefreshMe() {
+        StateHasChanged();
     }
     
     private async Task SetNameAndImage() {
-        if (Chat.Subscribers.Count > 2) {
+        if (Chat.IsGroup) {
             Name = Chat.Name;
             Image = Chat.Image;
         }
