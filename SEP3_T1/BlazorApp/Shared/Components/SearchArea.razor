@@ -1,7 +1,7 @@
 <div class="search-area">
     <div class="form">
-        <input type="search" placeholder=@text class="search-field @color" />
-        <button type="submit" class="search-button">
+        <input type="search" placeholder=@text class="search-field @color" @bind="value" @onkeydown="@Enter" @oninput=@RefreshValue/>
+        <button type="submit" class="search-button" @onclick="@Send">
             <img src="images/search.png">
         </button>
     </div>
@@ -14,5 +14,24 @@
 
     [Parameter]
     public string color { get; set; } = "dark";
+    
+    [Parameter]
+    public Action<string>? Search { get; set; }
 
+    private string value = string.Empty;
+
+    //If I press enter
+    public void Enter(KeyboardEventArgs e) {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter") {
+            Send();
+        }
+    }
+    
+    public void RefreshValue(ChangeEventArgs e) {
+        value = e.Value.ToString();
+    }
+
+    public void Send() {
+        Search.Invoke(value);
+    }
 }

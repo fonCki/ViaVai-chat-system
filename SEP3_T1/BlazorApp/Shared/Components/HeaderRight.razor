@@ -18,7 +18,7 @@
     </div>
     <div class="menu">
         <div class="search-bar-@(search?"active" : "sleep")">
-            <SearchArea text="Search Message" color="white"/>
+            <SearchArea text="Search Message" color="white" Search="FoundedSerch"/>
         </div>
         <div @onclick="@(() => search = !search)">
             @if (search) {
@@ -38,6 +38,8 @@
     [CascadingParameter] public Chat? Chat { get; set; }
     
     [CascadingParameter] public Action ChangeInfoStatus { get; set; }
+
+    private string wordSearch;
 
     
     public static bool search = false; // true is shown
@@ -83,6 +85,11 @@
             case 3 : {ToastService.ShowSuccess("I am a Success message"); break;}
             case 4 : {ToastService.ShowWarning("I am a Warning message"); break;}
         }
+    }
+
+    public void FoundedSerch(string s) {
+        wordSearch = s;
+        Console.WriteLine(s + "de aXca");
     }
     
 }

@@ -29,7 +29,7 @@ public class MessageController {
 
     @PostMapping("/Write")
     public ResponseEntity<Message> saveMessage(@RequestBody String messageAsJson) throws JsonProcessingException {
-        System.out.println(messageAsJson);
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES,true);

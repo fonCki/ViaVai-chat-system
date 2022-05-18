@@ -9,7 +9,7 @@ public class Chat {
     public ICollection<User> Subscribers { get; set; } 
     public ICollection<Message> Messages { get; set; }
 
-    public User CreatedBy;
+    public User CreatedBy { get; set; }
     public DateTime Created { get; set; }
     public bool IsGroup { get; set; }
     

@@ -5,17 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="694ffd67-e337-4be4-9774-048d6daeea59" name="Changes" comment="Saving a message in database without values except body">
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Pages/BoxExample.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Pages/BoxExample.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HeaderLeft.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HeaderLeft.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HeaderLeft.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HeaderLeft.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HistoryChats.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HistoryChats.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HistoryChats.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HistoryChats.razor.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/Chat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/Header.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/Status.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HeaderRight.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HeaderRight.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/LeftMain.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/LeftMain.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/LeftMain.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/LeftMain.razor.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/SearchArea.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/SearchArea.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/SearchArea.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/SearchArea.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/MainLayout.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/MainLayout.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/UserList.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/UserList.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/Services/InMemoryUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Contracts/Services/InMemoryUserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Entities/Model/Chat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Entities/Model/Chat.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/controller/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/controller/MessageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +50,7 @@
     <option name="myId2Visible">
       <map>
         <entry key="com.haulmont.jpb.jpaInspector" value="false" />
-        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
         <entry key="com.haulmont.jpb.jpaStructure" value="false" />
       </map>
     </option>
@@ -99,6 +105,8 @@
       <workItem from="1650248702479" duration="1207000" />
       <workItem from="1650376726967" duration="5669000" />
       <workItem from="1650881841956" duration="13000" />
+      <workItem from="1652875191782" duration="533000" />
+      <workItem from="1652875759943" duration="8409000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit T_3">
       <created>1649936865371</created>

@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.Json;
 using Entities.Model;
 
@@ -48,17 +49,37 @@ public class InMemoryUserService : IUserService {
         return find;
     }
 
+    // public async Task<User> SignUp(string name, string lname, string email, string password, string imgPath) {
+    //     if (await existUser(email)) {
+    //         throw new Exception("User already exist");
+    //     }
+    //
+    //     if (_users == null) {
+    //         await LoadOrCreate();
+    //     }
+    //     _users.Add(new User(name, lname, email, password, imgPath));
+    //     await SaveChangesAsync();
+    //     return _users.FirstOrDefault(user => user.Email.Equals(email));
+    // }
+    
+    
     public async Task<User> SignUp(string name, string lname, string email, string password, string imgPath) {
-        if (await existUser(email)) {
-            throw new Exception("User already exist");
+        User newUser = new User(name, lname, email, password, imgPath);
+        using HttpClient client = new();
+        string userToJson = JsonSerializer.Serialize(newUser);
+        StringContent content = new(userToJson, Encoding.UTF8, "application/json");
+        HttpResponseMessage response = await client.PostAsync($"http://localhost:8080/Users/Add", content);
+        string responseContent = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception($"Error: {response.StatusCode}, {responseContent}");
         }
 
-        if (_users == null) {
-            await LoadOrCreate();
-        }
-        _users.Add(new User(name, lname, email, password, imgPath));
-        await SaveChangesAsync();
-        return _users.FirstOrDefault(user => user.Email.Equals(email));
+        User returned = JsonSerializer.Deserialize<User>(responseContent, new JsonSerializerOptions {
+            PropertyNameCaseInsensitive = true
+        })!;
+
+
+        return returned;
     }
 
     public async Task<User> UpdateUser(User user) {

@@ -7,27 +7,35 @@ import java.text.DateFormat;
 import java.util.Date;
 
 @Entity
-@Table(name = "Message")
+@Table(name = "messages")
 public class Message {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private String MID;
 
-    @Column(name = "Body")
+    @OneToOne
+    @JoinColumn(name = "Header")
+    public Header header;
+
     private String body;
 
-    @Column(name="Created")
-    private Date created;
+    private boolean read;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "UID", referencedColumnName = "UID")
-//    private User createdBy;
 
-    public Message() {
+    public String getMID() {
+        return MID;
     }
 
-    public long getId() {
-        return id;
+
+    public void setMID(String MID) {
+        this.MID = MID;
+    }
+
+    public Header getHeader() {
+        return header;
+    }
+
+    public void setHeader(Header header) {
+        this.header = header;
     }
 
     public String getBody() {
@@ -38,21 +46,11 @@ public class Message {
         this.body = body;
     }
 
-    public Date getCreated() {
-        return created;
+    public boolean isRead() {
+        return read;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    @Override
-    public String toString() {
-        return "Message{" +
-                "id=" + id +
-                ", body='" + body + '\'' +
-                ", created=" + created +
-              //   ", createdBy=" + createdBy +
-                '}';
+    public void setRead(boolean read) {
+        this.read = read;
     }
 }

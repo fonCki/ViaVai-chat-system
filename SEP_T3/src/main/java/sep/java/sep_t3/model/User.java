@@ -4,22 +4,60 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class User {
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        private long UID;
+        private long RID;
+
+        private String name;
+
+        private String lastName;
+
+        @Lob
+        @Column
+        private String avatar;
 
         private String email;
 
-        private String nickName;
+        private String password;
+
+
+        private Status status;
+
 
     public User() {
     }
 
-    public User(String email, String nickName) {
-        this.email = email;
-        this.nickName = nickName;
+    public long getRID() {
+        return RID;
+    }
+
+    public void setRID(long RID) {
+        this.RID = RID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getEmail() {
@@ -30,11 +68,19 @@ public class User {
         this.email = email;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getPassword() {
+        return password;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
+//    public Status getStatus() {
+//        return status;
+//    }
+//
+//    public void setStatus(Status status) {
+//        this.status = status;
+//    }
 }

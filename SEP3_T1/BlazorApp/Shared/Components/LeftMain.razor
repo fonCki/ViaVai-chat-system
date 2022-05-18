@@ -16,7 +16,7 @@
         @* <CascadingValue Value="@RefreshChilds"> *@
         <div class="main-@Panel.Starter @starter">
             <HeaderLeft ChangePanel="ChangePanel"/>
-            <SearchArea text="Search or start new chat" color="dark"/>
+            <SearchArea text="Search or start new chat" color="dark" Search="FoundedSerch"/>
             <MakeScrollList>
                 <Virtualize Items="Chats" Context="chat">
                     <SingleChat Chat="chat"/>
@@ -53,6 +53,8 @@
     private Status group = Status.Hidden;
     
     bool UsersView { get; set; } = false;
+
+    private string wordSearch;
 
     protected async override Task OnParametersSetAsync() {
         HubService.NotifyAllNewMessage += OnNotify;
@@ -110,6 +112,12 @@
 
     private async Task InitAndSortChats() {
         Chats = Chats.Where(c => c.Messages.Any()).OrderByDescending(c => c.Messages?.First()?.Header.Created!).ToList();
+    }
+    
+    public void FoundedSerch(string s) {
+        Chats = ChatService.GetAllChatsByUser(AuthService.MyUser.RUI).Result.
+                Where(c => c.Name.Contains(s, StringComparison.CurrentCultureIgnoreCase)).ToList();
+        StateHasChanged();
     }
 
 }

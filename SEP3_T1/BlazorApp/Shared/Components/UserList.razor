@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="search">
-            <SearchArea text="Search Contacts"/>
+            <SearchArea text="Search Contacts" Search="FoundedSerch"/>
         </div>
         <div class="user-list">
             <MakeScrollList>
@@ -114,4 +114,7 @@
         busy = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Busy).OrderBy(u => u.Name);
     }
 
+    public void FoundedSerch(string s) {
+        // Chats = Chats.Where(c => c.Name.Contains(s)).ToList();
+    }
 }
