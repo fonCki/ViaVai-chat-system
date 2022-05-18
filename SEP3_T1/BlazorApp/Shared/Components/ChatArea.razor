@@ -1,18 +1,31 @@
 @using Entities.Model
-<main class="main">
-    <CascadingValue Value="Chat">
-        @if (Chat != null) {
-            <HeaderRight/>
-            <MessageArea/>
-            <InputArea/>
-        }
-    </CascadingValue>
+@if (Chat is not null) {
+    <main class="main">
+        <CascadingValue Value="Chat">
+        <CascadingValue Value="ChangeInfoStatus">
+            <div class="main-area">
+                <HeaderRight/>
+                <MessageArea/>
+                <InputArea/>
 
+            </div>
 
-</main>
-
+            <div class="sidebar display @(showInfo ? "show" : "no-show")">
+                <Info/>
+            </div>
+        </CascadingValue>
+        </CascadingValue>
+    </main>
+}
 @code {
     [Parameter] public Chat Chat { get; set; }
+    
+    bool showInfo = false;
+    
+    public void ChangeInfoStatus() {
+        showInfo = !showInfo;
+        StateHasChanged();
+    }
 }
 
 

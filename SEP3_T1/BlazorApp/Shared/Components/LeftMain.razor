@@ -11,19 +11,18 @@
 
 @namespace BlazorApp.Shared.Components
 
-@if (Chats != null) {
+@if (Chats is not null) {
     <main class="main">
         @* <CascadingValue Value="@RefreshChilds"> *@
         <div class="main-@Panel.Starter @starter">
             <HeaderLeft ChangePanel="ChangePanel"/>
             <SearchArea text="Search or start new chat" color="dark"/>
             <MakeScrollList>
-                @foreach (Chat chat in Chats) {
+                <Virtualize Items="Chats" Context="chat">
                     <SingleChat Chat="chat"/>
-                }
+                </Virtualize>
             </MakeScrollList>
         </div>
-
         <div class="main-@Panel.Profile @profile">
             <Profile ChangePanel="ChangePanel"/>
         </div>

@@ -8,15 +8,11 @@
 @inject IChatService ChatService 
 
 <main class="main">
-    @if (Chat != null) {
-        if (Chat.Messages != null) {
-            foreach (var message in Chat.Messages) {
-                <div class="@(AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email) ? "mine" : "not-mine")">
-                    <PlainMessage Message="message" IsMine=@AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email)></PlainMessage>
-                </div>
-            }
-        }
-    }
+    <Virtualize Items="@Chat?.Messages" Context="message">
+        <div class="@(AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email) ? "mine" : "not-mine")">
+            <PlainMessage Message="message" IsMine=@AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email)></PlainMessage>
+        </div>
+    </Virtualize>
 </main>
 
 @code {

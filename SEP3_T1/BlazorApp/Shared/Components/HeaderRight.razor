@@ -37,6 +37,9 @@
     
     [CascadingParameter] public Chat? Chat { get; set; }
     
+    [CascadingParameter] public Action ChangeInfoStatus { get; set; }
+
+    
     public static bool search = false; // true is shown
 
     private string groupName;
@@ -55,7 +58,7 @@
     protected override void OnInitialized() {
         search = false;
         DropDownItems.Clear();
-        DropDownItems.Add(new DropDownItem("New Group", (() => Console.WriteLine("New Group"))));
+        DropDownItems.Add(new DropDownItem("Info", (() => ChangeInfoStatus.Invoke())));
         DropDownItems.Add(new DropDownItem("Settings", (() => Console.WriteLine("Settings"))));
         DropDownItems.Add(new DropDownItem("Log out", (() => Console.WriteLine("LogOut"))));
     }
