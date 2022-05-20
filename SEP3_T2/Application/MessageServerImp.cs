@@ -1,3 +1,4 @@
+using Contracts.DAO;
 using Contracts.Services;
 using Entities.Model;
 
@@ -5,11 +6,13 @@ namespace Application;
 
 public class MessageServerImp : IMessageService {
     
-    private IChatService ChatService;
+    private IMessageDao messageDao;
 
+    private IChatService ChatService; //TODO DELETE THIS
 
-    public MessageServerImp(IChatService chatService) {
-        ChatService = chatService;
+    public MessageServerImp(IMessageDao messageDao, IChatService chatService) {
+        this.messageDao = messageDao;
+        this.ChatService = chatService; //TODO Delete this
     }
 
     public async Task<Message> SaveMessage(Message message) {

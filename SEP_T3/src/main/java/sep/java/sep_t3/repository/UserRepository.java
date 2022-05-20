@@ -8,6 +8,7 @@ import sep.java.sep_t3.model.User;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, String> {
+    public User findUsersByEmail(String email);
 
 }

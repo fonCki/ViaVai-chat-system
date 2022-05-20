@@ -6,7 +6,7 @@ namespace SEP3_T2.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ChatController : Controller {
+public class ChatController : Controller, IMessageService {
     
     private IChatService chatService;
 
@@ -81,5 +81,10 @@ public class ChatController : Controller {
         catch (Exception e) {
             return StatusCode(500, e.Message);
         }
+    }
+
+    public async Task<Message> SaveMessage(Message message) {
+        throw new NotImplementedException();
+        
     }
 }

@@ -13,6 +13,7 @@ public class UserClient : IUserService {
         HttpResponseMessage response = await client.GetAsync(Address.ENDPOINT_USER);
         string content = await response.Content.ReadAsStringAsync();
 
+
         if (!response.IsSuccessStatusCode) {
             throw new Exception($"Error: {response.StatusCode}, {content}");
         }

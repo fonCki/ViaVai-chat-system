@@ -4,6 +4,7 @@ using Entities.Model;
 namespace Application; 
 
 public class ControlStatusImp : IControlStatusUser{
+    
 
     public Dictionary<string, Guid>? Users { get; set; }
     

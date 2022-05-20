@@ -14,7 +14,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Application\Application.csproj" />
       <ProjectReference Include="..\Contracts\Contracts.csproj" />
-      <ProjectReference Include="..\RESTClient\RESTClient.csproj" />
+      <ProjectReference Include="..\DataAccessClient\DataAccessClient.csproj" />
     </ItemGroup>
 
 </Project>

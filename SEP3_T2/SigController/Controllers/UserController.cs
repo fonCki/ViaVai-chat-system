@@ -9,7 +9,7 @@ namespace SEP3_T2.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UserController : ControllerBase {
+public class UserController : ControllerBase, IUserService {
 
     private IUserService UserService;
 
@@ -19,7 +19,7 @@ public class UserController : ControllerBase {
     
     
     [HttpGet]
-    public async Task<ActionResult<ICollection<User>>> GetContactListAsync() {
+    public async Task<ActionResult<ICollection<User>>> GetContactList() {
         try {
             ICollection<User> users = await UserService.GetContactList();
             return Ok(users);
@@ -29,12 +29,37 @@ public class UserController : ControllerBase {
         }
     }
 
+    public Task<User> GetUserAsyncByEmail(string email) {
+        throw new NotImplementedException();
+    }
+
+    public Task<User> GetUserAsyncByRUI(Guid RUI) {
+        throw new NotImplementedException();
+    }
+
+    public Task<User> SignUp(string name, string lname, string email, string password, string imgPath) {
+        throw new NotImplementedException();
+    }
+
+    Task<User> IUserService.UpdateUser(User user) {
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteAccount(User user) {
+        throw new NotImplementedException();
+    }
+
+    Task<Status> IUserService.SetStatus(Guid RUI, Status status) {
+        throw new NotImplementedException();
+    }
+
     [HttpGet]
     [Route("email/{email}")]
-    public async Task<ActionResult<User>> GetUserByEmailAsync([FromRoute] string email) {
+    public async Task<ActionResult<User>> GetUserByEmail([FromRoute] string email) {
 
         try {
             User user = await UserService.GetUserAsyncByEmail(email);
+            Console.WriteLine(user + "from controller");
             return Ok(user);
         }
         catch (Exception e) {
@@ -60,12 +85,16 @@ public class UserController : ControllerBase {
     [HttpPost]
     public async Task<ActionResult> SignUpAsync([FromBody] User user) {
         try {
-             User created = await UserService.SignUp(user.LastName,user.LastName, user.Email, user.Password, user.Avatar);
+             User created = await UserService.SignUp(user.Name,user.LastName, user.Email, user.Password, user.Avatar);
              return Created("User Created", created);
         }
         catch (Exception e) {
             return StatusCode(500, e.Message);
         }
+    }
+
+    Task<ICollection<User>> IUserService.GetContactList() {
+        throw new NotImplementedException();
     }
 
     [HttpPatch]

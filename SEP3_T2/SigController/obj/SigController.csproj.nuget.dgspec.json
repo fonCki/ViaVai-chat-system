@@ -116,14 +116,14 @@
         }
       }
     },
-    "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Entities/Entities.csproj": {
+    "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/DataAccessClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Entities/Entities.csproj",
-        "projectName": "Entities",
-        "projectPath": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Entities/Entities.csproj",
+        "projectUniqueName": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/DataAccessClient.csproj",
+        "projectName": "DataAccessClient",
+        "projectPath": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/DataAccessClient.csproj",
         "packagesPath": "/Users/alfonsoridao/.nuget/packages/",
-        "outputPath": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Entities/obj/",
+        "outputPath": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/alfonsoridao/.nuget/NuGet/NuGet.Config"
@@ -137,7 +137,14 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Contracts/Contracts.csproj": {
+                "projectPath": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Contracts/Contracts.csproj"
+              },
+              "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Entities/Entities.csproj": {
+                "projectPath": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Entities/Entities.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -168,14 +175,14 @@
         }
       }
     },
-    "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/RESTClient.csproj": {
+    "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Entities/Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/RESTClient.csproj",
-        "projectName": "RESTClient",
-        "projectPath": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/RESTClient.csproj",
+        "projectUniqueName": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Entities/Entities.csproj",
+        "projectName": "Entities",
+        "projectPath": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Entities/Entities.csproj",
         "packagesPath": "/Users/alfonsoridao/.nuget/packages/",
-        "outputPath": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/obj/",
+        "outputPath": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Entities/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/alfonsoridao/.nuget/NuGet/NuGet.Config"
@@ -189,11 +196,7 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {
-              "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Entities/Entities.csproj": {
-                "projectPath": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Entities/Entities.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -252,8 +255,8 @@
               "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Contracts/Contracts.csproj": {
                 "projectPath": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/Contracts/Contracts.csproj"
               },
-              "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/RESTClient.csproj": {
-                "projectPath": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/RESTClient/RESTClient.csproj"
+              "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/DataAccessClient.csproj": {
+                "projectPath": "/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/DataAccessClient.csproj"
               }
             }
           }

@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigController", "SigController\SigController.csproj", "{35224DE3-EFD3-4BFB-9B38-C2297F41EE35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RESTClient", "RESTClient\RESTClient.csproj", "{02059C4F-8E39-4D75-9145-BDC162C88B70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessClient", "DataAccessClient\DataAccessClient.csproj", "{02059C4F-8E39-4D75-9145-BDC162C88B70}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{B3888052-1C81-401E-9C8B-D7D8F25C6260}"
 EndProject

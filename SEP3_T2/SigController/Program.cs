@@ -1,5 +1,7 @@
 using Application;
+using Contracts.DAO;
 using Contracts.Services;
+using RESTClient;
 using SEP3_T2;
 using SEP3_T2.Controllers;
 
@@ -15,7 +17,13 @@ builder.Services.AddSignalR();
 builder.Services.AddScoped<IChatService, InMemoryChatService>();
 builder.Services.AddScoped<IUserService, InMemoryUserService>();
 builder.Services.AddScoped<IMessageService, MessageServerImp>();
+
 builder.Services.AddSingleton<IControlStatusUser, ControlStatusImp>();
+
+builder.Services.AddScoped<IChatDao, ChatDAO>();
+builder.Services.AddScoped<IMessageDao, MessageDAO>();
+builder.Services.AddScoped<IUserDao, UserDAO>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -21,6 +21,7 @@ public class AuthServiceImpl : IAuthService {
     public async Task LoginAsync(string email, string password) {
         
         MyUser = await userService.GetUserAsyncByEmail(email); // Get user from database
+        Console.WriteLine(MyUser);
 
 
         ValidateLoginCredentials(password, MyUser); // Validate input data against data from database

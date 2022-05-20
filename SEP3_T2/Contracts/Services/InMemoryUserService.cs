@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Entities.Model;
 
 
@@ -24,16 +25,16 @@ public class InMemoryUserService : IUserService {
         return _users;
     }
 
-    public async Task<User> GetUserAsyncByEmail(string email) {
-        if (String.IsNullOrEmpty(email)) {
-            throw new Exception("Error with user address");
-        }
-        User? find = _users.FirstOrDefault(user => user.Email.Equals(email));
-        if (find == null) {
-            throw new Exception("User not found");
-        }
-        return find;
-    }
+    // public async Task<User> GetUserAsyncByEmail(string email) {
+    //     if (String.IsNullOrEmpty(email)) {
+    //         throw new Exception("Error with user address");
+    //     }
+    //     User? find = _users.FirstOrDefault(user => user.Email.Equals(email));
+    //     if (find == null) {
+    //         throw new Exception("User not found");
+    //     }
+    //     return find;
+    // }
 
     public async Task<User> GetUserAsyncByRUI(Guid RUI) {
         if (_users == null) {
@@ -48,6 +49,8 @@ public class InMemoryUserService : IUserService {
         }
         return find;
     }
+    
+
 
     // public async Task<User> SignUp(string name, string lname, string email, string password, string imgPath) {
     //     if (await existUser(email)) {
@@ -62,13 +65,33 @@ public class InMemoryUserService : IUserService {
     //     return _users.FirstOrDefault(user => user.Email.Equals(email));
     // }
     
+    public async Task<User> GetUserAsyncByEmail(string email) {
+        using HttpClient client = new();
+        
+        HttpResponseMessage response = await client.GetAsync($"http://localhost:8080/Users/{email}");
+        string responseContent = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception($"Error: {response.StatusCode}, {responseContent}");
+        }
+        
+        User returned = JsonSerializer.Deserialize<User>(responseContent, new JsonSerializerOptions {
+            Converters = {
+                new JsonStringEnumConverter( JsonNamingPolicy.CamelCase)
+            },
+            IgnoreNullValues = true,
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = false
+        })!;
+        return returned;
+    }
+    
     
     public async Task<User> SignUp(string name, string lname, string email, string password, string imgPath) {
         User newUser = new User(name, lname, email, password, imgPath);
         using HttpClient client = new();
         string userToJson = JsonSerializer.Serialize(newUser);
         StringContent content = new(userToJson, Encoding.UTF8, "application/json");
-        HttpResponseMessage response = await client.PostAsync($"http://localhost:8080/Users/Add", content);
+        HttpResponseMessage response = await client.PostAsync($"http://localhost:8080/Users", content);
         string responseContent = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode) {
             throw new Exception($"Error: {response.StatusCode}, {responseContent}");
