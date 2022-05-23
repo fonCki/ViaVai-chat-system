@@ -9,7 +9,7 @@ namespace SEP3_T2.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UserController : ControllerBase, IUserService {
+public class UserController : ControllerBase{
 
     private IUserService UserService;
 
@@ -20,6 +20,7 @@ public class UserController : ControllerBase, IUserService {
     
     [HttpGet]
     public async Task<ActionResult<ICollection<User>>> GetContactList() {
+
         try {
             ICollection<User> users = await UserService.GetContactList();
             return Ok(users);
@@ -28,30 +29,11 @@ public class UserController : ControllerBase, IUserService {
             return StatusCode(500, e.Message);
         }
     }
-
-    public Task<User> GetUserAsyncByEmail(string email) {
+    
+    public Task<ActionResult> DeleteAccount(User user) {
         throw new NotImplementedException();
     }
-
-    public Task<User> GetUserAsyncByRUI(Guid RUI) {
-        throw new NotImplementedException();
-    }
-
-    public Task<User> SignUp(string name, string lname, string email, string password, string imgPath) {
-        throw new NotImplementedException();
-    }
-
-    Task<User> IUserService.UpdateUser(User user) {
-        throw new NotImplementedException();
-    }
-
-    public Task DeleteAccount(User user) {
-        throw new NotImplementedException();
-    }
-
-    Task<Status> IUserService.SetStatus(Guid RUI, Status status) {
-        throw new NotImplementedException();
-    }
+    
 
     [HttpGet]
     [Route("email/{email}")]
@@ -59,7 +41,6 @@ public class UserController : ControllerBase, IUserService {
 
         try {
             User user = await UserService.GetUserAsyncByEmail(email);
-            Console.WriteLine(user + "from controller");
             return Ok(user);
         }
         catch (Exception e) {
@@ -92,10 +73,7 @@ public class UserController : ControllerBase, IUserService {
             return StatusCode(500, e.Message);
         }
     }
-
-    Task<ICollection<User>> IUserService.GetContactList() {
-        throw new NotImplementedException();
-    }
+    
 
     [HttpPatch]
     public async Task<ActionResult<User>> UpdateUser([FromBody] User user) {

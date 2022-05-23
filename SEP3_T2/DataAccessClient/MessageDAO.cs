@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Contracts.DAO;
 using Entities.Address;
 using Entities.Model;
@@ -20,7 +21,12 @@ public class MessageDAO : IMessageDao {
         }
 
         Message returned = JsonSerializer.Deserialize<Message>(responseContent, new JsonSerializerOptions {
-            PropertyNameCaseInsensitive = true
+            Converters = {
+                new JsonStringEnumConverter( JsonNamingPolicy.CamelCase)
+            },
+            IgnoreNullValues = true,
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = false
         })!;
 
         return returned;
@@ -35,7 +41,12 @@ public class MessageDAO : IMessageDao {
         }
 
         Message message = JsonSerializer.Deserialize<Message>(content, new JsonSerializerOptions {
-            PropertyNameCaseInsensitive = true
+            Converters = {
+                new JsonStringEnumConverter( JsonNamingPolicy.CamelCase)
+            },
+            IgnoreNullValues = true,
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = false
         })!;
         return message;
     }
@@ -51,7 +62,12 @@ public class MessageDAO : IMessageDao {
         }
 
         ICollection<Message> messages = JsonSerializer.Deserialize<ICollection<Message>>(content, new JsonSerializerOptions {
-            PropertyNameCaseInsensitive = true
+            Converters = {
+                new JsonStringEnumConverter( JsonNamingPolicy.CamelCase)
+            },
+            IgnoreNullValues = true,
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = false
         })!;
         return messages;
     }
@@ -76,7 +92,12 @@ public class MessageDAO : IMessageDao {
         }
 
         Message returned = JsonSerializer.Deserialize<Message>(responseContent, new JsonSerializerOptions {
-            PropertyNameCaseInsensitive = true
+            Converters = {
+                new JsonStringEnumConverter( JsonNamingPolicy.CamelCase)
+            },
+            IgnoreNullValues = true,
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = false
         })!;
         return returned;
     }

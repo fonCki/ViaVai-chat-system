@@ -6,13 +6,13 @@ namespace Application;
 
 public class MessageServerImp : IMessageService {
     
-    private IMessageDao messageDao;
+    private IMessageDao MessageDao;
 
     private IChatService ChatService; //TODO DELETE THIS
 
     public MessageServerImp(IMessageDao messageDao, IChatService chatService) {
-        this.messageDao = messageDao;
-        this.ChatService = chatService; //TODO Delete this
+        MessageDao = messageDao;
+        ChatService = chatService; //TODO Delete this
     }
 
     public async Task<Message> SaveMessage(Message message) {
@@ -20,7 +20,8 @@ public class MessageServerImp : IMessageService {
         if (chat == null) {
             throw new Exception("Hay un error con el chat");
         }
-        await ChatService.SaveMessage(message);
+
+        await MessageDao.AddMessage(message);
         return message;
     }
 }

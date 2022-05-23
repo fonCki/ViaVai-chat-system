@@ -43,4 +43,6 @@ public class User : Recipient {
     public override string ToString() {
         return $"{nameof(RUI)}: {RUI}, {nameof(Name)}: {Name}, {nameof(Avatar)}: {Avatar}, {nameof(LastName)}: {LastName}, {nameof(Email)}: {Email}, {nameof(Password)}: {Password}, {nameof(Status)}: {Status}";
     }
+    
+    
 }

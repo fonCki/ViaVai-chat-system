@@ -82,6 +82,7 @@
       },
       "DataAccessClient/1.0.0": {
         "dependencies": {
+          "Contracts": "1.0.0",
           "Entities": "1.0.0"
         },
         "runtime": {

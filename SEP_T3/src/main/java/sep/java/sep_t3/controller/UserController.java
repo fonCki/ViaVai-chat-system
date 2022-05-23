@@ -33,6 +33,7 @@ public class UserController implements IUserDao {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
         User user = mapper.readValue(userAsJson, User.class);
+        System.out.println(user);
         try {
             User u = userRepository.save(user);
             return new ResponseEntity<>(u, HttpStatus.CREATED);
@@ -43,9 +44,21 @@ public class UserController implements IUserDao {
     }
 
     @Override
-    @GetMapping("/{RUI}")
-    public ResponseEntity<User> GetUser(@PathVariable("RUI") String RUI) {
+    @GetMapping("/rui/{RUI}")
+    public ResponseEntity<User> GetUserByRUI(@PathVariable("RUI") String RUI) {
         Optional<User> findedUser = userRepository.findById(RUI);
+        if (findedUser.isPresent()) {
+            return new ResponseEntity<>(findedUser.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    @Override
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> GetUserByEmail(@PathVariable("email") String email) {
+        Optional<User> findedUser = Optional.ofNullable(userRepository.findUsersByEmail(email));
         if (findedUser.isPresent()) {
             return new ResponseEntity<>(findedUser.get(), HttpStatus.OK);
         } else {

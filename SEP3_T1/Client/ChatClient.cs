@@ -27,6 +27,7 @@ public class ChatClient : IChatService {
     }
 
     public async Task<Chat> GetOrCreateChat(Guid userOne, Guid UserTwo) {
+        Console.WriteLine("This are the users: " + userOne + " - " + UserTwo);
         using HttpClient client = new();
         HttpResponseMessage response = await client.GetAsync(Address.ENDPOINT_CHAT + $"/user/{userOne}/{UserTwo}");
    

@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Contracts.DAO;
 using Entities.Address;
 using Entities.Model;
@@ -20,7 +21,12 @@ public class UserDAO : IUserDao{
         }
 
         User returned = JsonSerializer.Deserialize<User>(responseContent, new JsonSerializerOptions {
-            PropertyNameCaseInsensitive = true
+            Converters = {
+                new JsonStringEnumConverter( JsonNamingPolicy.CamelCase)
+            },
+            IgnoreNullValues = true,
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = false
         })!;
 
         return returned;
@@ -28,18 +34,42 @@ public class UserDAO : IUserDao{
 
     public async Task<User> GetUser(Guid RUI) {
         using HttpClient client = new();
-        HttpResponseMessage response = await client.GetAsync(Address.ENDPOINT_USER + $"/{RUI}");
+        HttpResponseMessage response = await client.GetAsync(Address.ENDPOINT_USER + $"/rui/{RUI}");
         string content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode) {
             throw new Exception($"Error: {response.StatusCode}, {content}");
         }
 
         User user = JsonSerializer.Deserialize<User>(content, new JsonSerializerOptions {
-            PropertyNameCaseInsensitive = true
+            Converters = {
+                new JsonStringEnumConverter( JsonNamingPolicy.CamelCase)
+            },
+            IgnoreNullValues = true,
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = false
         })!;
         return user;
     }
-    
+
+    public async Task<User> GetUser(string email) {
+        using HttpClient client = new();
+        HttpResponseMessage response = await client.GetAsync(Address.ENDPOINT_USER + $"/email/{email}");
+        string content = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception($"Error: {response.StatusCode}, {content}");
+        }
+
+        User user = JsonSerializer.Deserialize<User>(content, new JsonSerializerOptions {
+            Converters = {
+                new JsonStringEnumConverter( JsonNamingPolicy.CamelCase)
+            },
+            IgnoreNullValues = true,
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = false
+        })!;
+        return user;
+    }
+
     public async Task<ICollection<User>> GetAllUsers() {
         using HttpClient client = new();
         HttpResponseMessage response = await client.GetAsync(Address.ENDPOINT_USER);
@@ -49,10 +79,18 @@ public class UserDAO : IUserDao{
         if (!response.IsSuccessStatusCode) {
             throw new Exception($"Error: {response.StatusCode}, {content}");
         }
+        
+        
 
         ICollection<User> users = JsonSerializer.Deserialize<ICollection<User>>(content, new JsonSerializerOptions {
-            PropertyNameCaseInsensitive = true
+            Converters = {
+                new JsonStringEnumConverter( JsonNamingPolicy.CamelCase)
+            },
+            IgnoreNullValues = true,
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = false
         })!;
+        
         return users;
     }
 
@@ -76,7 +114,12 @@ public class UserDAO : IUserDao{
         }
 
         User returned = JsonSerializer.Deserialize<User>(responseContent, new JsonSerializerOptions {
-            PropertyNameCaseInsensitive = true
+            Converters = {
+                new JsonStringEnumConverter( JsonNamingPolicy.CamelCase)
+            },
+            IgnoreNullValues = true,
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = false
         })!;
         return returned;
     }

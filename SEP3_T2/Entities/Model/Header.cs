@@ -15,5 +15,8 @@ public class Header {
         CreatedBy = createdBy;
         Created = DateTime.Now;
     }
-    
+
+    public override string ToString() {
+        return $"{nameof(CUIRecipient)}: {CUIRecipient}, {nameof(CreatedBy)}: {CreatedBy}, {nameof(Created)}: {Created}";
+    }
 }

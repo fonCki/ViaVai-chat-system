@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Contracts.DAO;
 using Entities.Address;
 using Entities.Model;
@@ -20,7 +21,12 @@ public class ChatDAO : IChatDao {
         }
 
         Chat returned = JsonSerializer.Deserialize<Chat>(responseContent, new JsonSerializerOptions {
-            PropertyNameCaseInsensitive = true
+            Converters = {
+                new JsonStringEnumConverter( JsonNamingPolicy.CamelCase)
+            },
+            IgnoreNullValues = true,
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = false
         })!;
 
         return returned;
@@ -35,7 +41,12 @@ public class ChatDAO : IChatDao {
         }
 
         Chat chat = JsonSerializer.Deserialize<Chat>(content, new JsonSerializerOptions {
-            PropertyNameCaseInsensitive = true
+            Converters = {
+                new JsonStringEnumConverter( JsonNamingPolicy.CamelCase)
+            },
+            IgnoreNullValues = true,
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = false
         })!;
         return chat;
     }
@@ -44,16 +55,31 @@ public class ChatDAO : IChatDao {
         using HttpClient client = new();
         HttpResponseMessage response = await client.GetAsync(Address.ENDPOINT_CHAT);
         string content = await response.Content.ReadAsStringAsync();
-
+        
 
         if (!response.IsSuccessStatusCode) {
             throw new Exception($"Error: {response.StatusCode}, {content}");
         }
 
+        if (string.IsNullOrEmpty(content) || content.Equals("[]")) { //IF IS EMPTY
+            return new List<Chat>();
+        }
+
         ICollection<Chat> chats = JsonSerializer.Deserialize<ICollection<Chat>>(content, new JsonSerializerOptions {
-            PropertyNameCaseInsensitive = true
+            Converters = {
+                new JsonStringEnumConverter( JsonNamingPolicy.CamelCase)
+            },
+            IgnoreNullValues = true,
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = false
         })!;
         return chats;
+    }
+
+    public async Task<ICollection<Chat>> GetChatsFromParticularUser(Guid RUI) { //TODO IMPLEMENT THIS
+        ICollection<Chat> fullCollection = await GetAllChat();
+        ICollection<Chat> c = fullCollection.Where(c => c.Subscribers.Any(u => u.RUI.Equals(RUI))).ToList();
+        return c;
     }
 
     public async Task DeleteChat(Guid CID) {
@@ -76,7 +102,12 @@ public class ChatDAO : IChatDao {
         }
 
         Chat returned = JsonSerializer.Deserialize<Chat>(responseContent, new JsonSerializerOptions {
-            PropertyNameCaseInsensitive = true
+            Converters = {
+                new JsonStringEnumConverter( JsonNamingPolicy.CamelCase)
+            },
+            IgnoreNullValues = true,
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = false
         })!;
         return returned;
     }

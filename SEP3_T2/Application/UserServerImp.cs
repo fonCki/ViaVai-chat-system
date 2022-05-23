@@ -16,26 +16,29 @@ public class UserServerImp : IUserService {
     }
 
     public async Task<User> GetUserAsyncByEmail(string email) {
-        throw new NotImplementedException();
+        return await UserDao.GetUser(email);
     }
 
     public async Task<User> GetUserAsyncByRUI(Guid RUI) {
-        throw new NotImplementedException();
+        return await UserDao.GetUser(RUI);
     }
 
     public async Task<User> SignUp(string name, string lname, string email, string password, string imgPath) {
-        throw new NotImplementedException();
+        return await UserDao.AddUser(new User(name, lname, email, password, imgPath));
     }
 
     public async Task<User> UpdateUser(User user) {
-        throw new NotImplementedException();
+        return await UserDao.UpdateUser(user);
     }
 
     public async Task DeleteAccount(User user) {
-        throw new NotImplementedException();
+        await UserDao.DeleteUser(user.RUI);
     }
 
     public async Task<Status> SetStatus(Guid RUI, Status status) {
-        throw new NotImplementedException();
+        User user = await UserDao.GetUser(RUI);
+        user.Status = status;
+        await UpdateUser(user);
+        return user.Status;
     }
 }

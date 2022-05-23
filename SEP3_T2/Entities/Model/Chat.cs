@@ -12,7 +12,6 @@ public class Chat {
     public User CreatedBy { get; set; }
     public DateTime Created { get; set; }
     public bool IsGroup { get; set; }
-    
     public bool IsPrivate { get; set; }
 
     private Chat(string name, string image, bool isGroup, User createdBy) {
@@ -44,4 +43,7 @@ public class Chat {
         return newPrivateChat;
     }
 
+    public override string ToString() {
+        return $"{nameof(CID)}: {CID}, {nameof(Name)}: {Name}, {nameof(Image)}: {Image}, {nameof(Subscribers)}: {Subscribers}, {nameof(Messages)}: {Messages}, {nameof(CreatedBy)}: {CreatedBy}, {nameof(Created)}: {Created}, {nameof(IsGroup)}: {IsGroup}, {nameof(IsPrivate)}: {IsPrivate}";
+    }
 }

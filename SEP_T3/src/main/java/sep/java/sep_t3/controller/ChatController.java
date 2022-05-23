@@ -13,8 +13,10 @@ import sep.java.sep_t3.model.Chat;
 import sep.java.sep_t3.model.Message;
 import sep.java.sep_t3.repository.ChatRepository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
@@ -28,9 +30,15 @@ public class ChatController implements IChatDao {
     @PostMapping
     public ResponseEntity<Chat> AddChat(@RequestBody String chatAsJson) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES);
+        mapper.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_VALUES);
         mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+
+        System.out.println(chatAsJson);
         Chat chat = mapper.readValue(chatAsJson, Chat.class);
+        System.out.println(chat.isIsGroup() + " = " + chat.isIsPrivate());
         try {
             Chat c = chatRepository.save(chat);
             return new ResponseEntity<>(c, HttpStatus.CREATED);
@@ -52,13 +60,20 @@ public class ChatController implements IChatDao {
     }
 
     @Override
+    @GetMapping
     public ResponseEntity<List<Chat>> GetAllChat() {
-        List<Chat> chats = chatRepository.findAll();
+        List<Chat> chats = chatRepository.findAll().stream().collect(Collectors.toList());
         if(!chats.isEmpty()) {
             return new ResponseEntity<>(chats, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+    }
+
+    @Override
+    @GetMapping("/User/{CUI}")
+    public ResponseEntity<List<Chat>> GetChatsFromParticularUser(String RUI) {
+        return GetAllChat(); //TODO implement
     }
 
     @Override
@@ -89,8 +104,8 @@ public class ChatController implements IChatDao {
                 findedChat.get().setMessages(chat.getMessages());
                 findedChat.get().setCreatedBy(chat.getCreatedBy());
                 findedChat.get().setCreated(chat.getCreated());
-                findedChat.get().setGroup(chat.isGroup());
-                findedChat.get().setPrivate(chat.isPrivate());
+                findedChat.get().setIsGroup(chat.isIsGroup());
+                findedChat.get().setIsPrivate(chat.isIsPrivate());
                 return new ResponseEntity<>(chatRepository.save(findedChat.get()), HttpStatus.OK);
 
             } catch (Exception e) {

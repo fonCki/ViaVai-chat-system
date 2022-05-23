@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface IUserDao {
     public ResponseEntity<User> AddUser(String userAsJson) throws JsonProcessingException;
-    public ResponseEntity<User> GetUser(String Email);
+    public ResponseEntity<User> GetUserByRUI(String RUI);
+    public ResponseEntity<User> GetUserByEmail(String Email);
     public ResponseEntity<HttpStatus> DeleteUser(String email);
     public ResponseEntity<User> UpdateUser(String userAsJson) throws JsonProcessingException;
     public ResponseEntity<List<User>> GetAllUsers();

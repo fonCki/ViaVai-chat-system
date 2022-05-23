@@ -44,7 +44,6 @@ public class ChatHub : Hub {
             PropertyNameCaseInsensitive = true
         })!;
         await MessageService.SaveMessage(message);
-        Console.WriteLine(message);
         foreach (var user in await ChatService.GetAllUsersFromChat(message.Header.CUIRecipient)) {
             await Clients.Groups(user.ToString()).SendAsync("NewMessage", messageAsJson);
         }

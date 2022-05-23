@@ -14,8 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
-builder.Services.AddScoped<IChatService, InMemoryChatService>();
-builder.Services.AddScoped<IUserService, InMemoryUserService>();
+builder.Services.AddScoped<IChatService, ChatServiceImp>();
+builder.Services.AddScoped<IUserService, UserServerImp>();
 builder.Services.AddScoped<IMessageService, MessageServerImp>();
 
 builder.Services.AddSingleton<IControlStatusUser, ControlStatusImp>();

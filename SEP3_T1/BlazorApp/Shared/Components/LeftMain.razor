@@ -13,8 +13,10 @@
 
 @if (Chats is not null) {
     <main class="main">
-        @* <CascadingValue Value="@RefreshChilds"> *@
         <div class="main-@Panel.Starter @starter">
+            @foreach (var chat in Chats) {
+                <p>Hola</p>
+            }
             <HeaderLeft ChangePanel="ChangePanel"/>
             <SearchArea text="Search or start new chat" color="dark" Search="FoundedSerch"/>
             <MakeScrollList>
@@ -36,7 +38,6 @@
         <div class="main-@Panel.Group @group">
             <Group ChangePanel="@ChangePanel"/>
         </div>
-        @* </CascadingValue> *@
     </main>
 }
 @code {
@@ -44,8 +45,7 @@
     public Panel CurrentPanel { get; set; } = Panel.Starter;
     public ICollection<Chat> Chats { get; set; }
     [CascadingParameter] private HubService HubService { get; set; }
-
-    public Action RefreshChilds;
+    
 
     private Status starter = Status.Active;
     private Status profile = Status.Hidden;
@@ -56,13 +56,21 @@
 
     private string wordSearch;
 
-    protected async override Task OnParametersSetAsync() {
+    protected override async Task OnParametersSetAsync() {
         HubService.NotifyAllNewMessage += OnNotify;
         Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser.RUI);
+        Console.WriteLine("amount of chats: " + Chats.Count);
+        foreach (var chat in Chats) {
+            Console.WriteLine(chat.Name);
+        }
         if (Chats == null) Chats = new List<Chat>();
         await InitAndSortChats();
     }
-    
+
+
+    protected async override Task OnInitializedAsync() {
+        Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser.RUI);
+    }
 
     public void ChangePanel(Panel panel) {
         CurrentPanel = panel;
@@ -112,6 +120,7 @@
 
     private async Task InitAndSortChats() {
         Chats = Chats.Where(c => c.Messages.Any()).OrderByDescending(c => c.Messages?.First()?.Header.Created!).ToList();
+        StateHasChanged();
     }
     
     public void FoundedSerch(string s) {
