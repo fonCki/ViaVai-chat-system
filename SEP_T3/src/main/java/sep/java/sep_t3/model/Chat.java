@@ -18,7 +18,7 @@ public class Chat {
 
     public String image;
 
-    @OneToMany
+    @ManyToMany
     @JoinColumn(name = "subscribers")
     public List<User> subscribers;
 
@@ -33,9 +33,9 @@ public class Chat {
     public Date created;
 
     @Column(name = "IsGroup")
-    boolean isGroup;
+    boolean IsGroup;
 
     @Column(name = "IsPrivate")
-    boolean isPrivate;
+    boolean IsPrivate;
 
 }
