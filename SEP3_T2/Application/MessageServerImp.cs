@@ -9,6 +9,7 @@ public class MessageServerImp : IMessageService {
     private IMessageDao MessageDao;
 
     private IChatService ChatService; //TODO DELETE THIS
+    
 
     public MessageServerImp(IMessageDao messageDao, IChatService chatService) {
         MessageDao = messageDao;
@@ -23,5 +24,11 @@ public class MessageServerImp : IMessageService {
 
         await MessageDao.AddMessage(message);
         return message;
+    }
+
+    public async Task<ICollection<Message>> GetAllMessage(Guid CUI) { //TODO update this
+        ICollection<Message> fullList = await MessageDao.GetAllMessage();
+        fullList = fullList.Where(m => m.Header.CUIRecipient.Equals(CUI)).ToList();
+        return fullList;
     }
 }

@@ -6,19 +6,25 @@
 
 @inject IAuthService AuthService
 @inject IChatService ChatService 
+@inject IMessageService MessageService 
+
 
 <main class="main">
-    <Virtualize Items="@Chat?.Messages" Context="message">
-        <div class="@(AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email) ? "mine" : "not-mine")">
-            <PlainMessage Message="message" IsMine=@AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email)></PlainMessage>
-        </div>
-    </Virtualize>
+    @if (messages is not null) {
+        <Virtualize Items="@messages" Context="message">
+            <div class="@(AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email) ? "mine" : "not-mine")">
+                <PlainMessage Message="message" IsMine=@AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email)></PlainMessage>
+            </div>
+        </Virtualize>
+    }
 </main>
 
 @code {
     [CascadingParameter] public Chat? Chat { get; set; }
     
     [CascadingParameter] private HubService HubService { get; set; }
+
+    ICollection<Message>? messages;
 
 
     private HubConnection hubConnection;
@@ -35,6 +41,8 @@
 
 
     protected async override Task OnInitializedAsync() {
+        messages = await MessageService.GetAllMessagesFromChat(Chat!.CID);
+        messages = messages.OrderByDescending(m => m.Header.Created).ToList();
         hubConnection = HubService.HubConnection;
         HubService.NotifyAllNewMessage += OnNotify;
 
@@ -57,7 +65,10 @@
             // }
            
             //Option two:
-            Chat = await ChatService.GetChat(Chat.CID);
+            
+            messages.Add(message);
+            messages = messages.OrderByDescending(m => m.Header.Created).ToList();
+            // Chat = await ChatService.GetChat(Chat.CID);
             // await ChatService.SetAsReadMessages(AuthService.MyUser.RUI, Chat);
             StateHasChanged();
         }));

@@ -4,83 +4,86 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="694ffd67-e337-4be4-9774-048d6daeea59" name="Changes" comment="User controller DAO 3 tiers done. table workin">
+    <list default="true" id="694ffd67-e337-4be4-9774-048d6daeea59" name="Changes" comment="added many to many relationship">
+      <change afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/wwwroot/images/group/From Requirements To Code Poster.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/Controllers/MessageController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/ChatArea.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/ChatArea.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/LeftMain.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/LeftMain.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/MessageArea.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/MessageArea.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/MessageClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Client/MessageClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Client.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Client.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Client.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Client.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Contracts.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Contracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Contracts.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Entities.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Entities.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/ref/Client.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/ref/Client.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/obj/Debug/net6.0/Client.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Client/obj/Debug/net6.0/Client.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Contracts/obj/Debug/net6.0/Contracts.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Contracts/obj/Debug/net6.0/Contracts.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/obj/Debug/net6.0/Client.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Client/obj/Debug/net6.0/Client.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/obj/Debug/net6.0/Client.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Client/obj/Debug/net6.0/Client.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/obj/Debug/net6.0/ref/Client.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Client/obj/Debug/net6.0/ref/Client.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Contracts/Services/IMessageService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Contracts/Services/IMessageService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Contracts/bin/Debug/net6.0/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Contracts/bin/Debug/net6.0/Contracts.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Contracts/bin/Debug/net6.0/Contracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Contracts/bin/Debug/net6.0/Contracts.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Contracts/bin/Debug/net6.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Contracts/bin/Debug/net6.0/Entities.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Contracts/bin/Debug/net6.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Contracts/bin/Debug/net6.0/Entities.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Contracts/bin/Debug/net6.0/ref/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Contracts/bin/Debug/net6.0/ref/Contracts.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Contracts/obj/Debug/net6.0/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Contracts/obj/Debug/net6.0/Contracts.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Contracts/obj/Debug/net6.0/Contracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Contracts/obj/Debug/net6.0/Contracts.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Contracts/obj/Debug/net6.0/ref/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Contracts/obj/Debug/net6.0/ref/Contracts.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/Address/Address.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/Address/Address.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/bin/Debug/net6.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/bin/Debug/net6.0/Entities.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/bin/Debug/net6.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/bin/Debug/net6.0/Entities.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/bin/Debug/net6.0/ref/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/bin/Debug/net6.0/ref/Entities.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/ChatServiceImp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Application/ChatServiceImp.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/ref/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/ref/Entities.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/MessageServerImp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Application/MessageServerImp.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/UserServerImp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Application/UserServerImp.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/Application.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/Application.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/Application.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/Contracts.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/Contracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/Contracts.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/Entities.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/ref/Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/ref/Application.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/obj/Debug/net6.0/Application.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Application/obj/Debug/net6.0/Application.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/obj/Debug/net6.0/Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Application/obj/Debug/net6.0/Application.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/obj/Debug/net6.0/Application.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Application/obj/Debug/net6.0/Application.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/obj/Debug/net6.0/ref/Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Application/obj/Debug/net6.0/ref/Application.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/DAO/IChatDao.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Contracts/DAO/IChatDao.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/DAO/IUserDao.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Contracts/DAO/IUserDao.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/Services/IChatService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Contracts/Services/IChatService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Application/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/Services/IMessageService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Contracts/Services/IMessageService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/bin/Debug/net6.0/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Contracts/bin/Debug/net6.0/Contracts.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/bin/Debug/net6.0/Contracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Contracts/bin/Debug/net6.0/Contracts.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/bin/Debug/net6.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Contracts/bin/Debug/net6.0/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/bin/Debug/net6.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Contracts/bin/Debug/net6.0/Entities.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/bin/Debug/net6.0/ref/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Contracts/bin/Debug/net6.0/ref/Contracts.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/obj/Debug/net6.0/Contracts.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Contracts/obj/Debug/net6.0/Contracts.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/obj/Debug/net6.0/Contracts.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Contracts/obj/Debug/net6.0/Contracts.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/obj/Debug/net6.0/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Contracts/obj/Debug/net6.0/Contracts.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/obj/Debug/net6.0/Contracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Contracts/obj/Debug/net6.0/Contracts.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/obj/Debug/net6.0/ref/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Contracts/obj/Debug/net6.0/ref/Contracts.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/ChatDAO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/ChatDAO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/UserDAO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/UserDAO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/bin/Debug/net6.0/DataAccessClient.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/bin/Debug/net6.0/DataAccessClient.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Contracts/obj/rider.project.restore.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/bin/Debug/net6.0/DataAccessClient.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/bin/Debug/net6.0/DataAccessClient.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/bin/Debug/net6.0/DataAccessClient.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/bin/Debug/net6.0/DataAccessClient.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/bin/Debug/net6.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/bin/Debug/net6.0/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/bin/Debug/net6.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/bin/Debug/net6.0/Entities.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/bin/Debug/net6.0/ref/DataAccessClient.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/bin/Debug/net6.0/ref/DataAccessClient.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/obj/Debug/net6.0/DataAccessClient.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/obj/Debug/net6.0/DataAccessClient.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/obj/Debug/net6.0/DataAccessClient.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/obj/Debug/net6.0/DataAccessClient.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/obj/Debug/net6.0/DataAccessClient.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/obj/Debug/net6.0/DataAccessClient.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/obj/Debug/net6.0/DataAccessClient.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/obj/Debug/net6.0/DataAccessClient.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/obj/Debug/net6.0/DataAccessClient.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/obj/Debug/net6.0/DataAccessClient.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/obj/Debug/net6.0/ref/DataAccessClient.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/obj/Debug/net6.0/ref/DataAccessClient.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Entities/bin/Debug/net6.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Entities/bin/Debug/net6.0/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Entities/bin/Debug/net6.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Entities/bin/Debug/net6.0/Entities.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Entities/bin/Debug/net6.0/ref/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Entities/bin/Debug/net6.0/ref/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Entities/obj/Debug/net6.0/Entities.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Entities/obj/Debug/net6.0/Entities.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Entities/obj/Debug/net6.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Entities/obj/Debug/net6.0/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Entities/obj/Debug/net6.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Entities/obj/Debug/net6.0/Entities.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Entities/obj/Debug/net6.0/ref/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Entities/obj/Debug/net6.0/ref/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/Controllers/ChatController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/Controllers/ChatController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Entities/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/Entities/obj/rider.project.restore.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/Application.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/Application.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/Application.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/Contracts.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/Contracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/Contracts.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/DataAccessClient.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/DataAccessClient.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/DataAccessClient.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/DataAccessClient.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/Entities.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/SigController.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/SigController.deps.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/SigController.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/SigController.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/SigController.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/SigController.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/ref/SigController.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/ref/SigController.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/Debug/net6.0/SigController.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/Debug/net6.0/SigController.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/Debug/net6.0/SigController.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/Debug/net6.0/SigController.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/Debug/net6.0/SigController.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/Debug/net6.0/SigController.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/Debug/net6.0/SigController.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/Debug/net6.0/SigController.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/Debug/net6.0/ref/SigController.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/Debug/net6.0/ref/SigController.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/rider.project.restore.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/staticwebassets.pack.sentinel" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/staticwebassets.pack.sentinel" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/contracts/IChatDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/contracts/IChatDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/contracts/IUserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/contracts/IUserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/controller/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/controller/ChatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/model/Chat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/repository/ChatRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/repository/ChatRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +112,7 @@
     <option name="myId2Visible">
       <map>
         <entry key="com.haulmont.jpb.jpaInspector" value="false" />
-        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
         <entry key="com.haulmont.jpb.jpaStructure" value="false" />
       </map>
     </option>
@@ -167,7 +170,8 @@
       <workItem from="1652875191782" duration="533000" />
       <workItem from="1652875759943" duration="29317000" />
       <workItem from="1652974703672" duration="15407000" />
-      <workItem from="1653272624006" duration="16952000" />
+      <workItem from="1653272624006" duration="17770000" />
+      <workItem from="1653302011567" duration="11368000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit T_3">
       <created>1649936865371</created>
@@ -190,7 +194,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652884796605</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="added many to many relationship">
+      <created>1653301809815</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1653301809815</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,6 +223,7 @@
     <MESSAGE value="Saving a message in database without values except body" />
     <MESSAGE value="Tier 3 setted up, user working, all good man!" />
     <MESSAGE value="User controller DAO 3 tiers done. table workin" />
-    <option name="LAST_COMMIT_MESSAGE" value="User controller DAO 3 tiers done. table workin" />
+    <MESSAGE value="added many to many relationship" />
+    <option name="LAST_COMMIT_MESSAGE" value="added many to many relationship" />
   </component>
 </project>

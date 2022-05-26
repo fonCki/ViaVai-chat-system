@@ -8,15 +8,13 @@
 @using Contracts.Services.Hub
 @inject IChatService ChatService
 @inject IAuthService AuthService
+@inject IMessageService MessageService
 
 @namespace BlazorApp.Shared.Components
 
 @if (Chats is not null) {
     <main class="main">
         <div class="main-@Panel.Starter @starter">
-            @foreach (var chat in Chats) {
-                <p>Hola</p>
-            }
             <HeaderLeft ChangePanel="ChangePanel"/>
             <SearchArea text="Search or start new chat" color="dark" Search="FoundedSerch"/>
             <MakeScrollList>
@@ -59,6 +57,7 @@
     protected override async Task OnParametersSetAsync() {
         HubService.NotifyAllNewMessage += OnNotify;
         Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser.RUI);
+        await LoadMessages();
         Console.WriteLine("amount of chats: " + Chats.Count);
         foreach (var chat in Chats) {
             Console.WriteLine(chat.Name);
@@ -67,10 +66,7 @@
         await InitAndSortChats();
     }
 
-
-    protected async override Task OnInitializedAsync() {
-        Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser.RUI);
-    }
+    
 
     public void ChangePanel(Panel panel) {
         CurrentPanel = panel;
@@ -110,9 +106,11 @@
     
     public async void OnNotify(Message message) {
         await InvokeAsync((async () => {
+            Console.WriteLine(message.Body);
             Chats.Clear();
             StateHasChanged();
             Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser.RUI); //TODO this is not the correct aproach
+            await LoadMessages();
             await InitAndSortChats();
             StateHasChanged();
         }));
@@ -125,8 +123,18 @@
     
     public void FoundedSerch(string s) {
         Chats = ChatService.GetAllChatsByUser(AuthService.MyUser.RUI).Result.
-                Where(c => c.Name.Contains(s, StringComparison.CurrentCultureIgnoreCase)).ToList();
+        Where(c => c.Name.Contains(s, StringComparison.CurrentCultureIgnoreCase)).ToList();
         StateHasChanged();
+    }
+
+    private async Task LoadMessages() {
+        foreach (var chat in Chats) {
+            Console.WriteLine();
+            chat.Messages = await MessageService.GetAllMessagesFromChat(chat.CID);
+            foreach (var chatMessage in chat.Messages) {
+                Console.WriteLine(chatMessage.Body);
+            }
+        }
     }
 
 }
