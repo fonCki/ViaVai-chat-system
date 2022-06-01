@@ -1,0 +1,65 @@
+@using Entities.Model
+@using BlazorApp.Shared.MicroComponents
+@using BlazorApp.Authentication
+@inject IAuthService AuthService 
+
+<main class="main">
+    <div class="main-header">
+        <div class="arrow" @onclick="() => ChangeInfoStatus.Invoke()">
+            <ToolTip Text="Close" Pos="ToolTip.Position.Button">
+                <span class="iconify" data-icon="clarity:close-line" style="color: #657781;" data-width="20"></span>
+            </ToolTip>
+        </div>
+        <div>@(Chat!.IsGroup ? "Group info" : "Contact info")</div>
+    </div>
+    <div class="name-and-photo">
+        <div class="avatar">
+            <Avatar image="@image" size="Avatar.Size.XXL"/>
+        </div>
+        <h3>@name</h3>
+    </div>
+    <div class="details">
+        @if (Chat.IsGroup) {
+        <Virtualize Items="@Chat?.Subscribers" Context="member">
+            <div class="user-row">
+                <Avatar size="Avatar.Size.Small" image="@member.Avatar"/>
+                <h6>@member.Name</h6>
+            </div>
+        </Virtualize>
+    }
+    else {
+    <div class="user-details">
+        <h6>@notMe.Name @notMe.LastName</h6>
+        <h6>@notMe.Status</h6>
+        <h6>@notMe.Email</h6>
+    </div>
+    }
+        </div>
+</main>
+
+@code {
+    [CascadingParameter] public Chat? Chat { get; set; }
+    [CascadingParameter] public Action ChangeInfoStatus { get; set; }
+
+    private string name;
+    private string image;
+    
+    private User notMe;
+    
+    protected async override Task OnParametersSetAsync() {
+        await SetNameAndImage();
+    }
+    
+
+    private async Task SetNameAndImage() {
+        if (Chat!.IsGroup) {
+            name = Chat.Name;
+            image = Chat.Image;
+        }
+        else {
+             notMe = Chat!.Subscribers.First(u => !u.RUI.Equals(AuthService.MyUser.RUI));
+            name = notMe.Name;
+            image = notMe.Avatar;
+        }
+    }
+}

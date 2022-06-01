@@ -1,27 +1,27 @@
 @using BlazorApp.Shared.MicroComponents
 @using Entities.Model
-@inject NavigationManager navMgr
+@inject NavigationManager NavMgr
 
-<main class="main" @onclick="@Goto">
+<main class="main" @onclick="@(() => { SelectUser?.Invoke(User.Email); ChangePanel?.Invoke(Panel.Starter); })">
     <div class="name-and-avatar">
-        <Avatar size="Avatar.Size.Medium" image="@_user.Avatar"/>
+        <Avatar size="Avatar.Size.Medium" image="@User.Avatar"/>
         <div class="personal-data">
-            <h4 class="first-name">@_user.Name @_user.LastName</h4>
-            <p>@_user.Email</p>
+            <h4 class="first-name">@User.Name</h4>
+            <p>@User.Email</p>
         </div>
     </div>
     <div class="status">
-        <ToolTip Text="@_user.Status.ToString()" Pos="ToolTip.Position.Left">
-            <span class="iconify @_user.Status" data-icon="fa:dot-circle-o" data-width="24"></span>
+        <ToolTip Text="@User.Status.ToString()" Pos="ToolTip.Position.Left">
+            <span class="iconify @User.Status" data-icon="fa:dot-circle-o" data-width="24"></span>
         </ToolTip>
     </div>
 </main>
 
 @code {
-    [Parameter]
-    public User _user { get; set; }
-
-    public void Goto() {
-        navMgr.NavigateTo($"/Chat/{_user.Email}", true);
-    }
+    [Parameter] public User User { get; set; }
+    
+    [CascadingParameter] public Action<Panel>? ChangePanel { get; set; } 
+    
+    [CascadingParameter] protected Action<String>? SelectUser {get; set; }
+    
 }

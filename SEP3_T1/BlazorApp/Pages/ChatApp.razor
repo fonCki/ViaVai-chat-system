@@ -2,62 +2,41 @@
 @using Contracts.Services
 @using Entities.Model
 @using System.Runtime.Intrinsics.Arm
+@using System.Text.Json
 @using BlazorApp.Authentication
-@using BlazorApp.Services.Hub
+@using BlazorApp.Services
+@using Contracts.Services.Hub
+@using Contracts.Services.Refresh
 @using Microsoft.AspNetCore.SignalR
 @using Microsoft.AspNetCore.SignalR.Client
 @inject IUserService UserService
 @inject IChatService ChatService
 @inject NavigationManager NavMgr
 @inject IAuthService AuthService
+@page "/chatApp/{email?}"
+@inject IToastService ToastService
 @inject HubService HubService
-@page "/ChatApp/{email?}"
-
+@inject IRefreshService RefreshService;
 
 
 <AuthorizeView>
     <Authorized>
-        @* /TEMPORARY STATUS WINDOW/ *@
-        @{ Console.WriteLine("Papa");}
-        <div class="temporary">
-            @if (hubConnection != null) { //TODO to eliminate
-                <p>State: @hubConnection.State</p>
-                <p>Id: @hubConnection.ConnectionId</p>
-                <p>ServerTimeOut: @hubConnection.ServerTimeout</p>
-                <p>KeepAliveInterval: @hubConnection.KeepAliveInterval</p>
-                <p>HandShakeTimeOut: @hubConnection.HandshakeTimeout</p>
-
-            }
-        </div>
-        @* ////////////////////////////////// *@
-        
-        <CascadingValue Value="hubConnection">
-            <main class="main">
-                <div class="left-box">
-                    <LeftMain/>
-                </div>
-                <div class="right-box">
-                    @if (TheChat != null) {
-                        @if (User.RUI.Equals(AuthService.MyUser.RUI)) {
-                            <h1>@error</h1>
-                        }
-                        else {
-                            <CascadingValue Value="@TheChat">
-                                <CascadingValue Value="@User">
-                                    <HeaderRight/>
-                                    <MessageArea/>
-                                    <InputArea/>
-                                </CascadingValue>
+        @if (Chat != null) {
+            <CascadingValue Value="HubService">
+                <main class="main">
+                    <div class="left-menu">
+                        <CascadingValue Value="SelectedChat">
+                            <CascadingValue Value="SelectedUser">
+                                <LeftMain/>
                             </CascadingValue>
-                        }
-                    }
-                    else {
-                        <h1>USER DOES NOT EXIST</h1>
-                    }
-                    -
-                </div>
-            </main>
-        </CascadingValue>
+                            </CascadingValue>
+                    </div>
+                    <div class="chat-area">
+                        <ChatArea Chat="Chat"/>
+                    </div>
+                </main>
+            </CascadingValue>
+        }
     </Authorized>
     <NotAuthorized>
         @{NavMgr.NavigateTo("/login"); }
@@ -65,35 +44,65 @@
 </AuthorizeView>
 
 @code {
+    
     [Parameter] public string Email { get; set; }
     
-    public User User { get; set; }
+    public User? User { get; set; }
     
-    Entities.Model.Chat TheChat { get; set; }
+    public Chat? Chat { get; set; }
 
-    string error = String.Empty;
-
-    HubConnection? hubConnection;
+    HubConnection HubConnection;
     
+    
+    
+
     protected async override Task OnInitializedAsync() {
-        hubConnection = await HubService.GetHubConnection();
-        
-        Console.WriteLine("Connected with number: " + hubConnection?.ConnectionId);
-      
-
+        await HubService.InitHubConnection();
         try {
-            User = await UserService.GetUserAsyncByEmail(Email);
-            TheChat = await ChatService.GetOrCreateChat(AuthService.MyUser, User);
-            StateHasChanged();
-        }
-        catch (Exception e) {
-            error = e.Message;
+            HubConnection = HubService.HubConnection!;
+            await HubConnection?.StartAsync()!;
+            await HubConnection.SendAsync("Welcome", AuthService.MyUser.RUI);
+            HubService.NotifyNewLogin += NotifyNewLogin;
+            HubService.NotifyLogOff += NotifyLogOff;
+            await LoadInitialDataByUser();
+        } catch (Exception e) {
+            throw e;
         }
     }
     
+    public async void SelectedUser(string email) {
+        Email = email;
+        await LoadInitialDataByUser();
+        StateHasChanged();
+    }
 
-    protected async override Task OnAfterRenderAsync(bool firstRender) {
-        // ChatService.MarkAsRead(TheChat.CID, AuthService.MyUser);
+    public async void SelectedChat(Guid CUI) {
+        await LoadInitialDataByChatNo(CUI);
+        await ChatService.SetAsReadMessages(AuthService.MyUser.RUI, Chat);
+        RefreshService.CallRequestRefresh();
+        StateHasChanged();
+    }
+
+    private async Task LoadInitialDataByChatNo(Guid CUI) {
+        Chat = await ChatService.GetChat(CUI);
+    }
+
+    public async Task LoadInitialDataByUser() {
+        if (String.IsNullOrWhiteSpace(Email)) Email = "panchi@gmail.com"; //ADD A WELCOME MESSAGE
+        User = await UserService.GetUserAsyncByEmail(Email);
+        Chat = await ChatService.GetOrCreateChat(AuthService.MyUser.RUI, User.RUI);
+    }
+    
+    private async void NotifyNewLogin(Guid RUIuser) {
+        if (!RUIuser.Equals(AuthService.MyUser.RUI)) {
+            User user = await UserService.GetUserAsyncByRUI(RUIuser);
+            ToastService.ShowInfo("There is a new login : " + user.Name); 
+        }
+    }
+    
+    private async void NotifyLogOff(Guid RUIuser) {
+        User user = await UserService.GetUserAsyncByRUI(RUIuser);
+        ToastService.ShowInfo(user.Name + " Disconnected"); 
     }
 
 }    

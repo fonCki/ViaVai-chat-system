@@ -55,12 +55,10 @@
 
 
     public async void SaveChanges() {
-        Console.WriteLine("done");
         await userService.UpdateUser(new User(newName, newLname, newEmail, newPassword, imagePath));
     }
 
     public async void UpdateName(string name) {
-        Console.WriteLine(name + "desde profile");
         newName = name;
     }
 

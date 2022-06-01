@@ -1,9 +1,9 @@
 @page "/Login"
 @using BlazorApp.Authentication
-@using BlazorApp.Services.Hub
-@using Microsoft.AspNetCore.SignalR.Client
-@inject IAuthService AuthService
-@inject NavigationManager NavMgr
+@using BlazorApp.Config
+@inject IAuthService authService
+@inject NavigationManager navMgr
+
 
 <AuthorizeView>
      <NotAuthorized>
@@ -30,19 +30,16 @@
     private string email = string.Empty;
     private string password = string.Empty;
     private string errorLabel;
-    
-
-    protected async override Task OnInitializedAsync() {
-    }
 
     private async Task LoginAsync()
     {
         try
         {
-            await AuthService.LoginAsync(email, password);
-            NavMgr.NavigateTo("/");
+            await authService.LoginAsync(email, Hash.Hash_SHA(password));
+            navMgr.NavigateTo("/");
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             errorLabel = $"Error: {e.Message}";
         }
         

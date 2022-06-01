@@ -4,18 +4,60 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="694ffd67-e337-4be4-9774-048d6daeea59" name="Changes" comment="Saving a message in database without values except body">
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Pages/BoxExample.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Pages/BoxExample.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HeaderLeft.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HeaderLeft.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HeaderLeft.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HeaderLeft.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HistoryChats.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HistoryChats.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HistoryChats.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/HistoryChats.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/LeftMain.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/LeftMain.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/LeftMain.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/LeftMain.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/SearchArea.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/SearchArea.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/SearchArea.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/Components/SearchArea.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/MainLayout.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/BlazorApp/Shared/MainLayout.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.csproj.AssemblyReference.cache" afterDir="false" />
+    <list default="true" id="694ffd67-e337-4be4-9774-048d6daeea59" name="Changes" comment="Database configured and working">
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Client.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Client.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Contracts.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Contracts.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Entities.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/bin/Debug/net6.0/Entities.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/obj/Debug/net6.0/Client.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Client/obj/Debug/net6.0/Client.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Contracts/bin/Debug/net6.0/Contracts.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Contracts/bin/Debug/net6.0/Contracts.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Contracts/bin/Debug/net6.0/Entities.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Contracts/bin/Debug/net6.0/Entities.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Contracts/obj/Debug/net6.0/Contracts.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Contracts/obj/Debug/net6.0/Contracts.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/bin/Debug/net6.0/Entities.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/bin/Debug/net6.0/Entities.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/bin/Debug/net6.0/ref/Entities.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/Entities.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T1/Entities/obj/Debug/net6.0/ref/Entities.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/Application.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/Application.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/Contracts.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/bin/Debug/net6.0/Contracts.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/obj/Debug/net6.0/Application.csproj.AssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/obj/Debug/net6.0/Application.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Application/obj/Debug/net6.0/Application.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/bin/Debug/net6.0/Contracts.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/bin/Debug/net6.0/Contracts.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/bin/Debug/net6.0/ref/Contracts.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/obj/Debug/net6.0/Contracts.csproj.AssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/obj/Debug/net6.0/Contracts.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/obj/Debug/net6.0/Contracts.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/Contracts/obj/Debug/net6.0/ref/Contracts.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/bin/Debug/net6.0/DataAccessClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/bin/Debug/net6.0/DataAccessClient.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/obj/Debug/net6.0/DataAccessClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/DataAccessClient/obj/Debug/net6.0/DataAccessClient.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/Application.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/Application.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/Contracts.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/Contracts.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/DataAccessClient.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/DataAccessClient.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/SigController.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/bin/Debug/net6.0/SigController.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/Debug/net6.0/SigController.csproj.AssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/Debug/net6.0/SigController.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/Debug/net6.0/SigController.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/staticwebassets.pack.sentinel" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_T2/SigController/obj/staticwebassets.pack.sentinel" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/controller/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/controller/ChatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/controller/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sep/java/sep_t3/controller/MessageController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +73,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="1e42247dad6aa4ad8a6db809aac5443349f9299e" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="JpbToolWindowState">
@@ -58,20 +105,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;023d9f31e1ff4fa3e98159f9a83ec01b&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "spring.configuration.checksum": "023d9f31e1ff4fa3e98159f9a83ec01b"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="SepT3Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="SEP_T3" />
@@ -99,6 +147,12 @@
       <workItem from="1650248702479" duration="1207000" />
       <workItem from="1650376726967" duration="5669000" />
       <workItem from="1650881841956" duration="13000" />
+      <workItem from="1652875191782" duration="533000" />
+      <workItem from="1652875759943" duration="8409000" />
+      <workItem from="1653915802322" duration="1850000" />
+      <workItem from="1653985611766" duration="6941000" />
+      <workItem from="1654063937958" duration="3000" />
+      <workItem from="1654066323107" duration="834000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit T_3">
       <created>1649936865371</created>
@@ -114,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649944073942</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Database configured and working">
+      <created>1654063908705</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1654063908705</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,6 +195,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First Commit T_3" />
     <MESSAGE value="Saving a message in database without values except body" />
-    <option name="LAST_COMMIT_MESSAGE" value="Saving a message in database without values except body" />
+    <MESSAGE value="Database configured and working" />
+    <option name="LAST_COMMIT_MESSAGE" value="Database configured and working" />
   </component>
 </project>

@@ -1,6 +1,7 @@
 namespace BlazorApp.Config.DropDownMenu; 
 
-public class DropDownMenuSettings {
+public class 
+    DropDownMenuSettings {
     public string Icon { get; set; }
     public string Name { get; set; }
     public ICollection<DropDownItem> DropDownItems { get; set; }

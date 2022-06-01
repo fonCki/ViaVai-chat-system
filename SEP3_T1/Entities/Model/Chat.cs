@@ -3,29 +3,48 @@ using System.Text.Json.Serialization;
 namespace Entities.Model; 
 
 public class Chat {
+    public Guid CID { get; set; }
+    public string Name { get; set; }
+    public string Image { get; set; }
+    public ICollection<User> Subscribers { get; set; } 
+    public ICollection<Message> Messages { get; set; }
 
-    public Guid CID { get; set; } 
+    public User CreatedBy;
+    public DateTime Created { get; set; }
+    public bool IsGroup { get; set; }
     
-    public ICollection<User> Members { get; set; }
+    public bool IsPrivate { get; set; }
 
-    public ICollection<Message> Messages { get; set; } 
-
-    [JsonConstructor]
-    // public Chat(User Myself, ICollection<User> Members) { TODO Create Group chat
-    public Chat() {    
+    private Chat(string name, string image, bool isGroup, User createdBy) {
+        CreatedBy = createdBy;
+        Created = DateTime.Now;
         CID = Guid.NewGuid();
-        Members = new List<User>();
+        Name = name;
+        Image = image;
+        IsGroup = isGroup;
+        IsPrivate = !isGroup;
+        Subscribers = new List<User>();
+        Subscribers.Add(createdBy);
         Messages = new List<Message>();
     }
 
-    public bool IsAGroup() {
-        return Members.Count > 2;
+    [JsonConstructor]
+    public Chat() { }
+
+    public static Chat CreateGroup(string name, string image, User createdBy) {
+        return new Chat(name, image, true, createdBy);
+    }
+    
+    public static Chat CreatePrivate(User userOne, User userTwo) {
+        Chat newPrivateChat = new Chat($"Private | {userOne.Name} | {userTwo.Name}",
+                                        "images/-user-login.png",
+                                        false, 
+                                        userOne);
+        newPrivateChat.Subscribers.Add(userTwo);
+        return newPrivateChat;
     }
 
-    public bool IsPrivate() {
-        return !IsAGroup();
+    public override string ToString() {
+        return $"{nameof(CreatedBy)}: {CreatedBy}, {nameof(CID)}: {CID}, {nameof(Name)}: {Name}, {nameof(Image)}: {Image}, {nameof(Subscribers)}: {Subscribers}, {nameof(Messages)}: {Messages}, {nameof(Created)}: {Created}, {nameof(IsGroup)}: {IsGroup}, {nameof(IsPrivate)}: {IsPrivate}";
     }
-    
-    
-    
 }

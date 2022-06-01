@@ -1,7 +1,7 @@
 main {
     background-color: #ffffff;
     /*max-height: 500px;*/
-    height: auto; /*TODO FIX*/
+    height: auto; 
     width: 100%;
 
     overflow-x: hidden;

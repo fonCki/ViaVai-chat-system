@@ -2,9 +2,11 @@ using BlazorApp.Authentication;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using BlazorApp.Services;
-using BlazorApp.Services.Hub;
 using BlazorApp.Services.View;
+using Client;
 using Contracts.Services;
+using Contracts.Services.Hub;
+using Contracts.Services.Refresh;
 using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,9 +18,12 @@ builder.Services.AddScoped<IToastService, ToastServiceImp>();
 builder.Services.AddScoped<View>();
 builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthenticationStateProvider>();
 builder.Services.AddScoped<IAuthService, AuthServiceImpl>();
-builder.Services.AddScoped<IUserService, InMemoryUserService>(); //TODO Delete InMemoryUserService
-builder.Services.AddScoped<IChatService, InMemoryChatService>();
+builder.Services.AddScoped<IUserService, UserClient>();
+builder.Services.AddScoped<IChatService, ChatClient>();
+builder.Services.AddScoped<IMessageService, MessageClient>();
+builder.Services.AddScoped<IRefreshService, RefreshServiceImp>();
 builder.Services.AddScoped<HubService>();
+
 
 var app = builder.Build();
 

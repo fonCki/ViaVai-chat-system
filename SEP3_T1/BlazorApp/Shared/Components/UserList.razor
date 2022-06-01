@@ -6,70 +6,114 @@
 @using Entities.Model
 @using BlazorApp.Authentication
 @using Contracts.Services
+@using Contracts.Services.Hub
 
-<main class="main">
-    <div class="header">
-        <div class="title">
-            <div class="back" onclick="@(() => ChangePanel.Invoke(Panel.Starter))">
-                <ToolTip Text="Back">
-                    <span class="iconify" data-icon="ant-design:arrow-left-outlined" data-width="22" data-height="22" style="color: white;"></span>
-                </ToolTip>
+@if (_users is not null) {
+    <main class="main">
+        <div class="header">
+            <div class="title">
+                <div class="back" onclick="@(() => ChangePanel.Invoke(Panel.Starter))">
+                    <ToolTip Text="Back">
+                        <span class="iconify" data-icon="ant-design:arrow-left-outlined" data-width="22" data-height="22" style="color: white;"></span>
+                    </ToolTip>
+                </div>
+                <h5>New chat</h5>
             </div>
-            <h5>New chat</h5>
         </div>
-    </div>
-    <div class="search">
-        <SearchArea text="Search Contacts"/> 
-    </div>
-    <div class="user-list">
-        <MakeScrollList>
-            @* ----------Online Users -------------------*@
-            @if (online.Any()) {
-                <div class="status">
-                    <h4>Online</h4>
-                </div>
-                @foreach (var user in online) {
-                    <SingleUser _user="@user"/>
+        <div class="search">
+            <SearchArea text="Search Contacts" Search="FoundedSerch"/>
+        </div>
+        <div class="user-list">
+            <MakeScrollList>
+                @* ----------Offline Users -------------------*@
+                @if (offline.Any()) {
+                    <div class="status">
+                        <h4>Offline</h4>
+                    </div>
+                    @foreach (var user in offline) {
+                        <SingleUser User="@user"/>
+                    }
                 }
-            }
-            @* ------------------------------------------- *@
-            @* ----------Sleeping Users -------------------*@
-            @if (sleeping.Any()) {
-                <div class="status">
-                    <h4>Sleeping</h4>
-                </div>
-                @foreach (var user in sleeping) {
-                    <SingleUser _user="@user"/>
+                @* ------------------------------------------- *@
+                @* ----------Online Users -------------------*@
+                @if (online.Any()) {
+                    <div class="status">
+                        <h4>Online</h4>
+                    </div>
+                    @foreach (var user in online) {
+                        <SingleUser User="@user"/>
+                    }
                 }
-            }
-            @* ------------------------------------------- *@
-            @* ----------Offline Users -------------------*@
-            @if (offline.Any()) {
-                <div class="status">
-                    <h4>Offline</h4>
-                </div>
-                @foreach (var user in offline) {
-                    <SingleUser _user="@user"/>
+                @* ------------------------------------------- *@
+                @* ----------Sleeping Users -------------------*@
+                @if (sleeping.Any()) {
+                    <div class="status">
+                        <h4>Sleeping</h4>
+                    </div>
+                    @foreach (var user in sleeping) {
+                        <SingleUser User="@user"/>
+                    }
                 }
-            }
-            @* ------------------------------------------- *@
-        </MakeScrollList>
-    </div>
-</main>
+                @* ------------------------------------------- *@
 
+                @* ----------Bussy Users -------------------*@
+                @if (busy.Any()) {
+                    <div class="status">
+                        <h4>Busy</h4>
+                    </div>
+                    @foreach (var user in busy) {
+                        <SingleUser User="@user"/>
+                    }
+                }
+                @* ------------------------------------------- *@
+            </MakeScrollList>
+        </div>
+    </main>
+}
 @code {
-    [Parameter]
-    public Action<Panel> ChangePanel { get; set; }
+    [CascadingParameter] public Action<Panel> ChangePanel { get; set; }
+    [CascadingParameter] private HubService HubService { get; set; }
 
     private ICollection<User> _users;
 
-    IOrderedEnumerable<User> online, offline, sleeping;
+    IOrderedEnumerable<User> online, offline, sleeping, busy;
+
+
+    protected async override Task OnParametersSetAsync() {
+        HubService.NotifyNewLogin += ChangeStatusUser;
+        HubService.NotifyLogOff += ChangeStatusUser;
+        HubService.NotifyStatusChanged += ChangeStatusUser;
+        _users = await userService.GetContactList();
+        await SortList();
+
+    }
     
 
-    protected async override Task OnInitializedAsync() {
-        _users = await userService.GetContactList(); //TODO GetContaclist must be users without me
-        online = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Online).OrderBy(u => u.Name); //TODO THis mus be filter in the middleware
+    private async void ChangeStatusUser(Guid user) {
+        try {
+            User? findedUser = _users.FirstOrDefault(u => u.RUI.Equals(user));
+            if (findedUser != null) {
+                _users.Remove(findedUser);
+                User newUserChanged = await userService.GetUserAsyncByRUI(user);
+                _users.Add(newUserChanged);
+                await InvokeAsync((() => StateHasChanged()));
+            }
+        }
+        catch (Exception e) {
+            throw new Exception("User could not be found");
+        }
+        
+       
+    }
+
+    private async Task SortList() {
+        online = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Online).OrderBy(u => u.Name); 
         offline = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Offline).OrderBy(u => u.Name);
         sleeping = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Sleeping).OrderBy(u => u.Name);
+        busy = _users.Where(x => x.Email != authService.MyUser.Email && x.Status == Entities.Model.Status.Busy).OrderBy(u => u.Name);
+    }
+
+    public void FoundedSerch(string s) {
+        // Chats = Chats.Where(c => c.Name.Contains(s)).ToList();
     }
 }

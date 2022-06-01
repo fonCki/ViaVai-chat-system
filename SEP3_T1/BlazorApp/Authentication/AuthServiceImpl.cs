@@ -22,12 +22,13 @@ public class AuthServiceImpl : IAuthService {
         
         MyUser = await userService.GetUserAsyncByEmail(email); // Get user from database
 
+
         ValidateLoginCredentials(password, MyUser); // Validate input data against data from database
         // validation success
         
-        await CacheUserAsync(MyUser.Email); // Cache the Email //TODO change to unique toquen
+        await CacheUserAsync(MyUser.Email); // Cache the Email //TO CHANGE FOR UNIQUE TOKEN
 
-        MyUser.Status = Status.Online; // Set as online
+        MyUser.Status = await userService.SetStatus(MyUser.RUI, Status.Online); // Set as online
         
         ClaimsPrincipal principal = CreateClaimsPrincipal(MyUser); // convert user object to ClaimsPrincipal
         
@@ -38,8 +39,10 @@ public class AuthServiceImpl : IAuthService {
     {
         await ClearUserFromCacheAsync(); // remove the user object from browser cache
         ClaimsPrincipal principal = CreateClaimsPrincipal(null); // create a new ClaimsPrincipal with nothing.
+        await userService.SetStatus(MyUser.RUI, Status.Offline); // Set as online
         OnAuthStateChanged?.Invoke(principal); // notify about change in authentication state
         MyUser = null!;
+        
     }
 
     public async Task<ClaimsPrincipal> GetAuthAsync() // this method is called by the authentication framework, whenever user credentials are reguired
@@ -83,7 +86,7 @@ public class AuthServiceImpl : IAuthService {
         return new ClaimsPrincipal();
     }
 
-    private async Task CacheUserAsync(string email) //TODO get the token
+    private async Task CacheUserAsync(string email) //GET THE TOKEN
     {
         await jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", email);
     }

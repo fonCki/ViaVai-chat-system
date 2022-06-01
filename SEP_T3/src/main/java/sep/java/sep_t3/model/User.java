@@ -1,40 +1,30 @@
 package sep.java.sep_t3.model;
 
+import lombok.Data;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 
-
+@Data
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class User {
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        private long UID;
+        private String rui;
+
+        private String name;
+
+        private String lastName;
+
+        @Lob
+        @Type(type = "org.hibernate.type.TextType")
+        private String avatar;
 
         private String email;
 
-        private String nickName;
+        private String password;
 
-    public User() {
-    }
 
-    public User(String email, String nickName) {
-        this.email = email;
-        this.nickName = nickName;
-    }
+        private Status status;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
 }

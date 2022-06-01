@@ -1,0 +1,99 @@
+.main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    width: 100%;
+    padding: 20px;
+    color: white;
+    background-color: #008069;
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.input-group-text {
+    background-color: transparent;
+    margin-bottom: 10px;
+}
+.title {
+    display: flex;
+}
+
+.title > *{
+    margin: 10px;
+}
+
+.back {
+    cursor: pointer;
+}
+
+.error-label {
+    margin: 5px;
+    color: red;
+}
+
+.button-save {
+    border: none;
+    background-color: transparent;
+}
+
+
+.users-list {
+    /*background-color: pink;*/
+    height: 50%;
+    width: 80%;
+    overflow: scroll;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*align-items: center;*/
+    /*justify-content: space-around;*/
+    /*width: 90%;*/
+    /*min-height: fit-content;*/
+    /*height: 30vh;*/
+}
+
+
+.user-row {
+    margin: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.user-row:hover {
+    background-color: #F6F6F7;
+    box-shadow: 53px 33px 1px -33px grey;
+}
+
+.user {
+    margin: 5px;
+
+    display: flex;
+    justify-content: initial;
+    align-items: center;
+}
+
+.user > * {
+    margin: 5px;
+    padding: 5px;
+}
+
+.check-box {
+    cursor: pointer;
+    height: 100%;
+    padding: 10px;
+
+}
+
+.save {
+    margin-right: 10%;
+    text-align: end;
+    width: 100%;
+
+}

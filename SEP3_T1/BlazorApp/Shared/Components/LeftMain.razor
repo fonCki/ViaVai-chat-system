@@ -1,62 +1,66 @@
 @using System.Data
 @using System.Diagnostics
-@using System.Text.Json
 @using BlazorApp.Authentication
-@using BlazorApp.Services.Hub
 @using Contracts.Services
 @using Entities.Model
-@using Microsoft.AspNetCore.SignalR.Client
+@using System.Collections
+@using System.Text.Json
+@using Contracts.Services.Hub
 @inject IChatService ChatService
 @inject IAuthService AuthService
-@* @inject HubService HubService *@
+@inject IMessageService MessageService
 
 @namespace BlazorApp.Shared.Components
 
-
-<main class="main"> 
-    <div class="main-@Panel.Starter @starter">
-        <HeaderLeft ChangePanel="ChangePanel"/>
-        <SearchArea text="Search or start new chat" color="dark"/>
-        <MakeScrollList>
-            <p>Hola</p>
-            @if (Chats != null) {
-                @foreach (Chat chat in Chats) {
+@if (Chats is not null) {
+    <main class="main">
+        <div class="main-@Panel.Starter @starter">
+            <HeaderLeft ChangePanel="ChangePanel"/>
+            <SearchArea text="Search or start new chat" color="dark" Search="FoundedSerch"/>
+            <MakeScrollList>
+                <Virtualize Items="Chats" Context="chat">
                     <SingleChat Chat="chat"/>
-                }
-            }
-        </MakeScrollList>
-    </div>
-    <div class="main-@Panel.Profile @profile">
-        <Profile ChangePanel="ChangePanel"/>
-    </div>
-    <div class="main-@Panel.Users @users">
-        <UserList ChangePanel="ChangePanel"/>
-    </div>
-</main>
+                </Virtualize>
+            </MakeScrollList>
+        </div>
+        <div class="main-@Panel.Profile @profile">
+            <Profile ChangePanel="ChangePanel"/>
+        </div>
+        <div class="main-@Panel.Users @users">
+            <CascadingValue Value="@ChangePanel">
+                <UserList/>
+            </CascadingValue>
+        </div>
 
+        <div class="main-@Panel.Group @group">
+            <Group ChangePanel="@ChangePanel"/>
+        </div>
+    </main>
+}
 @code {
 
     public Panel CurrentPanel { get; set; } = Panel.Starter;
     public ICollection<Chat> Chats { get; set; }
+    [CascadingParameter] private HubService HubService { get; set; }
+    
 
     private Status starter = Status.Active;
     private Status profile = Status.Hidden;
     private Status users = Status.Hidden;
+    private Status group = Status.Hidden;
     
     bool UsersView { get; set; } = false;
 
+    private string wordSearch;
 
-    [CascadingParameter] protected HubConnection HubConnection { get; set; }
-    
-    protected async override Task OnInitializedAsync() {
-        Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser);
-        Console.WriteLine(Chats.Count + "Count");
+    protected override async Task OnParametersSetAsync() {
+        HubService.NotifyAllNewMessage += OnNotify;
+        Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser.RUI);
+        await LoadMessages();
         if (Chats == null) Chats = new List<Chat>();
-        Chats = Chats.Where(c => c.Messages.Any()).OrderByDescending(c => c.Messages?.First()?.Header.Created!).ToList();
-        @foreach (Chat chat in Chats) {
-            Console.WriteLine(chat.CID);
-        }
+        await InitAndSortChats();
     }
+
     
 
     public void ChangePanel(Panel panel) {
@@ -67,31 +71,60 @@
                 profile = Status.Active;
                 starter = Status.Hidden;
                 users = Status.Hidden;
+                group = Status.Hidden;
                 break;
             }
             case Panel.Users: {
                 profile = Status.Hidden;
                 starter = Status.Hidden;
                 users = Status.Active;
+                group = Status.Hidden;
                 break;
             }
             case Panel.Starter: {
                 profile = Status.Hidden;
                 starter = Status.Active;
                 users = Status.Hidden;
+                group = Status.Hidden;
+                break;
+            }
+            case Panel.Group: {
+                profile = Status.Hidden;
+                starter = Status.Hidden;
+                users = Status.Hidden;
+                group = Status.Active;
                 break;
             }
         }
+        InvokeAsync((() => StateHasChanged()));
+    }
+    
+    public async void OnNotify(Message message) {
+        await InvokeAsync((async () => {
+            Chats.Clear();
+            StateHasChanged();
+            Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser.RUI); //this is not the correct approach
+            await LoadMessages();
+            await InitAndSortChats();
+            StateHasChanged();
+        }));
+    }
+
+    private async Task InitAndSortChats() {
+        Chats = Chats.Where(c => c.Messages.Any()).OrderByDescending(c => c.Messages?.First()?.Header.Created!).ToList();
         StateHasChanged();
     }
     
-    public async Task OnNotify()
-    {
-        await InvokeAsync(() =>
-        {
-            StateHasChanged();
-        });
+    public void FoundedSerch(string s) {
+        Chats = ChatService.GetAllChatsByUser(AuthService.MyUser.RUI).Result.
+        Where(c => c.Name.Contains(s, StringComparison.CurrentCultureIgnoreCase)).ToList();
+        StateHasChanged();
     }
-    
-    
+
+    private async Task LoadMessages() {
+        foreach (var chat in Chats) {
+            chat.Messages = await MessageService.GetAllMessagesFromChat(chat.CID);
+        }
+    }
+
 }

@@ -15,12 +15,15 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Client\Client.csproj" />
       <ProjectReference Include="..\Contracts\Contracts.csproj" />
       <ProjectReference Include="..\Entities\Entities.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="wwwroot\images\background" />
+      <Folder Include="wwwroot\images\group" />
+      <Folder Include="wwwroot\images\persona" />
       <Folder Include="wwwroot\images\temp" />
     </ItemGroup>
 

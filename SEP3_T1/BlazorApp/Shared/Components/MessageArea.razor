@@ -1,40 +1,74 @@
 @using Entities.Model
 @using Contracts.Services
 @using BlazorApp.Authentication
-@using BlazorApp.Services.Hub
+@using Contracts.Services.Hub
+@using Microsoft.AspNetCore.SignalR.Client
 
 @inject IAuthService AuthService
 @inject IChatService ChatService 
-@inject HubService HubService
+@inject IMessageService MessageService 
+
 
 <main class="main">
-    @* @if (HubService.Message != null) { *@
-    @*     @HubService.Message.Body *@
-    @* } *@
-
-    @* @if (Chat.Messages != null) { *@
-    @*     foreach (var message in Chat.Messages) { *@
-    @*         <div class="@(AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email) ? "mine" : "not-mine")"> *@
-    @*             <PlainMessage Message="message" IsMine=@AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email)></PlainMessage> *@
-    @*         </div> *@
-    @* } *@
-    @* } *@
+    @if (messages is not null) {
+        <Virtualize Items="@messages" Context="message">
+            <div class="@(AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email) ? "mine" : "not-mine")">
+                <PlainMessage Message="message" IsMine=@AuthService.MyUser.Email.Equals(message.Header.CreatedBy.Email)></PlainMessage>
+            </div>
+        </Virtualize>
+    }
 </main>
 
 @code {
-    [CascadingParameter]
-    public Chat Chat { get; set; }
+    [CascadingParameter] public Chat? Chat { get; set; }
     
-    protected override async Task OnInitializedAsync() {
-        // HubService.Notify += OnNotify;
-        User myself = AuthService.MyUser;
+    [CascadingParameter] private HubService HubService { get; set; }
+
+    ICollection<Message>? messages;
+
+
+    private HubConnection hubConnection;
+
+    // protected async override Task OnParametersSetAsync() {
+    //     foreach (var message in Chat!.Messages.Where(m => !m.Header.CreatedBy.RUI.Equals(AuthService.MyUser.RUI))) {
+    //         message.Read = true;
+    //     }
+    //     if (Chat!.Messages.Any()) {
+    //         await ChatService.UpdateChat(Chat);
+    //     }
+    // }
+    
+    protected async override Task OnInitializedAsync() {
+        messages = await MessageService.GetAllMessagesFromChat(Chat!.CID);
+        messages = messages.OrderByDescending(m => m.Header.Created).ToList();
+        hubConnection = HubService.HubConnection;
+        HubService.NotifyAllNewMessage += OnNotify;
     }
     
-    public async Task OnNotify()
-    {
-        await InvokeAsync(() =>
-        {
+
+
+
+    public async void OnNotify(Message message) {
+        await InvokeAsync((async () => {
+            
+            //Think about one of the two options. or refresh all the time from database,
+            //or add the message to the list
+            
+            //Option one:
+
+            // if (message.Header.CUIRecipient == Chat.CID) { // if is not like this, this message should't be here! fix this
+            //     Chat.Messages.Add(message);
+            //     Chat.Messages = Chat.Messages.OrderByDescending(m => m.Header.Created).ToList();
+            // }
+           
+            //Option two:
+            messages.Add(message);
+            messages = messages.OrderByDescending(m => m.Header.Created).ToList();
+            Chat = await ChatService.GetChat(Chat.CID);
+            await ChatService.SetAsReadMessages(AuthService.MyUser.RUI, Chat);
             StateHasChanged();
-        });
+        }));
     }
+    
+
 }
