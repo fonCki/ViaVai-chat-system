@@ -28,7 +28,7 @@ public class HubService {
             HubConnection.On<Guid>("StatusChanged", (guid => NotifyStatusChanged?.Invoke(guid)));
             HubConnection.On<string>("NewMessage", NewMessage); }
         catch (Exception e) {
-            Console.WriteLine(e);
+            throw e;
         }
 
     }

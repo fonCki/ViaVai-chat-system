@@ -7,7 +7,7 @@
 @inject IAuthService AuthService;
 
 <div class="main-header">
-    <div class="name-and-avatar" @onclick="@ShowAlert">
+    <div class="name-and-avatar" >
     <div class="avatar">
         <ToolTip Text="@groupName" Pos="ToolTip.Position.Button"><Avatar size="Avatar.Size.Medium" image="@groupImage"/></ToolTip>
     
@@ -61,8 +61,8 @@
         search = false;
         DropDownItems.Clear();
         DropDownItems.Add(new DropDownItem("Info", (() => ChangeInfoStatus.Invoke())));
-        DropDownItems.Add(new DropDownItem("Settings", (() => Console.WriteLine("Settings"))));
-        DropDownItems.Add(new DropDownItem("Log out", (() => Console.WriteLine("LogOut"))));
+        DropDownItems.Add(new DropDownItem("Option 2", (() => Console.WriteLine("Option 2"))));
+        DropDownItems.Add(new DropDownItem("Option 3", (() => Console.WriteLine("Option 3"))));
     }
 
     private async Task SetNameAndImage() {
@@ -77,19 +77,9 @@
         }
     }
     
-    public void ShowAlert() { //TODO delete this thing
-        int randomNumber = new Random().Next(1, 5);
-        switch (randomNumber) {
-            case 1 : {ToastService.ShowInfo("Swift Taylor, is now Online"); break;}
-            case 2 : {ToastService.ShowError("System Error"); break;}
-            case 3 : {ToastService.ShowSuccess("The Chat was deleted"); break;}
-            case 4 : {ToastService.ShowWarning("You are not allow to do this operation"); break;}
-        }
-    }
 
     public void FoundedSerch(string s) {
         wordSearch = s;
-        Console.WriteLine(s + "de aXca");
     }
     
 }

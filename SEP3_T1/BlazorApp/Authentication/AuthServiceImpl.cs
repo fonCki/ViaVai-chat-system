@@ -21,13 +21,12 @@ public class AuthServiceImpl : IAuthService {
     public async Task LoginAsync(string email, string password) {
         
         MyUser = await userService.GetUserAsyncByEmail(email); // Get user from database
-        Console.WriteLine(MyUser);
 
 
         ValidateLoginCredentials(password, MyUser); // Validate input data against data from database
         // validation success
         
-        await CacheUserAsync(MyUser.Email); // Cache the Email //TODO change to unique toquen
+        await CacheUserAsync(MyUser.Email); // Cache the Email //TO CHANGE FOR UNIQUE TOKEN
 
         MyUser.Status = await userService.SetStatus(MyUser.RUI, Status.Online); // Set as online
         
@@ -87,7 +86,7 @@ public class AuthServiceImpl : IAuthService {
         return new ClaimsPrincipal();
     }
 
-    private async Task CacheUserAsync(string email) //TODO get the token
+    private async Task CacheUserAsync(string email) //GET THE TOKEN
     {
         await jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", email);
     }

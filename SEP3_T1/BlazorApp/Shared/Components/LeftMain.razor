@@ -27,7 +27,6 @@
             <Profile ChangePanel="ChangePanel"/>
         </div>
         <div class="main-@Panel.Users @users">
-
             <CascadingValue Value="@ChangePanel">
                 <UserList/>
             </CascadingValue>
@@ -58,10 +57,6 @@
         HubService.NotifyAllNewMessage += OnNotify;
         Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser.RUI);
         await LoadMessages();
-        Console.WriteLine("amount of chats: " + Chats.Count);
-        foreach (var chat in Chats) {
-            Console.WriteLine(chat.Name);
-        }
         if (Chats == null) Chats = new List<Chat>();
         await InitAndSortChats();
     }
@@ -106,10 +101,9 @@
     
     public async void OnNotify(Message message) {
         await InvokeAsync((async () => {
-            Console.WriteLine(message.Body);
             Chats.Clear();
             StateHasChanged();
-            Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser.RUI); //TODO this is not the correct aproach
+            Chats = await ChatService.GetAllChatsByUser(AuthService.MyUser.RUI); //this is not the correct approach
             await LoadMessages();
             await InitAndSortChats();
             StateHasChanged();
@@ -129,11 +123,7 @@
 
     private async Task LoadMessages() {
         foreach (var chat in Chats) {
-            Console.WriteLine();
             chat.Messages = await MessageService.GetAllMessagesFromChat(chat.CID);
-            foreach (var chatMessage in chat.Messages) {
-                Console.WriteLine(chatMessage.Body);
-            }
         }
     }
 

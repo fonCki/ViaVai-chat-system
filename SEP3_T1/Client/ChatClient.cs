@@ -27,7 +27,6 @@ public class ChatClient : IChatService {
     }
 
     public async Task<Chat> GetOrCreateChat(Guid userOne, Guid UserTwo) {
-        Console.WriteLine("This are the users: " + userOne + " - " + UserTwo);
         using HttpClient client = new();
         HttpResponseMessage response = await client.GetAsync(Address.ENDPOINT_CHAT + $"/user/{userOne}/{UserTwo}");
    
@@ -45,9 +44,7 @@ public class ChatClient : IChatService {
     public async Task<Chat> AddGroupChat(Chat chat) {
         using HttpClient client = new();
         string chatToJson = JsonSerializer.Serialize(chat);
-        Console.WriteLine(chat.CreatedBy +  "BBBBBBBBBBBBBBBBBBBBB");
         StringContent content = new(chatToJson, Encoding.UTF8, "application/json");
-        Console.WriteLine(content + "AAAAAAAAAAAAAAAAAAAAAAAAAAa");
         HttpResponseMessage response = await client.PostAsync(Address.ENDPOINT_CHAT, content);
         
         string responseContent = await response.Content.ReadAsStringAsync();
@@ -101,8 +98,6 @@ public class ChatClient : IChatService {
         StringContent content = new(chatToJson, Encoding.UTF8, "application/json");
         HttpResponseMessage response = await client.PatchAsync(Address.ENDPOINT_CHAT, content);
         string responseContent = await response.Content.ReadAsStringAsync();
-        Console.WriteLine(response.Version);
-
         if (!response.IsSuccessStatusCode) {
             throw new Exception($"Error: {response.StatusCode}, {responseContent}");
         }

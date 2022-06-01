@@ -100,8 +100,7 @@
             }
         }
         catch (Exception e) {
-            Console.WriteLine("User could not be found");
-            throw;
+            throw new Exception("User could not be found");
         }
         
        

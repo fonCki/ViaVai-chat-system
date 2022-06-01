@@ -3,7 +3,6 @@
 @inject NavigationManager NavMgr
 
 <main class="main" @onclick="@(() => { SelectUser?.Invoke(User.Email); ChangePanel?.Invoke(Panel.Starter); })">
-    @* <main class="main"> *@
     <div class="name-and-avatar">
         <Avatar size="Avatar.Size.Medium" image="@User.Avatar"/>
         <div class="personal-data">

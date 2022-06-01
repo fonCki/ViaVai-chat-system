@@ -59,8 +59,8 @@
 
     protected override async Task OnParametersSetAsync() {
         imagePath = $"images/group/{GetRandomImage()}";
-         errorLabel = string.Empty;
-         groupName = string.Empty;
+        errorLabel = string.Empty;
+        groupName = string.Empty;
         availableUsers = await UserService.GetContactList();
         availableUsers = availableUsers.OrderBy(u => u.Name).ToList();
         availableUsers.Remove(availableUsers.FirstOrDefault(u => u.RUI.Equals(AuthService.MyUser.RUI)!)!);

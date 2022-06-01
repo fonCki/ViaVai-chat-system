@@ -66,8 +66,7 @@
             HubService.NotifyLogOff += NotifyLogOff;
             await LoadInitialDataByUser();
         } catch (Exception e) {
-            Console.WriteLine(e);
-            throw;
+            throw e;
         }
     }
     
@@ -97,13 +96,13 @@
     private async void NotifyNewLogin(Guid RUIuser) {
         if (!RUIuser.Equals(AuthService.MyUser.RUI)) {
             User user = await UserService.GetUserAsyncByRUI(RUIuser);
-            ToastService.ShowInfo("Hay un nuevo login : " + user.Name); //TODO Do it nice
+            ToastService.ShowInfo("There is a new login : " + user.Name); 
         }
     }
     
     private async void NotifyLogOff(Guid RUIuser) {
         User user = await UserService.GetUserAsyncByRUI(RUIuser);
-        ToastService.ShowInfo("ESTE USUARIO SE DESCONECTO : " + user.Name); //TODO Do it nice
+        ToastService.ShowInfo(user.Name + " Disconnected"); 
     }
 
 }    

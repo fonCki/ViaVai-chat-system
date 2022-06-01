@@ -55,7 +55,6 @@ public class UserClient : IUserService {
     public async Task<User> SignUp(string name, string lname, string email, string password, string imgPath) {
         using HttpClient client = new();
         User newUser = new User(name, lname, email, password, imgPath);
-        Console.WriteLine("From SignUp: " + newUser.Password);
         string userToJson = JsonSerializer.Serialize(newUser);
         StringContent content = new(userToJson, Encoding.UTF8, "application/json");
         HttpResponseMessage response = await client.PostAsync(Address.ENDPOINT_USER, content);
@@ -95,7 +94,6 @@ public class UserClient : IUserService {
     }
 
     public async Task<Status> SetStatus(Guid RUI, Status status) {
-        Console.WriteLine(status);
         using HttpClient client = new();
         HttpResponseMessage response = await client.GetAsync(Address.ENDPOINT_USER + $"/set/{RUI}/{status}");
         string responseContent = await response.Content.ReadAsStringAsync();
@@ -107,7 +105,6 @@ public class UserClient : IUserService {
         Status returned = JsonSerializer.Deserialize<Status>(responseContent, new JsonSerializerOptions {
             PropertyNameCaseInsensitive = true
         })!;
-        Console.WriteLine("Returned: " + returned);
         return returned;
     }
 }

@@ -35,17 +35,14 @@
     //     }
     //     if (Chat!.Messages.Any()) {
     //         await ChatService.UpdateChat(Chat);
-    //         Console.WriteLine("Hols-");
     //     }
     // }
-
-
+    
     protected async override Task OnInitializedAsync() {
         messages = await MessageService.GetAllMessagesFromChat(Chat!.CID);
         messages = messages.OrderByDescending(m => m.Header.Created).ToList();
         hubConnection = HubService.HubConnection;
         HubService.NotifyAllNewMessage += OnNotify;
-
     }
     
 
@@ -53,7 +50,7 @@
 
     public async void OnNotify(Message message) {
         await InvokeAsync((async () => {
-            //TODO
+            
             //Think about one of the two options. or refresh all the time from database,
             //or add the message to the list
             

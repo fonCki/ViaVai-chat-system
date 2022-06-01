@@ -27,7 +27,7 @@
              IBrowserFile myFile = e.File;
              Stream stream = myFile.OpenReadStream();
              string path = $"wwwroot/images/temp/{e.File.Name}";
-             FileStream fs = File.Create(path); //TODO FIX THIS HACK, NO CREATE A TEMP FILE
+             FileStream fs = File.Create(path); //FIX THIS HACK, NO CREATE A TEMP FILE
              await stream.CopyToAsync(fs);
              fs.Close();
              stream.Close();
@@ -36,9 +36,7 @@
              byte[] data = new byte[length];
              fs2.Read(data, 0, length);
              fs2.Close();
-             Console.WriteLine("done");
              string base64ImageRepresentation = Convert.ToBase64String(data);
-             Console.WriteLine(base64ImageRepresentation);
              actualImage = string.Format("data:image/jpeg;base64,{0}", base64ImageRepresentation);
              File.Delete(path);
              newImage(actualImage);
