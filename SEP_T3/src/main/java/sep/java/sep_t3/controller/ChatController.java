@@ -31,10 +31,7 @@ public class ChatController implements IChatDao {
         mapper.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_VALUES);
         mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        System.out.println(chatAsJson);
         Chat chat = mapper.readValue(chatAsJson, Chat.class);
-        System.out.println(chat.isIsGroup() + " = " + chat.isIsPrivate());
         try {
             Chat c = chatRepository.save(chat);
             return new ResponseEntity<>(c, HttpStatus.CREATED);

@@ -51,7 +51,6 @@ public class MessageController implements IMessageDao {
     public ResponseEntity<Message> GetMessage(@PathVariable("MUI") String MID) {
         Optional<Message> findMessage = messageRepository.findById(MID);
         if (findMessage.isPresent()) {
-            System.out.println(findMessage.get().header);
             return new ResponseEntity<>(findMessage.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
