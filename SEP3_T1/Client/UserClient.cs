@@ -55,6 +55,7 @@ public class UserClient : IUserService {
     public async Task<User> SignUp(string name, string lname, string email, string password, string imgPath) {
         using HttpClient client = new();
         User newUser = new User(name, lname, email, password, imgPath);
+        Console.WriteLine("From SignUp: " + newUser.Password);
         string userToJson = JsonSerializer.Serialize(newUser);
         StringContent content = new(userToJson, Encoding.UTF8, "application/json");
         HttpResponseMessage response = await client.PostAsync(Address.ENDPOINT_USER, content);

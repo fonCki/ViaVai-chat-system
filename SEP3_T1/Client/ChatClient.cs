@@ -45,8 +45,11 @@ public class ChatClient : IChatService {
     public async Task<Chat> AddGroupChat(Chat chat) {
         using HttpClient client = new();
         string chatToJson = JsonSerializer.Serialize(chat);
+        Console.WriteLine(chat.CreatedBy +  "BBBBBBBBBBBBBBBBBBBBB");
         StringContent content = new(chatToJson, Encoding.UTF8, "application/json");
+        Console.WriteLine(content + "AAAAAAAAAAAAAAAAAAAAAAAAAAa");
         HttpResponseMessage response = await client.PostAsync(Address.ENDPOINT_CHAT, content);
+        
         string responseContent = await response.Content.ReadAsStringAsync();
         
         if (!response.IsSuccessStatusCode) {

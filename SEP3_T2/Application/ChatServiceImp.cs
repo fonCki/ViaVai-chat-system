@@ -7,7 +7,6 @@ namespace Application;
 
 public class ChatServiceImp : IChatService {
     private IChatDao ChatDao;
-
     private IUserDao UserDao;
 
     public ChatServiceImp(IChatDao chatDao, IUserDao userDao) {
@@ -19,9 +18,7 @@ public class ChatServiceImp : IChatService {
         return await ChatDao.GetAllChat();
     }
 
-    public async Task<Chat> GetOrCreateChat(Guid userOne, Guid userTwo) { //TODO Implement This
-
-      
+    public async Task<Chat> GetOrCreateChat(Guid userOne, Guid userTwo) {
         if (userOne == null || userTwo == null) {
             throw new Exception("User can't be null mate! fix this");
         }
@@ -31,36 +28,20 @@ public class ChatServiceImp : IChatService {
         }
         
         ICollection<Chat> fullList = await ChatDao.GetAllChat();
+        //Filter by single chats
+        var singleChats = fullList.Where(c => c.IsPrivate);
         
-
-            //Filter by single chats
-            var singleChats = fullList.Where(c => c.IsPrivate);
-            
-            
-            Console.WriteLine("Total chats: " + fullList.Count);
-            
-            foreach (var VARIABLE in singleChats) {
-                Console.WriteLine(VARIABLE.Subscribers.Count);
-
-            }
-        
-
         //Return a available chat between this 2 users
-   
-            var chat = singleChats.Where(c => c.Subscribers.Any(u => u.RUI.Equals(userOne))).Where(c => c.Subscribers.Any(u => u.RUI.Equals(userTwo))).FirstOrDefault();
-            
-            
-            if (chat == null) {
-                User Myself = await UserDao.GetUser(userOne);
-                User ChatUser = await UserDao.GetUser(userTwo);
-                chat = Chat.CreatePrivate(Myself, ChatUser);
-                Console.WriteLine(chat.IsPrivate);
-                await ChatDao.AddChat(chat);
-            }
+        var chat = singleChats.Where(c => c.Subscribers.Any(u => u.RUI.Equals(userOne))).Where(c => c.Subscribers.Any(u => u.RUI.Equals(userTwo))).FirstOrDefault();
         
-
-            return chat;
-        
+        if (chat == null) {
+            User Myself = await UserDao.GetUser(userOne);
+            User ChatUser = await UserDao.GetUser(userTwo);
+            chat = Chat.CreatePrivate(Myself, ChatUser);
+            await ChatDao.AddChat(chat);
+        }
+        return chat;
+    
     }
 
     public async Task<Chat> GetChat(Guid CUI) {

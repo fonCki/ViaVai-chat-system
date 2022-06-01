@@ -22,8 +22,5 @@ public class Message {
         Body = body;
         Read = false;
     }
-
-    public override string ToString() {
-        return $"{nameof(MID)}: {MID}, {nameof(Header)}: {Header}, {nameof(Body)}: {Body}, {nameof(Read)}: {Read}";
-    }
+    
 }

@@ -59,17 +59,16 @@
             
             //Option one:
 
-            // if (message.Header.CUIRecipient == Chat.CID) { // TODO if is not like this, this message should't be here! fix this
+            // if (message.Header.CUIRecipient == Chat.CID) { // if is not like this, this message should't be here! fix this
             //     Chat.Messages.Add(message);
             //     Chat.Messages = Chat.Messages.OrderByDescending(m => m.Header.Created).ToList();
             // }
            
             //Option two:
-            
             messages.Add(message);
             messages = messages.OrderByDescending(m => m.Header.Created).ToList();
-            // Chat = await ChatService.GetChat(Chat.CID);
-            // await ChatService.SetAsReadMessages(AuthService.MyUser.RUI, Chat);
+            Chat = await ChatService.GetChat(Chat.CID);
+            await ChatService.SetAsReadMessages(AuthService.MyUser.RUI, Chat);
             StateHasChanged();
         }));
     }

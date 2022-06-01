@@ -9,25 +9,24 @@ public class MessageServerImp : IMessageService {
     
     private IMessageDao MessageDao;
 
-    private IChatService ChatService; //TODO DELETE THIS
+    private IChatService ChatService; 
     
 
     public MessageServerImp(IMessageDao messageDao, IChatService chatService) {
         MessageDao = messageDao;
-        ChatService = chatService; //TODO Delete this
+        ChatService = chatService;
     }
 
     public async Task<Message> SaveMessage(Message message) {
         Chat chat = await ChatService.GetChat(message.Header.CUIRecipient);
         if (chat == null) {
-            throw new Exception("Hay un error con el chat");
+            throw new Exception("There is and error with the chat");
         }
-
         await MessageDao.AddMessage(message);
         return message;
     }
 
-    public async Task<ICollection<Message>> GetAllMessage(Guid CUI) { //TODO update this
+    public async Task<ICollection<Message>> GetAllMessage(Guid CUI) { 
         ICollection<Message>? fullList = await MessageDao.GetAllMessage();
         fullList = fullList.Where(m => m.Header.CUIRecipient.Equals(CUI)).ToList();
         return fullList;

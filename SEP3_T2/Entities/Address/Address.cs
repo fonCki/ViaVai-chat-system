@@ -7,4 +7,5 @@ public static class Address {
     public const string ENDPOINT_USER = Add + "/User";
     public const string ENDPOINT_MESSAGE = Add + "/Message";
     public const string ENDPOINT_CHAT = Add + "/Chat";
+    public const string ENDPOIT_HUB = "api/chatHub";
 }

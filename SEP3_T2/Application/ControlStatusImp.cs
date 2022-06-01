@@ -20,7 +20,7 @@ public class ControlStatusImp : IControlStatusUser{
              Users.Add(connectionId, RUI);
         }
         catch (Exception e) {
-            Console.WriteLine("Element already added");
+            throw new Exception("Element already added");
         }
     }
     

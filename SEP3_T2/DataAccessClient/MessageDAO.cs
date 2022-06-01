@@ -55,12 +55,13 @@ public class MessageDAO : IMessageDao {
         using HttpClient client = new();
         HttpResponseMessage response = await client.GetAsync(Address.ENDPOINT_MESSAGE);
         string content = await response.Content.ReadAsStringAsync();
-
-
         if (!response.IsSuccessStatusCode) {
             throw new Exception($"Error: {response.StatusCode}, {content}");
         }
 
+        if (string.IsNullOrWhiteSpace(content)) {
+            return new List<Message>();
+        }
         ICollection<Message> messages = JsonSerializer.Deserialize<ICollection<Message>>(content, new JsonSerializerOptions {
             Converters = {
                 new JsonStringEnumConverter( JsonNamingPolicy.CamelCase)

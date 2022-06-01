@@ -30,8 +30,14 @@ public class UserController : ControllerBase{
         }
     }
     
-    public Task<ActionResult> DeleteAccount(User user) {
-        throw new NotImplementedException();
+    public async Task<ActionResult> DeleteAccount(User user) {
+        try {
+            await UserService.DeleteAccount(user);
+            return Ok(user);
+        }
+        catch (Exception e) {
+            return StatusCode(500, e.Message);
+        }
     }
     
 

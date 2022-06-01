@@ -89,7 +89,7 @@
     }
 
     public async Task LoadInitialDataByUser() {
-        if (String.IsNullOrWhiteSpace(Email)) Email = "panchi@gmail.com"; 
+        if (String.IsNullOrWhiteSpace(Email)) Email = "panchi@gmail.com"; //ADD A WELCOME MESSAGE
         User = await UserService.GetUserAsyncByEmail(Email);
         Chat = await ChatService.GetOrCreateChat(AuthService.MyUser.RUI, User.RUI);
     }

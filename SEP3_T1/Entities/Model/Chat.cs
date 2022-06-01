@@ -44,4 +44,7 @@ public class Chat {
         return newPrivateChat;
     }
 
+    public override string ToString() {
+        return $"{nameof(CreatedBy)}: {CreatedBy}, {nameof(CID)}: {CID}, {nameof(Name)}: {Name}, {nameof(Image)}: {Image}, {nameof(Subscribers)}: {Subscribers}, {nameof(Messages)}: {Messages}, {nameof(Created)}: {Created}, {nameof(IsGroup)}: {IsGroup}, {nameof(IsPrivate)}: {IsPrivate}";
+    }
 }

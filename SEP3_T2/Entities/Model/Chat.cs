@@ -8,7 +8,6 @@ public class Chat {
     public string Image { get; set; }
     public ICollection<User> Subscribers { get; set; } 
     public ICollection<Message> Messages { get; set; }
-
     public User CreatedBy { get; set; }
     public DateTime Created { get; set; }
     public bool IsGroup { get; set; }
@@ -43,7 +42,5 @@ public class Chat {
         return newPrivateChat;
     }
 
-    public override string ToString() {
-        return $"{nameof(CID)}: {CID}, {nameof(Name)}: {Name}, {nameof(Image)}: {Image}, {nameof(Subscribers)}: {Subscribers}, {nameof(Messages)}: {Messages}, {nameof(CreatedBy)}: {CreatedBy}, {nameof(Created)}: {Created}, {nameof(IsGroup)}: {IsGroup}, {nameof(IsPrivate)}: {IsPrivate}";
-    }
+
 }

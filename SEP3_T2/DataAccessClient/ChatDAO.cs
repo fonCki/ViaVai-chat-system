@@ -19,7 +19,6 @@ public class ChatDAO : IChatDao {
         if (!response.IsSuccessStatusCode) {
             throw new Exception($"Error: {response.StatusCode}, {responseContent}");
         }
-
         Chat returned = JsonSerializer.Deserialize<Chat>(responseContent, new JsonSerializerOptions {
             Converters = {
                 new JsonStringEnumConverter( JsonNamingPolicy.CamelCase)
@@ -39,7 +38,6 @@ public class ChatDAO : IChatDao {
         if (!response.IsSuccessStatusCode) {
             throw new Exception($"Error: {response.StatusCode}, {content}");
         }
-
         Chat chat = JsonSerializer.Deserialize<Chat>(content, new JsonSerializerOptions {
             Converters = {
                 new JsonStringEnumConverter( JsonNamingPolicy.CamelCase)
@@ -56,7 +54,6 @@ public class ChatDAO : IChatDao {
         HttpResponseMessage response = await client.GetAsync(Address.ENDPOINT_CHAT);
         string content = await response.Content.ReadAsStringAsync();
         
-
         if (!response.IsSuccessStatusCode) {
             throw new Exception($"Error: {response.StatusCode}, {content}");
         }
@@ -76,7 +73,7 @@ public class ChatDAO : IChatDao {
         return chats;
     }
 
-    public async Task<ICollection<Chat>> GetChatsFromParticularUser(Guid RUI) { //TODO IMPLEMENT THIS
+    public async Task<ICollection<Chat>> GetChatsFromParticularUser(Guid RUI) {
         ICollection<Chat> fullCollection = await GetAllChat();
         ICollection<Chat> c = fullCollection.Where(c => c.Subscribers.Any(u => u.RUI.Equals(RUI))).ToList();
         return c;

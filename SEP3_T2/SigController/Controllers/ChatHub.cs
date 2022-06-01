@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Application;
 using Contracts.Services;
+using Entities.Address;
 using Entities.Model;
 using Microsoft.AspNetCore.SignalR;
 using RESTClient;
@@ -9,7 +10,7 @@ namespace SEP3_T2.Controllers;
 
 public class ChatHub : Hub {
     
-    public const string HubUrl = "api/chatHub";
+    public const string HubUrl = Address.ENDPOIT_HUB;
 
     private IMessageService MessageService;
     private IChatService ChatService;
@@ -63,7 +64,6 @@ public class ChatHub : Hub {
             await UserService.SetStatus(RUIuser, Status.Offline); // In case the user was dissconected without his intention
             await Clients.All.SendAsync("DisconnectUser", RUIuser); // I send the notification that the user is offline
         }
-
         Console.WriteLine($"Disconnected {e?.Message} {Context.ConnectionId}");
         await base.OnDisconnectedAsync(e);
     }

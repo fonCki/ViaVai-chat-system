@@ -74,6 +74,7 @@ public class ChatController : Controller {
     
     [HttpPost]
     public async Task<ActionResult<Chat>> CreateGroupChat([FromBody] Chat chat) {
+
         try {
             Chat newChat = await chatService.CreateGroupChat(chat);
             return Ok(newChat);
