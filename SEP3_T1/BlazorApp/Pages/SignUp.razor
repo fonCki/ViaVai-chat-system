@@ -1,5 +1,6 @@
 @page "/SignUp"
 @using BlazorApp.Authentication
+@using BlazorApp.Config
 @using Contracts.Services
 @using BlazorApp.Shared.MicroComponents
 @inject IUserService userService
@@ -39,16 +40,15 @@
     private string imagePath = "images/-user-login.png";
     private string errorLabel;
 
-    private async Task SignUpAsync()
-    {
+    private async Task SignUpAsync() {
         try {
-            await userService.SignUp(name, lname, email, password, imagePath);
+            await userService.SignUp(name, lname, email, Hash.Hash_SHA(password), imagePath);
         }
         catch (Exception e)
         {
             errorLabel = $"Error: {e.Message}";
         }
-        await authService.LoginAsync(email, password);
+        await authService.LoginAsync(email, Hash.Hash_SHA(password));
         navMgr.NavigateTo("/");
 
     }
@@ -70,4 +70,6 @@
         StateHasChanged();
     }
     
+    
+
 }

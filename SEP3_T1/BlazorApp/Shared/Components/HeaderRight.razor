@@ -78,12 +78,12 @@
     }
     
     public void ShowAlert() { //TODO delete this thing
-        int randomNumber = new Random().Next(1, 4);
+        int randomNumber = new Random().Next(1, 5);
         switch (randomNumber) {
-            case 1 : {ToastService.ShowInfo("I am a INFO message"); break;}
-            case 2 : {ToastService.ShowError("I am a Error message"); break;}
-            case 3 : {ToastService.ShowSuccess("I am a Success message"); break;}
-            case 4 : {ToastService.ShowWarning("I am a Warning message"); break;}
+            case 1 : {ToastService.ShowInfo("Swift Taylor, is now Online"); break;}
+            case 2 : {ToastService.ShowError("System Error"); break;}
+            case 3 : {ToastService.ShowSuccess("The Chat was deleted"); break;}
+            case 4 : {ToastService.ShowWarning("You are not allow to do this operation"); break;}
         }
     }
 

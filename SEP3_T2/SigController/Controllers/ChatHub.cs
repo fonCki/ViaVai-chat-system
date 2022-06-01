@@ -11,8 +11,6 @@ public class ChatHub : Hub {
     
     public const string HubUrl = "api/chatHub";
 
-    // private ControlStatusImp controlStatus = new ControlStatusImp();
-
     private IMessageService MessageService;
     private IChatService ChatService;
     private IControlStatusUser ControlStatusUser;

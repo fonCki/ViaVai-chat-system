@@ -1,6 +1,5 @@
 package sep.java.sep_t3.controller;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
@@ -12,14 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import sep.java.sep_t3.contracts.IUserDao;
 import sep.java.sep_t3.model.User;
 import sep.java.sep_t3.repository.UserRepository;
-
 import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("Api/Dao/User")
-
 
 
 public class UserController implements IUserDao {
@@ -52,7 +49,6 @@ public class UserController implements IUserDao {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @Override
@@ -64,7 +60,6 @@ public class UserController implements IUserDao {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @Override

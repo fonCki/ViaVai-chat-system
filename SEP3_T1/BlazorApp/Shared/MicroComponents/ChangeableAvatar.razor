@@ -31,7 +31,6 @@
              await stream.CopyToAsync(fs);
              fs.Close();
              stream.Close();
-
              FileStream fs2 = new FileStream(path, FileMode.Open, FileAccess.Read);
              int length = Convert.ToInt32(fs2.Length);
              byte[] data = new byte[length];

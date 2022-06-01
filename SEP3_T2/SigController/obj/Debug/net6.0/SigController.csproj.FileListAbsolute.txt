@@ -10,9 +10,13 @@
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/bin/Debug/net6.0/Swashbuckle.AspNetCore.Swagger.dll
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/bin/Debug/net6.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/bin/Debug/net6.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/bin/Debug/net6.0/Application.dll
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/bin/Debug/net6.0/Contracts.dll
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/bin/Debug/net6.0/DataAccessClient.dll
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/bin/Debug/net6.0/Entities.dll
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/bin/Debug/net6.0/Application.pdb
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/bin/Debug/net6.0/Contracts.pdb
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/bin/Debug/net6.0/DataAccessClient.pdb
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/bin/Debug/net6.0/Entities.pdb
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/obj/Debug/net6.0/SigController.csproj.AssemblyReference.cache
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/obj/Debug/net6.0/SigController.GeneratedMSBuildEditorConfig.editorconfig
@@ -29,7 +33,3 @@
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/obj/Debug/net6.0/ref/SigController.dll
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/obj/Debug/net6.0/SigController.pdb
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/obj/Debug/net6.0/SigController.genruntimeconfig.cache
-/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/bin/Debug/net6.0/Application.dll
-/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/bin/Debug/net6.0/Application.pdb
-/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/bin/Debug/net6.0/DataAccessClient.dll
-/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/SigController/bin/Debug/net6.0/DataAccessClient.pdb

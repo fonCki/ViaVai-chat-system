@@ -1,6 +1,6 @@
 namespace BlazorApp.Config.Toast; 
 
-public enum TToastPosition {
+public enum ToastPosition {
     TopLeft,
     TopRight,
     TopCentre,

@@ -1,3 +1,4 @@
+
 using Contracts.DAO;
 using Contracts.Services;
 using Entities.Model;
@@ -27,7 +28,7 @@ public class MessageServerImp : IMessageService {
     }
 
     public async Task<ICollection<Message>> GetAllMessage(Guid CUI) { //TODO update this
-        ICollection<Message> fullList = await MessageDao.GetAllMessage();
+        ICollection<Message>? fullList = await MessageDao.GetAllMessage();
         fullList = fullList.Where(m => m.Header.CUIRecipient.Equals(CUI)).ToList();
         return fullList;
     }

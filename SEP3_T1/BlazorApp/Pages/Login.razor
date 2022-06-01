@@ -1,5 +1,6 @@
 @page "/Login"
 @using BlazorApp.Authentication
+@using BlazorApp.Config
 @inject IAuthService authService
 @inject NavigationManager navMgr
 
@@ -34,7 +35,7 @@
     {
         try
         {
-            await authService.LoginAsync(email, password);
+            await authService.LoginAsync(email, Hash.Hash_SHA(password));
             navMgr.NavigateTo("/");
         }
         catch (Exception e)

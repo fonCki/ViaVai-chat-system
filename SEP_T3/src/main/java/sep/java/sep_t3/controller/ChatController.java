@@ -10,10 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sep.java.sep_t3.contracts.IChatDao;
 import sep.java.sep_t3.model.Chat;
-import sep.java.sep_t3.model.Message;
 import sep.java.sep_t3.repository.ChatRepository;
-
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,7 +32,6 @@ public class ChatController implements IChatDao {
         mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-
         System.out.println(chatAsJson);
         Chat chat = mapper.readValue(chatAsJson, Chat.class);
         System.out.println(chat.isIsGroup() + " = " + chat.isIsPrivate());
@@ -43,7 +39,6 @@ public class ChatController implements IChatDao {
             Chat c = chatRepository.save(chat);
             return new ResponseEntity<>(c, HttpStatus.CREATED);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -2,7 +2,9 @@
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/bin/Debug/net6.0/DataAccessClient.dll
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/bin/Debug/net6.0/ref/DataAccessClient.dll
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/bin/Debug/net6.0/DataAccessClient.pdb
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/bin/Debug/net6.0/Contracts.dll
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/bin/Debug/net6.0/Entities.dll
+/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/bin/Debug/net6.0/Contracts.pdb
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/bin/Debug/net6.0/Entities.pdb
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/obj/Debug/net6.0/DataAccessClient.csproj.AssemblyReference.cache
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/obj/Debug/net6.0/DataAccessClient.GeneratedMSBuildEditorConfig.editorconfig
@@ -13,5 +15,3 @@
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/obj/Debug/net6.0/DataAccessClient.dll
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/obj/Debug/net6.0/ref/DataAccessClient.dll
 /Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/obj/Debug/net6.0/DataAccessClient.pdb
-/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/bin/Debug/net6.0/Contracts.dll
-/Users/alfonsoridao/Library/CloudStorage/OneDrive-ViaUC/Via University/Semester 3/SEP3/Sep3_Project/SEP3_T2/DataAccessClient/bin/Debug/net6.0/Contracts.pdb
