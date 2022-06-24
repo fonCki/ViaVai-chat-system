@@ -16,6 +16,12 @@ builder.Services.AddScoped<IChatService, InMemoryChatService>();
 builder.Services.AddScoped<IUserService, InMemoryUserService>();
 builder.Services.AddScoped<IMessageService, MessageServerImp>();
 builder.Services.AddSingleton<IControlStatusUser, ControlStatusImp>();
+builder.Services.AddSignalR(o =>
+{
+    o.EnableDetailedErrors = true;
+    o.MaximumReceiveMessageSize = 330240; // bytes
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

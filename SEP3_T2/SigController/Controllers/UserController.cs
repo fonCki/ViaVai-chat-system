@@ -60,7 +60,7 @@ public class UserController : ControllerBase {
     [HttpPost]
     public async Task<ActionResult> SignUpAsync([FromBody] User user) {
         try {
-             User created = await UserService.SignUp(user.LastName,user.LastName, user.Email, user.Password, user.Avatar);
+             User created = await UserService.SignUp(user.Name,user.LastName, user.Email, user.Password, user.Avatar);
              return Created("User Created", created);
         }
         catch (Exception e) {
