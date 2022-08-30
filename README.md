@@ -1,4 +1,4 @@
-# SEP3Structure
+# ViaVai Chat System
 
 
 This is a Chat system created for the Semester Project in Semester 3 at VIA university.
